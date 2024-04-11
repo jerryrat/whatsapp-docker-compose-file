@@ -493,11 +493,11 @@ echo "$apipw" | docker login -u devlikeapro --password-stdin
   if [[ $system == "Linux" ]]; then
     # 判断系统架构
 
-    if [[ $architecture == "x86_64" ]]; then
+    if [[ $arch == "x86_64" ]]; then
     docker pull devlikeapro/whatsapp-http-api-plus
-    elif [[ $architecture == "armv7l" ]]; then
+    elif [[ $arch == "armv7l" ]]; then
       docker pull devlikeapro/whatsapp-http-api-plus:arm
-    elif [[ $architecture == "aarch64" ]]; then
+    elif [[ $arch == "aarch64" ]]; then
       docker pull devlikeapro/whatsapp-http-api-plus:arm
     else
       docker pull devlikeapro/whatsapp-http-api-plus:arm
