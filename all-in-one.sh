@@ -676,7 +676,7 @@ for container in "${containers[@]}"; do
 done
 
 if docker network ls | grep -q "yansir-network"; then
-    echo -e "4whatsapp 必要网络服务${Green_font_prefix}yansir-network${Font_color_suffix} 正常运行"
+    echo -e "whatsapp 必要网络服务${Green_font_prefix}yansir-network${Font_color_suffix} 正常运行"
 else
 # 网络不存在
   echo -e " ${Error} 不存在 whatsapp 必要网络服务 ${Green_font_prefix}yansir-network${Font_color_suffix} 不存在"
