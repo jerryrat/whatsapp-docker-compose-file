@@ -771,7 +771,9 @@ docker ps | grep -q "yansir-whatsapp" && echo -e " ${Green_font_prefix}yansir-wh
 
 echo -e " 升级${Green_font_prefix}whatsapp-http-api-plus${Font_color_suffix} 服务"
 
-echo "dckr_pat_CvSWlonppogwTmZdAwm94XP6A00" | docker login -u devlikeapro --password-stdin
+read -p "请输入 whatsapp-http-api-plus 密码" apipw
+
+echo "${apipw}" | docker login -u devlikeapro --password-stdin
 
   if [[ $system == "Linux" ]]; then
     # 判断系统架构
