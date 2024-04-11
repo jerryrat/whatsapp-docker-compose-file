@@ -785,24 +785,29 @@ read -p "请输入 whatsapp-http-api-plus 密码" apipw
 echo "$apipw" | docker login -u devlikeapro --password-stdin
 
 
-#!/bin/bash
 
-# 获取所有 Docker 镜像列表
-images=$(docker images -a | grep -v "IMAGE ID")
+# 获取所有镜像列表名称
+images=$(docker images -a | awk '{print $1}')
 
-# 更新 Docker 镜像
+# 遍历镜像列表
 for image in $images; do
-  echo "更新镜像 $image"
+  # 更新镜像
   docker pull $image
+
+  # 输出更新信息
+  echo "镜像 $image 已更新"
 done
 
-# 获取所有容器列表
-containers=$(docker ps -a | grep -v "CONTAINER ID")
+# 获取所有容器名称列表
+containers=$(docker ps -a | awk '{print $1}')
 
-# 更新容器
+# 遍历容器列表
 for container in $containers; do
-  echo "更新容器 $container"
+  # 更新容器
   docker restart $container
+
+  # 输出更新信息
+  echo "容器 $container 已更新"
 done
 
 
