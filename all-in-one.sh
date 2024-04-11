@@ -567,7 +567,7 @@ uninstall_whatsapp() {
 #!/bin/bash
 
 
-read -p "确定删除全部数据库和镜像，恢复初始状态? 一旦删除所以聊天记录将彻底删除 确定请按Y: " confirm
+read -p "确定删除全部数据库和镜像，恢复初始状态? 一旦删除所有聊天记录将彻底删除 确定请按Y: " confirm
 
 if [[ $confirm == "Y" ]]; then
 
