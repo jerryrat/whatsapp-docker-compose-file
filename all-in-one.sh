@@ -483,7 +483,7 @@ docker run -d \
 # 容器正常运行
 docker ps | grep -q "redis" && echo -e " ${Green_font_prefix}redis${Font_color_suffix} 服务正常"
 
-echo -e " 安装${Green_font_prefix}whatsapp-http-api-plus${Font_color_suffix} 服务"
+echo -e " 自动根据系统内核安装${Green_font_prefix}whatsapp-http-api-plus${Font_color_suffix} 服务"
 
 read -p "请输入 whatsapp-http-api-plus 密码" apipw
 
