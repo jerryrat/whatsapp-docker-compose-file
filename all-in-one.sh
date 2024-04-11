@@ -420,7 +420,6 @@ install_yansir(){
 
 #yanpw=$(openssl rand -base64 16 | tr -dc 'a-zA-Z0-9' | head -c 16)
 
-yanpw=Ydj2qEhshAHwMnm2
 
 echo -e " 安装${Green_font_prefix}yansir-whatsapp${Font_color_suffix} 服务"
 
@@ -445,7 +444,7 @@ docker run -d \
   --name mongo \
   -p 27017:27017 \
   -e MONGO_INITDB_ROOT_USERNAME=yansir \
-  -e MONGO_INITDB_ROOT_PASSWORD=${yanpw} \
+  -e MONGO_INITDB_ROOT_PASSWORD=Ydj2qEhshAHwMnm2 \
   --network yansir-network \
   mongo
 
@@ -461,9 +460,9 @@ docker run -d \
   -p 8081:8081 \
   -e ME_CONFIG_MONGODB_SERVER=mongo \
   -e ME_CONFIG_BASICAUTH_USERNAME=yansir \
-  -e ME_CONFIG_BASICAUTH_PASSWORD=${yanpw} \
+  -e ME_CONFIG_BASICAUTH_PASSWORD=Ydj2qEhshAHwMnm2 \
   -e ME_CONFIG_MONGODB_ADMINUSERNAME=yansir \
-  -e ME_CONFIG_MONGODB_ADMINPASSWORD=${yanpw} \
+  -e ME_CONFIG_MONGODB_ADMINPASSWORD=Ydj2qEhshAHwMnm2 \
   --network yansir-network \
   mongo-express
 
