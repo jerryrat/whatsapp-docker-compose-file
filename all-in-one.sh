@@ -779,7 +779,52 @@ install_docker() {
 #删除
 update_whatsapp() {
     
-    
+# 定义要检查的容器和镜像名称
+
+containers=(
+  "whatsapp-http-api"
+  "yansir-whatsapp"
+)
+
+images=(
+  "whatsapp-http-api"
+  "yansir-whatsapp"
+)
+
+# 检查容器
+
+for container in "${containers[@]}"; do
+  if docker ps -a | grep -q "$container"; then
+    echo "发现容器：$container"
+  fi
+done
+
+# 删除容器
+
+for container in "${containers[@]}"; do
+  if docker ps -a | grep -q "$container"; then
+    docker rm -f $(docker ps -a | grep -E "$container" | awk '{print $1}')
+    echo "已删除容器：$container"
+  fi
+done
+
+# 检查镜像
+
+for image in "${images[@]}"; do
+  if docker images | grep -q "$image"; then
+    echo "发现镜像：$image"
+  fi
+done
+
+# 删除镜像
+
+for image in "${images[@]}"; do
+  if docker images | grep -q "$image"; then
+    docker rmi -f $(docker images | grep -E "$image" | awk '{print $3}')
+    echo "已删除镜像：$image"
+  fi
+done
+
 echo -e " 升级${Green_font_prefix}yansir-whatsapp${Font_color_suffix} 服务"
 
 docker pull yansircc/yansir-whatsapp:latest
@@ -796,36 +841,37 @@ docker ps | grep -q "yansir-whatsapp" && echo -e " ${Green_font_prefix}yansir-wh
 
 echo -e " 升级${Green_font_prefix}whatsapp-http-api-plus${Font_color_suffix} 服务"
 
+# 获取系统架构
+architecture=$(uname -m)
+
+# 判断系统架构并输出不同文字
+if [[ $architecture == "x86_64" ]]; then
+ apiarch="devlikeapro/whatsapp-http-api-plus"
+elif [[ $architecture == "armv7l" ]]; then
+ apiarch="devlikeapro/whatsapp-http-api-plus:arm"
+elif [[ $architecture == "aarch64" ]]; then
+ apiarch="devlikeapro/whatsapp-http-api-plus:arm"
+else
+ apiarch="devlikeapro/whatsapp-http-api-plus"
+fi
+
+
 read -p "请输入 whatsapp-http-api-plus 密码" apipw
 
-echo "${apipw}" | docker login -u devlikeapro --password-stdin
 
-  if [[ $system == "Linux" ]]; then
-    # 判断系统架构
+echo "$apipw" | docker login -u devlikeapro --password-stdin
 
-    if [[ $architecture == "x86_64" ]]; then
-    docker pull devlikeapro/whatsapp-http-api-plus
-    elif [[ $architecture == "armv7l" ]]; then
-      docker pull devlikeapro/whatsapp-http-api-plus:arm
-    elif [[ $architecture == "aarch64" ]]; then
-      docker pull devlikeapro/whatsapp-http-api-plus:arm
-    else
-      docker pull devlikeapro/whatsapp-http-api-plus:arm
-    fi
-  elif [[ $system == "Windows" ]]; then
-    # 判断系统架构
-    docker pull devlikeapro/whatsapp-http-api-plus
-  fi
-
-#docker logout
+docker pull ${apiarch}
  
  docker run -d \
   --name whatsapp-http-api \
   -p 3002:3000 \
   --network yansir-network \
-  devlikeapro/whatsapp-http-api-plus
+  ${apiarch}
+
 
 docker logout
+ 
 # 容器正常运行
 docker ps | grep -q "whatsapp-http-api-plus" && echo -e " ${Green_font_prefix}whatsapp-http-api-plus${Font_color_suffix} 服务正常"
 
