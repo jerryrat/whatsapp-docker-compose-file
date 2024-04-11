@@ -133,11 +133,11 @@ Update_Shell() {
 start_menu() {
   #clear 修复闪屏
   echo && echo -e " 颜sir WhatsApp 一键安装管理脚本 ${Red_font_prefix}[v${sh_ver}] 
- ${Green_font_prefix}1.${Font_color_suffix} 升级脚本
- ${Green_font_prefix}2.${Font_color_suffix} 安装docker
- ${Green_font_prefix}3.${Font_color_suffix} 安装WhatsApp服务
- ${Green_font_prefix}4.${Font_color_suffix} 卸载Whatsapp服务
- ${Green_font_prefix}5.${Font_color_suffix} 更新WhatsApp服务
+ ${Green_font_prefix}1.${Font_color_suffix} 升级脚本    --颜Sir更新了脚本后选1自动更新vps本地脚本
+ ${Green_font_prefix}2.${Font_color_suffix} 安装docker    --安装docker环境，可以选择查看是否已经安装
+ ${Green_font_prefix}3.${Font_color_suffix} 安装WhatsApp服务    --全自动安装服务
+ ${Green_font_prefix}4.${Font_color_suffix} 卸载Whatsapp服务    --清空服务器从0开始配置
+ ${Green_font_prefix}5.${Font_color_suffix} 更新WhatsApp服务    --保留数据库，只更新聊天服务插件
  ${Green_font_prefix}0.${Font_color_suffix} 退出脚本 
  ${Green_font_prefix}如果输入错误或者乱码请按CTRL + C 退出脚本 并重新运行${Font_color_suffix} 
 ————————————————————————————————————————————————————————————————" &&
