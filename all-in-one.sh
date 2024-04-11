@@ -483,42 +483,37 @@ docker run -d \
 # 容器正常运行
 docker ps | grep -q "redis" && echo -e " ${Green_font_prefix}redis${Font_color_suffix} 服务正常"
 
-echo -e " 自动根据系统内核安装${Green_font_prefix}whatsapp-http-api-plus${Font_color_suffix} 服务"
+echo -e " 自动根据系统内核安装 ${Green_font_prefix}whatsapp-http-api-plus${Font_color_suffix} 服务"
+
+
+# 获取系统架构
+architecture=$(uname -m)
+
+# 判断系统架构并输出不同文字
+if [[ $architecture == "x86_64" ]]; then
+ apiarch="devlikeapro/whatsapp-http-api-plus"
+elif [[ $architecture == "armv7l" ]]; then
+ apiarch="devlikeapro/whatsapp-http-api-plus:arm"
+elif [[ $architecture == "aarch64" ]]; then
+ apiarch="devlikeapro/whatsapp-http-api-plus:arm"
+else
+ apiarch="devlikeapro/whatsapp-http-api-plus"
+fi
+
 
 read -p "请输入 whatsapp-http-api-plus 密码" apipw
 
 
 echo "$apipw" | docker login -u devlikeapro --password-stdin
 
-  if [[ $system == "Linux" ]]; then
-    # 判断系统架构
-
-    if [[ $architecture == "x86_64" ]]; then
-    echo -e " 安装${Green_font_prefix}x86_64${Font_color_suffix} 版本" 
-    docker pull devlikeapro/whatsapp-http-api-plus
-    elif [[ $architecture == "armv7l" ]]; then
-      echo -e " 安装${Green_font_prefix}arm${Font_color_suffix} 版本" 
-      docker pull devlikeapro/whatsapp-http-api-plus:arm
-    elif [[ $architecture == "aarch64" ]]; then
-      echo -e " 安装${Green_font_prefix}arm${Font_color_suffix} 版本" 
-      docker pull devlikeapro/whatsapp-http-api-plus:arm
-    else
-      echo -e " 安装${Green_font_prefix}通用${Font_color_suffix} 版本" 
-      docker pull devlikeapro/whatsapp-http-api-plus
-    fi
-  elif [[ $system == "Windows" ]]; then
-    # 判断系统架构
-    echo -e " 安装${Green_font_prefix}通用${Font_color_suffix} 版本" 
-    docker pull devlikeapro/whatsapp-http-api-plus
-  fi
-
-#docker logout
+docker pull ${apiarch}
  
  docker run -d \
   --name whatsapp-http-api \
   -p 3002:3000 \
   --network yansir-network \
-  devlikeapro/whatsapp-http-api-plus
+  ${apiarch}
+
 
 docker logout
 # 容器正常运行
@@ -537,7 +532,9 @@ check_disk_space
       echo "Docker 未安装，请先安装 Docker"
       start_menu
     fi
-    
+
+
+
     # 检查 yansir-network 网络是否存在
     
     if docker network ls | grep -q yansir-network; then
@@ -551,6 +548,24 @@ check_disk_space
      echo -e " 请访问${Green_font_prefix}$current_ip:3000${Font_color_suffix}进行更多设置"
 
     else
+
+
+        
+    # 检查 root-yansir-network 网络是否存在 或者类似的
+
+    networks=$(docker network ls | grep -v "NETWORK ID")
+    
+    for network in $networks; do
+    if [[ $network =~ "yansir-network" ]]; then
+      echo -e " ${Green_font_prefix}yansir-network${Font_color_suffix} 网络已存在"
+      # 删除网络
+      
+      docker network rm $network
+      echo "网络 $network 已删除"
+     fi
+    done
+
+    
       # 创建 yansir-network 网络
     
       docker network create yansir-network
@@ -561,9 +576,16 @@ check_disk_space
      echo -e " ${Green_font_prefix}Whatsapp服务${Font_color_suffix} 创建成功 "
      echo -e " 请访问${Green_font_prefix}$current_ip:3000${Font_color_suffix}进行更多设置"
 
-      
-    fi
+
+     
+
+
+
+
+fi
+
 }
+
 
 
 #删除
@@ -630,20 +652,18 @@ for image in "${images[@]}"; do
 done
 
 
-if docker network ls | grep -q "yansir-network"; then
+# 检查网络是否存在
+networks=$(docker network ls | grep -v "NETWORK ID")
 
-  # 删除网络
-
-  docker network rm "yansir-network"
-  echo -e "已删除网络${Green_font_prefix}yansir-network${Font_color_suffix}"
-
-else
-
-  # 网络不存在
-
-  echo -e "网络 ${Green_font_prefix}yansir-network${Font_color_suffix} 不存在"
-
-fi
+for network in $networks; do
+  if [[ $network =~ "yansir-network" ]]; then
+    echo -e "存在网络 ${Green_font_prefix}yansir-network${Font_color_suffix} "
+    
+    # 删除网络
+    docker network rm $network   
+    echo -e "已删除网络${Green_font_prefix}yansir-network${Font_color_suffix}"
+  fi
+done
 
       
 else
@@ -812,45 +832,6 @@ docker ps | grep -q "whatsapp-http-api-plus" && echo -e " ${Green_font_prefix}wh
  echo -e " ${Green_font_prefix}升级完成${Font_color_suffix} "
 }
 
-#检查安装要求
-install_whatsapp() {
-    
-    
-check_disk_space
-    
-    
-    if ! command -v docker >/dev/null 2>&1; then
-      echo "Docker 未安装，请先安装 Docker"
-      start_menu
-    fi
-    
-    # 检查 yansir-network 网络是否存在
-    
-    if docker network ls | grep -q yansir-network; then
-      echo -e " ${Green_font_prefix}yansir-network${Font_color_suffix} 网络已存在"
-      
-    install_yansir
-
-     
-     
-     echo -e " ${Green_font_prefix}Whatsapp服务${Font_color_suffix} 创建成功  "
-     echo -e " 请访问${Green_font_prefix}$current_ip:3000${Font_color_suffix}进行更多设置"
-
-    else
-      # 创建 yansir-network 网络
-    
-      docker network create yansir-network
-      echo -e " ${Green_font_prefix}yansir-network${Font_color_suffix} 创建成功 "
-     
-     install_yansir
-
-     echo -e " ${Green_font_prefix}Whatsapp服务${Font_color_suffix} 创建成功 "
-     echo -e " 请访问${Green_font_prefix}$current_ip:3000${Font_color_suffix}进行更多设置"
-
-      
-    fi
-
-}
 
 
 
