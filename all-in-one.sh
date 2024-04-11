@@ -105,7 +105,7 @@ check_disk_space() {
 Update_Shell() {
   local shell_file
   shell_file="$(readlink -f "$0")"
-  local shell_url="https://www.topcon.solar/yansir.sh"
+  local shell_url="https://raw.githubusercontent.com/jerryrat/whatsapp-docker-compose-file/main/all-in-one.sh"
 
   # 下载最新版本的脚本
   wget -O "/tmp/yansir.sh" "$shell_url" &>/dev/null
