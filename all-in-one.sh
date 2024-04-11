@@ -779,101 +779,34 @@ install_docker() {
 #删除
 update_whatsapp() {
     
-# 定义要检查的容器和镜像名称
-
-containers=(
-  "whatsapp-http-api"
-  "yansir-whatsapp"
-)
-
-images=(
-  "whatsapp-http-api"
-  "yansir-whatsapp"
-)
-
-# 检查容器
-
-for container in "${containers[@]}"; do
-  if docker ps -a | grep -q "$container"; then
-    echo "发现容器：$container"
-  fi
-done
-
-# 删除容器
-
-for container in "${containers[@]}"; do
-  if docker ps -a | grep -q "$container"; then
-    docker rm -f $(docker ps -a | grep -E "$container" | awk '{print $1}')
-    echo "已删除容器：$container"
-  fi
-done
-
-# 检查镜像
-
-for image in "${images[@]}"; do
-  if docker images | grep -q "$image"; then
-    echo "发现镜像：$image"
-  fi
-done
-
-# 删除镜像
-
-for image in "${images[@]}"; do
-  if docker images | grep -q "$image"; then
-    docker rmi -f $(docker images | grep -E "$image" | awk '{print $3}')
-    echo "已删除镜像：$image"
-  fi
-done
-
-echo -e " 升级${Green_font_prefix}yansir-whatsapp${Font_color_suffix} 服务"
-
-docker pull yansircc/yansir-whatsapp:latest
-
-docker run -d \
-  --name yansir-whatsapp \
-  -p 3000:3000 \
-  --network yansir-network \
-  yansircc/yansir-whatsapp:latest
-  
-  
-# 容器正常运行
-docker ps | grep -q "yansir-whatsapp" && echo -e " ${Green_font_prefix}yansir-whatsapp${Font_color_suffix} 服务正常"
-
-echo -e " 升级${Green_font_prefix}whatsapp-http-api-plus${Font_color_suffix} 服务"
-
-# 获取系统架构
-architecture=$(uname -m)
-
-# 判断系统架构并输出不同文字
-if [[ $architecture == "x86_64" ]]; then
- apiarch="devlikeapro/whatsapp-http-api-plus"
-elif [[ $architecture == "armv7l" ]]; then
- apiarch="devlikeapro/whatsapp-http-api-plus:arm"
-elif [[ $architecture == "aarch64" ]]; then
- apiarch="devlikeapro/whatsapp-http-api-plus:arm"
-else
- apiarch="devlikeapro/whatsapp-http-api-plus"
-fi
-
-
 read -p "请输入 whatsapp-http-api-plus 密码" apipw
 
 
 echo "$apipw" | docker login -u devlikeapro --password-stdin
 
-docker pull ${apiarch}
- 
- docker run -d \
-  --name whatsapp-http-api \
-  -p 3002:3000 \
-  --network yansir-network \
-  ${apiarch}
+
+#!/bin/bash
+
+# 获取所有 Docker 镜像列表
+images=$(docker images -a | grep -v "IMAGE ID")
+
+# 更新 Docker 镜像
+for image in $images; do
+  echo "更新镜像 $image"
+  docker pull $image
+done
+
+# 获取所有容器列表
+containers=$(docker ps -a | grep -v "CONTAINER ID")
+
+# 更新容器
+for container in $containers; do
+  echo "更新容器 $container"
+  docker restart $container
+done
 
 
 docker logout
- 
-# 容器正常运行
-docker ps | grep -q "whatsapp-http-api-plus" && echo -e " ${Green_font_prefix}whatsapp-http-api-plus${Font_color_suffix} 服务正常"
 
  echo -e " ${Green_font_prefix}升级完成${Font_color_suffix} "
 }
