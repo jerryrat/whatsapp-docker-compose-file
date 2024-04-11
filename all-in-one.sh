@@ -494,16 +494,21 @@ echo "$apipw" | docker login -u devlikeapro --password-stdin
     # 判断系统架构
 
     if [[ $architecture == "x86_64" ]]; then
+    echo -e " 安装${Green_font_prefix}x86_64${Font_color_suffix} 版本" 
     docker pull devlikeapro/whatsapp-http-api-plus
     elif [[ $architecture == "armv7l" ]]; then
+      echo -e " 安装${Green_font_prefix}arm${Font_color_suffix} 版本" 
       docker pull devlikeapro/whatsapp-http-api-plus:arm
     elif [[ $architecture == "aarch64" ]]; then
+      echo -e " 安装${Green_font_prefix}arm${Font_color_suffix} 版本" 
       docker pull devlikeapro/whatsapp-http-api-plus:arm
     else
-      docker pull devlikeapro/whatsapp-http-api-plus:arm
+      echo -e " 安装${Green_font_prefix}通用${Font_color_suffix} 版本" 
+      docker pull devlikeapro/whatsapp-http-api-plus
     fi
   elif [[ $system == "Windows" ]]; then
     # 判断系统架构
+    echo -e " 安装${Green_font_prefix}通用${Font_color_suffix} 版本" 
     docker pull devlikeapro/whatsapp-http-api-plus
   fi
 
