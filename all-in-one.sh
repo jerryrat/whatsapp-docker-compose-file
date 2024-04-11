@@ -108,17 +108,17 @@ Update_Shell() {
   local shell_url="https://raw.githubusercontent.com/jerryrat/whatsapp-docker-compose-file/main/all-in-one.sh"
 
   # 下载最新版本的脚本
-  wget -O "/tmp/yansir.sh" "$shell_url" &>/dev/null
+  wget -O "/tmp/all-in-one.sh" "$shell_url" &>/dev/null
 
   # 比较本地和远程脚本的 md5 值
   local md5_local
   local md5_remote
   md5_local="$(md5sum "$shell_file" | awk '{print $1}')"
-  md5_remote="$(md5sum /tmp/yansir.sh | awk '{print $1}')"
+  md5_remote="$(md5sum /tmp/all-in-one.sh | awk '{print $1}')"
 
   if [ "$md5_local" != "$md5_remote" ]; then
     # 替换本地脚本文件
-    cp "/tmp/yansir.sh" "$shell_file"
+    cp "/tmp/all-in-one.sh" "$shell_file"
     chmod +x "$shell_file"
 
     echo "脚本已更新，请重新运行。"
