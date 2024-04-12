@@ -825,10 +825,6 @@ done
 
 # 检查容器
 
-for container in "${containers[@]}"; do
-
-
-
 
 # Find containers with the specified names
 for container_name in "${containers[@]}"; do
