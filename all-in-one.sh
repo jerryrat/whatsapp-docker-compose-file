@@ -800,15 +800,22 @@ images=(
 for image in "${images[@]}"; do
   if docker images | grep -q "$image"; then
 
+
+  # Search for the image using docker images command
+    # Extract the full image name from the output
+    full_image_name=$(echo "$image_info" | cut -d ' ' -f 1)
+
   # Check if the image name contains "whatsapp-http-api"
   if [[ $image =~ "whatsapp-http-api" ]]; then
     read -p "请输入 whatsapp-http-api-plus 密码" apipw
     echo "$apipw" | docker login -u devlikeapro --password-stdin
       # 更新镜像
-    docker pull $image
+    # Update the image to the latest version
+    echo "Updating image $full_image_name..."
+    docker pull $full_image_name
     else
     # 更新镜像
-    docker pull $image
+    docker pull $full_image_name
     fi
   # 输出更新信息
   echo "镜像 $image 已更新"
