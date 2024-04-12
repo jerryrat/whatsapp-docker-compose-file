@@ -810,12 +810,10 @@ for image in "${images[@]}"; do
     echo "$apipw" | docker login -u devlikeapro --password-stdin
       # 更新镜像
     docker pull $images
-  fi
-else{
-  # 更新镜像
-  docker pull $image
-}
-
+    else
+    # 更新镜像
+    docker pull $image
+    fi
   # 输出更新信息
   echo "镜像 $image 已更新"
   fi
