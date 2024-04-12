@@ -800,9 +800,6 @@ images=(
 for image in "${images[@]}"; do
 image_info=$(docker images | grep "$image")
 
-   if [[ -n "$image_info" ]]; then
-
-
  # Check if the image exists
   if [[ -n "$image_info" ]]; then
     # Extract the full image name from the output
