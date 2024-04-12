@@ -794,10 +794,6 @@ images=(
   "yansir-whatsapp"
 )
 
-read -p "请输入 whatsapp-http-api-plus 密码" apipw
-
-
-echo "$apipw" | docker login -u devlikeapro --password-stdin
 
 # 检查镜像
 
