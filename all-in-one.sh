@@ -826,15 +826,27 @@ done
 # 检查容器
 
 for container in "${containers[@]}"; do
-  if docker ps -a | grep -q "$container"; then
-  # 更新容器
-  docker run -d $container
 
-  # 输出更新信息
-  echo "容器 $container 已更新"
+
+
+
+# Find containers with the specified names
+for container_name in "${containers[@]}"; do
+  container_ids=$(docker ps -q --filter name="$container_name")
+
+  # Check if any containers were found
+  if [ -n "$container_ids" ]; then
+    for container_id in $container_ids; do
+      # Get the full container name
+      full_container_name=$(docker inspect --format '{{.Name}}' $container_id)
+
+      # Update the container
+      docker up -d $full_container_name
+      # 输出更新信息
+      echo "容器 $container 已更新"
+    done
   fi
 done
-
 
 docker logout
 
