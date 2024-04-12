@@ -803,8 +803,18 @@ echo "$apipw" | docker login -u devlikeapro --password-stdin
 
 for image in "${images[@]}"; do
   if docker images | grep -q "$image"; then
+
+  # Check if the image name contains "whatsapp-http-api"
+  if [[ $images =~ "whatsapp-http-api" ]]; then
+    read -p "请输入 whatsapp-http-api-plus 密码" apipw
+    echo "$apipw" | docker login -u devlikeapro --password-stdin
+      # 更新镜像
+    docker pull $images
+  fi
+else{
   # 更新镜像
   docker pull $image
+}
 
   # 输出更新信息
   echo "镜像 $image 已更新"
