@@ -778,39 +778,6 @@ install_docker() {
 #删除
 update_whatsapp() {
 
-# Set the remote registry URL
-REMOTE_REGISTRY="https://registry.docker.io"
-
-# Get a list of all local images
-LOCAL_IMAGES=$(docker images -q)
-
-# Iterate over each local image
-for IMAGE_ID in $LOCAL_IMAGES; do
-  # Get the image name and tag from the image ID
-  IMAGE_NAME=$(docker image inspect -f '{{.RepoDigests[0]}}' $IMAGE_ID)
-
-  # Check if the image exists on the remote registry
-  REMOTE_IMAGE=$(docker search $IMAGE_NAME)
-
-  # If the image exists on the remote registry, compare the tags
-  if [[ ! -z $REMOTE_IMAGE ]]; then
-    LOCAL_TAG=$(docker image inspect -f '{{.Tag}}' $IMAGE_ID)
-    REMOTE_TAG=$(echo $REMOTE_IMAGE | awk '{print $2}')
-
-    # If the local tag is behind the remote tag, update the local image
-    if [[ $LOCAL_TAG < $REMOTE_TAG ]]; then
-      echo "Updating image $IMAGE_NAME:$LOCAL_TAG..."
-      docker pull $IMAGE_NAME:$REMOTE_TAG
-    else
-      echo "Image $IMAGE_NAME:$LOCAL_TAG is up to date."
-    fi
-  else
-    echo "Image $IMAGE_NAME not found on remote registry."
-  fi
-done
-
-
-
 containers=(
   "mongo"
   "mongo-express"
