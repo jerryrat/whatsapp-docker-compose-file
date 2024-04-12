@@ -837,7 +837,7 @@ for container_name in "${containers[@]}"; do
       full_container_name=$(docker inspect --format '{{.Name}}' $container_id)
 
       # Update the container
-      docker run -d $full_container_name
+      docker restart $full_container_name
       # 输出更新信息
       echo "容器 $container 已更新"
     done
