@@ -798,10 +798,13 @@ images=(
 # 检查镜像
 
 for image in "${images[@]}"; do
-  if docker images | grep -q "$image"; then
+image_info=$(docker images | grep "$image")
+
+   if [[ -n "$image_info" ]]; then
 
 
-  # Search for the image using docker images command
+ # Check if the image exists
+  if [[ -n "$image_info" ]]; then
     # Extract the full image name from the output
     full_image_name=$(echo "$image_info" | cut -d ' ' -f 1)
 
