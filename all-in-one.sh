@@ -839,7 +839,7 @@ for container_name in "${containers[@]}"; do
       # Update the container
       docker restart $full_container_name
       # 输出更新信息
-      echo "容器 $container 已更新"
+      echo "容器 $container_name 已更新"
     done
   fi
 done
