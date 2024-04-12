@@ -777,36 +777,51 @@ install_docker() {
 
 #删除
 update_whatsapp() {
-    
+
+containers=(
+  "mongo"
+  "mongo-express"
+  "whatsapp-http-api"
+  "redis"
+  "yansir-whatsapp"
+)
+
+images=(
+  "mongo"
+  "mongo-express"
+  "whatsapp-http-api"
+  "redis"
+  "yansir-whatsapp"
+)
+
 read -p "请输入 whatsapp-http-api-plus 密码" apipw
 
 
 echo "$apipw" | docker login -u devlikeapro --password-stdin
 
+# 检查镜像
 
-
-# 获取所有镜像列表名称
-images=$(docker images -a | awk '{print $1}')
-
-# 遍历镜像列表
-for image in $images; do
+for image in "${images[@]}"; do
+  if docker images | grep -q "$image"; then
   # 更新镜像
   docker pull $image
 
   # 输出更新信息
   echo "镜像 $image 已更新"
+  fi
 done
 
-# 获取所有容器名称列表
-containers=$(docker ps -a | awk '{print $1}')
 
-# 遍历容器列表
-for container in $containers; do
+# 检查容器
+
+for container in "${containers[@]}"; do
+  if docker ps -a | grep -q "$container"; then
   # 更新容器
   docker run -d $container
 
   # 输出更新信息
   echo "容器 $container 已更新"
+  fi
 done
 
 
