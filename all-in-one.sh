@@ -775,7 +775,7 @@ install_docker() {
 }
 
 
-#删除
+#升级
 update_whatsapp() {
 
 containers=(
