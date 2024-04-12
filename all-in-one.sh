@@ -803,7 +803,7 @@ containers=$(docker ps -a | awk '{print $1}')
 # 遍历容器列表
 for container in $containers; do
   # 更新容器
-  docker restart $container
+  docker run -d $container
 
   # 输出更新信息
   echo "容器 $container 已更新"
