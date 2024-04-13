@@ -355,7 +355,7 @@ check_sys() {
     echo 'CA证书检查OK'
 
     # 检查并安装 curl、wget 和 dmidecode 包
-    for pkg in curl wget dmidecode redhat-lsb-core; do
+    for pkg in curl wget git; do
       if ! type $pkg >/dev/null 2>&1; then
         echo "未安装 $pkg，正在安装..."
         yum install $pkg -y
@@ -382,7 +382,7 @@ check_sys() {
     echo 'CA证书检查OK'
 
     # 检查并安装 curl、wget 和 dmidecode 包
-    for pkg in curl wget dmidecode; do
+    for pkg in curl wget git; do
       if ! type $pkg >/dev/null 2>&1; then
         echo "未安装 $pkg，正在安装..."
         apt-get update || apt-get --allow-releaseinfo-change update && apt-get install $pkg -y
@@ -437,9 +437,7 @@ else
 fi
 
 
-
-
-curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && sudo chmod +x /usr/local/bin/docker-compose && systemctl start docker &&  git clone https://github.com/jerryrat/whatsapp-docker-compose-file.git && cd whatsapp-docker-compose-file && docker login -u devlikeapro -p $apipw && docker-compose -f ${apiarch} up -d  && docker logout
+ git clone https://github.com/jerryrat/whatsapp-docker-compose-file.git && cd whatsapp-docker-compose-file && docker login -u devlikeapro -p $apipw && docker-compose -f ${apiarch} up -d  && docker logout
 
 
 }
