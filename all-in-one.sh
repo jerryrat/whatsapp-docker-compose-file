@@ -521,6 +521,7 @@ read -p "确定删除全部数据库和镜像，恢复初始状态? 一旦删除
 
 if [[ $confirm == "Y" ]]; then
 
+rm -rf whatsapp-docker-compose-file
 
 # 定义要检查的容器和镜像名称
 
