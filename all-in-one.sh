@@ -826,21 +826,14 @@ done
 # 检查容器
 
 
-# Find containers with the specified names
+# 逐个查询并重启容器
 for container_name in "${containers[@]}"; do
-  container_ids=$(docker ps -q --filter name="$container_name")
-
-  # Check if any containers were found
-  if [ -n "$container_ids" ]; then
-    for container_id in $container_ids; do
-      # Get the full container name
-      full_container_name=$(docker inspect --format '{{.Name}}' $container_id)
-
-      # Update the container
-      docker restart $full_container_name
-      # 输出更新信息
-      echo "容器 $container_name 已更新"
-    done
+  # 检查容器是否存在
+  if docker ps | grep -q "^$container_name"; then
+    echo "正在重启容器: $container_name"
+    docker restart "$container_name"
+  else
+    echo "未找到容器: $container_name"
   fi
 done
 
