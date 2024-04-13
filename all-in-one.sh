@@ -417,106 +417,30 @@ check_version() {
 
 install_yansir(){
     
-
-#yanpw=$(openssl rand -base64 16 | tr -dc 'a-zA-Z0-9' | head -c 16)
-
-
-echo -e " 安装${Green_font_prefix}yansir-whatsapp${Font_color_suffix} 服务"
-
-docker pull yansircc/yansir-whatsapp:latest
-
-docker run -d \
-  --name yansir-whatsapp \
-  -p 3000:3000 \
-  --network yansir-network \
-  yansircc/yansir-whatsapp:latest
-  
-  
-# 容器正常运行
-docker ps | grep -q "yansir-whatsapp" && echo -e " ${Green_font_prefix}yansir-whatsapp${Font_color_suffix} 服务正常"
+read -p "请输入 whatsapp-http-api-plus 密码" apipw
 
 
-echo -e " 安装${Green_font_prefix}mongo${Font_color_suffix} 服务"
-
-docker pull mongo
-
-docker run -d \
-  --name mongo \
-  -p 27017:27017 \
-  -e MONGO_INITDB_ROOT_USERNAME=yansir \
-  -e MONGO_INITDB_ROOT_PASSWORD=Ydj2qEhshAHwMnm2 \
-  --network yansir-network \
-  mongo
-
-# 容器正常运行
-docker ps | grep -q "mongo" && echo -e " ${Green_font_prefix}mongo${Font_color_suffix} 服务正常"
-
-echo -e " 安装${Green_font_prefix}mongo-express${Font_color_suffix} 服务"
-
-docker pull mongo-express
-
-docker run -d \
-  --name mongo-express \
-  -p 8081:8081 \
-  -e ME_CONFIG_MONGODB_SERVER=mongo \
-  -e ME_CONFIG_BASICAUTH_USERNAME=yansir \
-  -e ME_CONFIG_BASICAUTH_PASSWORD=Ydj2qEhshAHwMnm2 \
-  -e ME_CONFIG_MONGODB_ADMINUSERNAME=yansir \
-  -e ME_CONFIG_MONGODB_ADMINPASSWORD=Ydj2qEhshAHwMnm2 \
-  --network yansir-network \
-  mongo-express
-
-# 容器正常运行
-docker ps | grep -q "mongo-express" && echo -e " ${Green_font_prefix}mongo-express${Font_color_suffix} 服务正常"
-
-echo -e " 安装${Green_font_prefix}redis${Font_color_suffix} 服务"
-
-docker pull redis
-
-docker run -d \
-  --name redis \
-  -p 6379:6379 \
-  --network yansir-network \
-  redis
-  
-# 容器正常运行
-docker ps | grep -q "redis" && echo -e " ${Green_font_prefix}redis${Font_color_suffix} 服务正常"
-
-echo -e " 自动根据系统内核安装 ${Green_font_prefix}whatsapp-http-api-plus${Font_color_suffix} 服务"
-
+echo "$apipw" | docker login -u devlikeapro --password-stdin
 
 # 获取系统架构
 architecture=$(uname -m)
 
 # 判断系统架构并输出不同文字
 if [[ $architecture == "x86_64" ]]; then
- apiarch="devlikeapro/whatsapp-http-api-plus"
+ apiarch="docker-compose"
 elif [[ $architecture == "armv7l" ]]; then
- apiarch="devlikeapro/whatsapp-http-api-plus:arm"
+ apiarch="arm-compose"
 elif [[ $architecture == "aarch64" ]]; then
- apiarch="devlikeapro/whatsapp-http-api-plus:arm"
+ apiarch="arm-compose"
 else
- apiarch="devlikeapro/whatsapp-http-api-plus"
+ apiarch="docker-compose"
 fi
 
 
-read -p "请输入 whatsapp-http-api-plus 密码" apipw
 
 
-echo "$apipw" | docker login -u devlikeapro --password-stdin
+curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && sudo chmod +x /usr/local/bin/docker-compose && systemctl start docker &&  git clone https://github.com/jerryrat/whatsapp-docker-compose-file.git && cd whatsapp-docker-compose-file && docker login -u devlikeapro -p $apipw && ${apiarch} up -d && docker logout
 
-docker pull ${apiarch}
- 
- docker run -d \
-  --name whatsapp-http-api \
-  -p 3002:3000 \
-  --network yansir-network \
-  ${apiarch}
-
-
-docker logout
-# 容器正常运行
-docker ps | grep -q "whatsapp-http-api-plus" && echo -e " ${Green_font_prefix}whatsapp-http-api-plus${Font_color_suffix} 服务正常"
 
 }
 
@@ -778,68 +702,27 @@ install_docker() {
 #升级
 update_whatsapp() {
 
-containers=(
-  "mongo"
-  "mongo-express"
-  "whatsapp-http-api"
-  "redis"
-  "yansir-whatsapp"
-)
-
-images=(
-  "mongo"
-  "mongo-express"
-  "whatsapp-http-api"
-  "redis"
-  "yansir-whatsapp"
-)
+read -p "请输入 whatsapp-http-api-plus 密码" apipw
 
 
-# 检查镜像
+echo "$apipw" | docker login -u devlikeapro --password-stdin
 
-for image in "${images[@]}"; do
-image_info=$(docker images | grep "$image")
+# 获取系统架构
+architecture=$(uname -m)
 
- # Check if the image exists
-  if [[ -n "$image_info" ]]; then
-    # Extract the full image name from the output
-    full_image_name=$(echo "$image_info" | cut -d ' ' -f 1)
-
-  # Check if the image name contains "whatsapp-http-api"
-  if [[ $image =~ "whatsapp-http-api" ]]; then
-    read -p "请输入 whatsapp-http-api-plus 密码" apipw
-    echo "$apipw" | docker login -u devlikeapro --password-stdin
-      # 更新镜像
-    # Update the image to the latest version
-    echo "Updating image $full_image_name..."
-    docker pull $full_image_name
-    else
-    # 更新镜像
-    docker pull $full_image_name
-    fi
-  # 输出更新信息
-  echo "镜像 $image 已更新"
-  fi
-done
+# 判断系统架构并输出不同文字
+if [[ $architecture == "x86_64" ]]; then
+ apiarch="docker-compose"
+elif [[ $architecture == "armv7l" ]]; then
+ apiarch="arm-compose"
+elif [[ $architecture == "aarch64" ]]; then
+ apiarch="arm-compose"
+else
+ apiarch="docker-compose"
+fi
 
 
-# 检查容器
-
-
-# 逐个查询并重启容器
-for container_name in "${containers[@]}"; do
-  # 检查容器是否存在
-  if docker ps | grep -q "^$container_name"; then
-    echo "正在重启容器: $container_name"
-    docker restart "$container_name"
-  else
-    echo "未找到容器: $container_name"
-  fi
-done
-
-docker logout
-
- echo -e " ${Green_font_prefix}升级完成${Font_color_suffix} "
+cd whatsapp-docker-compose-file ; docker login -u devlikeapro -p $apipw && ${apiarch} pull && ${apiarch} up -d && docker logout
 }
 
 
