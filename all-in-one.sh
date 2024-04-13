@@ -427,13 +427,13 @@ architecture=$(uname -m)
 
 # 判断系统架构并输出不同文字
 if [[ $architecture == "x86_64" ]]; then
- apiarch="docker-compose"
+ apiarch="docker-compose.yml"
 elif [[ $architecture == "armv7l" ]]; then
- apiarch="arm-compose"
+ apiarch="arm-compose.yml"
 elif [[ $architecture == "aarch64" ]]; then
- apiarch="arm-compose"
+ apiarch="arm-compose.yml"
 else
- apiarch="docker-compose"
+ apiarch="docker-compose.yml"
 fi
 
 
@@ -711,13 +711,13 @@ architecture=$(uname -m)
 
 # 判断系统架构并输出不同文字
 if [[ $architecture == "x86_64" ]]; then
- apiarch="docker-compose"
+ apiarch="docker-compose.yml"
 elif [[ $architecture == "armv7l" ]]; then
- apiarch="arm-compose"
+ apiarch="arm-compose.yml"
 elif [[ $architecture == "aarch64" ]]; then
- apiarch="arm-compose"
+ apiarch="arm-compose.yml"
 else
- apiarch="docker-compose"
+ apiarch="docker-compose.yml"
 fi
 
 
