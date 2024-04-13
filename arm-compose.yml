@@ -1,0 +1,57 @@
+version: "3.8"
+
+services:
+  yansir-whatsapp:
+    image: yansircc/yansir-whatsapp:latest
+    container_name: yansir-whatsapp
+    ports:
+      - "3000:3000"
+    networks:
+      - yansir-network
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: yansir
+      MONGO_INITDB_ROOT_PASSWORD: Ydj2qEhshAHwMnm2
+    ports:
+      - "27017:27017"
+    networks:
+      - yansir-network
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongo
+      ME_CONFIG_BASICAUTH_USERNAME: yansir
+      ME_CONFIG_BASICAUTH_PASSWORD: Ydj2qEhshAHwMnm2
+      ME_CONFIG_MONGODB_ADMINUSERNAME: yansir
+      ME_CONFIG_MONGODB_ADMINPASSWORD: Ydj2qEhshAHwMnm2
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mongo
+    networks:
+      - yansir-network
+
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - yansir-network
+
+  whatsapp-http-api:
+    image: devlikeapro/whatsapp-http-api-plus:arm
+    container_name: whatsapp-http-api
+    ports:
+      - "3002:3000"
+    networks:
+      - yansir-network
+
+networks:
+  yansir-network:
+    driver: bridge
