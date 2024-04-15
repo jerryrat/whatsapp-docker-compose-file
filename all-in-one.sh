@@ -466,7 +466,7 @@ check_disk_space
      
      
      echo -e " ${Green_font_prefix}Whatsapp服务${Font_color_suffix} 创建成功  "
-     echo -e " 请访问${Green_font_prefix}$current_ip:3000${Font_color_suffix}进行更多设置"
+     echo -e " 请访问 ${Green_font_prefix}http://$current_ip:3000${Font_color_suffix}进行机器人的更多设置，注意是${Green_font_prefix}http${Font_color_suffix} 不是${Green_font_prefix}https${Font_color_suffix}"
 
     else
 
