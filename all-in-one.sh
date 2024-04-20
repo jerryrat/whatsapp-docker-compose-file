@@ -648,7 +648,6 @@ for container in "${containers[@]}"; do
   fi
 done
 
-echo && echo 
   echo -e " ${Error} 不存在 whatsapp 必要网络服务 ${Green_font_prefix}yansir-network${Font_color_suffix} 不存在 请重新安装"
 fi
 
