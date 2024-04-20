@@ -126,6 +126,7 @@ Update_Shell() {
   else
     echo "脚本是最新版本，无需更新。"
   fi
+  start_menu
 }
 
 
@@ -139,7 +140,7 @@ start_menu() {
  ${Green_font_prefix}4.${Font_color_suffix} 卸载Whatsapp服务    --清空服务器从0开始配置
  ${Green_font_prefix}5.${Font_color_suffix} 更新WhatsApp服务    --保留数据库，只更新聊天服务插件
  ${Green_font_prefix}0.${Font_color_suffix} 退出脚本 
- ${Green_font_prefix}首次运行 请按照 2 3 依次运行，重新安装请选择 4 然后 选择 3 ${Font_color_suffix} 
+ ${Green_font_prefix}首次运行 请按照 2 3 依次运行；重新安装请选择 1 升级代码； 然后选择 4 卸载； 再选择 3 全新安装${Font_color_suffix} 
  ${Green_font_prefix}如果输入错误或者乱码请按CTRL + C 退出脚本 并重新运行${Font_color_suffix} 
 ————————————————————————————————————————————————————————————————" &&
   get_system_info
