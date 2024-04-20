@@ -630,7 +630,7 @@ for container in "${containers[@]}"; do
   fi
 done
 
-}
+
 
     echo && echo 
     echo -e " 请访问 ${Green_font_prefix}http://$current_ip:3000${Font_color_suffix}进行机器人的更多设置，注意是${Green_font_prefix}http${Font_color_suffix} 不是${Green_font_prefix}https${Font_color_suffix}"
@@ -650,7 +650,7 @@ for container in "${containers[@]}"; do
   fi
 done
 
-}
+echo && echo 
   echo -e " ${Error} 不存在 whatsapp 必要网络服务 ${Green_font_prefix}yansir-network${Font_color_suffix} 不存在 请重新安装"
 fi
 
