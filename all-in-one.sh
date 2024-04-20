@@ -463,10 +463,8 @@ check_disk_space
       
     install_yansir
 
+    check_whatsapp
      
-     
-     echo -e " ${Green_font_prefix}Whatsapp服务${Font_color_suffix} 创建成功  "
-     echo -e " 请访问 ${Green_font_prefix}http://$current_ip:3000${Font_color_suffix}进行机器人的更多设置，注意是${Green_font_prefix}http${Font_color_suffix} 不是${Green_font_prefix}https${Font_color_suffix}"
 
     else
 
@@ -494,8 +492,8 @@ check_disk_space
      
      install_yansir
 
-     echo -e " ${Green_font_prefix}Whatsapp服务${Font_color_suffix} 创建成功 "
-     echo -e " 请访问${Green_font_prefix}$current_ip:3000${Font_color_suffix}进行更多设置"
+     check_whatsapp
+
 
 
      
@@ -610,6 +608,10 @@ containers=(
 
 # 检查容器是否存在并正常运行
 echo && echo 
+
+if docker network ls | grep -q "yansir-network"; then
+    echo -e " whatsapp 必要网络服务${Green_font_prefix}yansir-network${Font_color_suffix} 正常运行"
+
 for container in "${containers[@]}"; do
   if docker ps -a | grep -q "$container"; then
     if docker ps | grep -q "$container"; then
@@ -622,14 +624,15 @@ for container in "${containers[@]}"; do
   fi
 done
 
-if docker network ls | grep -q "yansir-network"; then
-    echo -e " whatsapp 必要网络服务${Green_font_prefix}yansir-network${Font_color_suffix} 正常运行"
+    echo && echo 
+    echo -e " 请访问 ${Green_font_prefix}http://$current_ip:3000${Font_color_suffix}进行机器人的更多设置，注意是${Green_font_prefix}http${Font_color_suffix} 不是${Green_font_prefix}https${Font_color_suffix}"
+    
 else
 # 网络不存在
-  echo -e " ${Error} 不存在 whatsapp 必要网络服务 ${Green_font_prefix}yansir-network${Font_color_suffix} 不存在"
+  echo -e " ${Error} 不存在 whatsapp 必要网络服务 ${Green_font_prefix}yansir-network${Font_color_suffix} 不存在 请重新安装"
 fi
 
-
+  
 }
 
 
