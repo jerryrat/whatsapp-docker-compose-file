@@ -226,7 +226,7 @@ check_sys() {
   else
     echo "Unknown"
   fi
-install_yansir
+
   #from https://github.com/oooldking
 
   _exists() {
