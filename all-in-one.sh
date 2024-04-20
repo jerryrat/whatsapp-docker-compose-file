@@ -139,6 +139,7 @@ start_menu() {
  ${Green_font_prefix}4.${Font_color_suffix} 卸载Whatsapp服务    --清空服务器从0开始配置
  ${Green_font_prefix}5.${Font_color_suffix} 更新WhatsApp服务    --保留数据库，只更新聊天服务插件
  ${Green_font_prefix}0.${Font_color_suffix} 退出脚本 
+ ${Green_font_prefix}首次运行 请按照 2 3 依次运行，重新安装请选择 4 然后 选择 3 ${Font_color_suffix} 
  ${Green_font_prefix}如果输入错误或者乱码请按CTRL + C 退出脚本 并重新运行${Font_color_suffix} 
 ————————————————————————————————————————————————————————————————" &&
   get_system_info
@@ -224,7 +225,7 @@ check_sys() {
   else
     echo "Unknown"
   fi
-
+install_yansir
   #from https://github.com/oooldking
 
   _exists() {
@@ -450,14 +451,14 @@ check_disk_space
     
     
     if ! command -v docker >/dev/null 2>&1; then
-      echo "Docker 未安装，请先安装 Docker"
+      echo "Docker 未安装，请返回菜单后选择 2 安装 Docker"
       start_menu
     fi
 
 
 
     # 检查 yansir-network 网络是否存在
-    
+    # 网络存在 继续安装
     if docker network ls | grep -q yansir-network; then
       echo -e " ${Green_font_prefix}yansir-network${Font_color_suffix} 网络已存在"
       
@@ -471,7 +472,7 @@ check_disk_space
 
         
     # 检查 root-yansir-network 网络是否存在 或者类似的
-
+    # 类似网络存在 删除
     networks=$(docker network ls | grep -v "NETWORK ID")
     
     for network in $networks; do
@@ -486,7 +487,7 @@ check_disk_space
 
     
       # 创建 yansir-network 网络
-    
+      # 删除后继续安装
       docker network create yansir-network
       echo -e " ${Green_font_prefix}yansir-network${Font_color_suffix} 创建成功 "
      
@@ -494,15 +495,10 @@ check_disk_space
 
      check_whatsapp
 
-
-
-     
-
-
-
-
 fi
 
+  echo -e " 如果所有服务正常运行，请访问 ${Green_font_prefix}http://$current_ip:3000${Font_color_suffix}进行机器人的更多设置，注意是${Green_font_prefix}http${Font_color_suffix} 不是${Green_font_prefix}https${Font_color_suffix}"
+    
 }
 
 
@@ -626,15 +622,11 @@ check_whatsapp() {
 echo && echo 
 
 if docker network ls | grep -q "yansir-network"; then
+
+    check_containers
+
     echo -e " whatsapp 必要网络服务${Green_font_prefix}yansir-network${Font_color_suffix} 正常运行"
-
-
-check_containers
-
-
-    echo && echo 
-    echo -e " 请访问 ${Green_font_prefix}http://$current_ip:3000${Font_color_suffix}进行机器人的更多设置，注意是${Green_font_prefix}http${Font_color_suffix} 不是${Green_font_prefix}https${Font_color_suffix}"
-    
+        
 else
 # 网络不存在
   check_containers
