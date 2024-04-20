@@ -637,9 +637,9 @@ check_containers
     
 else
 # 网络不存在
-check_containers
+  check_containers
 
-  echo -e " ${Error} 不存在 whatsapp 必要网络服务 ${Green_font_prefix}yansir-network${Font_color_suffix} 不存在 请重新安装"
+  echo -e " ${Error} 不存在 whatsapp 必要网络服务 ${Green_font_prefix}yansir-network${Font_color_suffix} 不存在 请依次安装服务"
 fi
 
   
