@@ -15,7 +15,7 @@ export PATH
 # SKYBLUE='\033[0;36m'
 # PLAIN='\033[0m'
 
-sh_ver="2.5"
+sh_ver="3.0"
 github="raw.githubusercontent.com/yansircc/WhatsApp/master"
 
   # 获取当前IP地址，设置超时为3秒
