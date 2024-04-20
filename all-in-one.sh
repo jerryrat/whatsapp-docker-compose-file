@@ -594,8 +594,8 @@ start_menu
 
 }
 
-check_whatsapp() {
-    
+
+check_containers() {
 # 定义要检查的容器名称
 
 containers=(
@@ -605,12 +605,6 @@ containers=(
   "redis"
   "yansir-whatsapp"
 )
-
-# 检查容器是否存在并正常运行
-echo && echo 
-
-if docker network ls | grep -q "yansir-network"; then
-    echo -e " whatsapp 必要网络服务${Green_font_prefix}yansir-network${Font_color_suffix} 正常运行"
 
 for container in "${containers[@]}"; do
   if docker ps -a | grep -q "$container"; then
@@ -624,11 +618,25 @@ for container in "${containers[@]}"; do
   fi
 done
 
+}
+
+check_whatsapp() {
+    
+
+# 检查容器是否存在并正常运行
+echo && echo 
+
+if docker network ls | grep -q "yansir-network"; then
+    echo -e " whatsapp 必要网络服务${Green_font_prefix}yansir-network${Font_color_suffix} 正常运行"
+
+check_containers
+
     echo && echo 
     echo -e " 请访问 ${Green_font_prefix}http://$current_ip:3000${Font_color_suffix}进行机器人的更多设置，注意是${Green_font_prefix}http${Font_color_suffix} 不是${Green_font_prefix}https${Font_color_suffix}"
     
 else
 # 网络不存在
+check_containers
   echo -e " ${Error} 不存在 whatsapp 必要网络服务 ${Green_font_prefix}yansir-network${Font_color_suffix} 不存在 请重新安装"
 fi
 
