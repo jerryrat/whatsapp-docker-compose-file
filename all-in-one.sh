@@ -594,12 +594,7 @@ start_menu
 
 }
 
-
-
-check_whatsapp() {
-    
-
-
+check_containers() {
 containers=(
   "mongo"
   "mongo-express"
@@ -608,6 +603,24 @@ containers=(
   "yansir-whatsapp"
 )
 
+# 检查容器是否存在并正常运行
+for container in "${containers[@]}"; do
+  if docker ps -a | grep -q "$container"; then
+    if docker ps | grep -q "$container"; then
+      echo -e " whatsapp 必要服务${Green_font_prefix}$container${Font_color_suffix} 正常运行"
+    else
+      echo -e " ${Error}  whatsapp 必要服务 ${Green_font_prefix}$container${Font_color_suffix}  停止中 请重新安装并并启动"
+    fi
+  else
+      echo -e " ${Error} 不存在  whatsapp 必要服务 ${Green_font_prefix}$container${Font_color_suffix} 请依次安装服务"
+  fi
+done
+
+}
+
+check_whatsapp() {
+    
+
 
 
 echo && echo 
@@ -615,19 +628,8 @@ echo && echo
 if docker network ls | grep -q "yansir-network"; then
     echo -e " whatsapp 必要网络服务${Green_font_prefix}yansir-network${Font_color_suffix} 正常运行"
 
-# 检查容器是否存在并正常运行
-for container in "${containers[@]}"; do
-  if docker ps -a | grep -q "$container"; then
-    if docker ps | grep -q "$container"; then
-      echo -e " whatsapp 必要服务${Green_font_prefix}$container${Font_color_suffix} 正常运行"
-    else
-      echo -e " ${Error}  whatsapp 必要服务 ${Green_font_prefix}$container${Font_color_suffix}  停止中 请重新安装并并启动"
-    fi
-  else
-      echo -e " ${Error} 不存在  whatsapp 必要服务 ${Green_font_prefix}$container${Font_color_suffix} 请依次安装服务"
-  fi
-done
 
+check_containers
 
 
     echo && echo 
@@ -635,18 +637,7 @@ done
     
 else
 # 网络不存在
-# 检查容器是否存在并正常运行
-for container in "${containers[@]}"; do
-  if docker ps -a | grep -q "$container"; then
-    if docker ps | grep -q "$container"; then
-      echo -e " whatsapp 必要服务${Green_font_prefix}$container${Font_color_suffix} 正常运行"
-    else
-      echo -e " ${Error}  whatsapp 必要服务 ${Green_font_prefix}$container${Font_color_suffix}  停止中 请重新安装并并启动"
-    fi
-  else
-      echo -e " ${Error} 不存在  whatsapp 必要服务 ${Green_font_prefix}$container${Font_color_suffix} 请依次安装服务"
-  fi
-done
+check_containers
 
   echo -e " ${Error} 不存在 whatsapp 必要网络服务 ${Green_font_prefix}yansir-network${Font_color_suffix} 不存在 请重新安装"
 fi
