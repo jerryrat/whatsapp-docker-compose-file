@@ -599,8 +599,6 @@ start_menu
 check_whatsapp() {
     
 
-check_containers() {
-# 定义要检查的容器名称
 
 containers=(
   "mongo"
