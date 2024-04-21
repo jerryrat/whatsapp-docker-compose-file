@@ -44,6 +44,15 @@ services:
     networks:
       - yansir-network
 
+
+  qdrant:
+    image: qdrant/qdrant
+    container_name: qdrant
+    ports:
+      - "6333:6333"
+    networks:
+      - yansir-network
+      
   whatsapp-http-api:
     image: devlikeapro/whatsapp-http-api-plus
     container_name: whatsapp-http-api
