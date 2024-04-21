@@ -743,6 +743,7 @@ start_menu
 #############系统检测组件#############
 check_sys
 check_version
+check_disk_space
 [[ "${OS_type}" == "Debian" ]] && [[ "${OS_type}" == "CentOS" ]] && echo -e "${Error} 本脚本不支持当前系统 ${release} !" && exit 1
 check_whatsapp
 start_menu
