@@ -707,6 +707,8 @@ install_docker() {
 #升级
 update_whatsapp() {
 
+rm -rf whatsapp-docker-compose-file
+
 read -p "请输入 whatsapp-http-api-plus 密码" apipw
 
 
