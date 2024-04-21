@@ -731,7 +731,7 @@ fi
 
 git clone https://github.com/jerryrat/whatsapp-docker-compose-file.git && cd whatsapp-docker-compose-file ; docker login -u devlikeapro -p $apipw && docker-compose -f ${apiarch}  pull  && docker-compose -f ${apiarch} up -d  && docker logout
 
-echo -e " 升级完成 如果所有服务正常（running or started）运行，请访问 ${Green_font_prefix}http://$current_ip:3000${Font_color_suffix}进行机器人的更多设置，注意是${Green_font_prefix}http${Font_color_suffix} 不是${Green_font_prefix}https${Font_color_suffix}"
+echo -e " ${Green_font_prefix}升级完成${Font_color_suffix} 如果所有服务正常（running or started）运行，请访问 ${Green_font_prefix}http://$current_ip:3000${Font_color_suffix} 进行机器人的更多设置，注意是${Green_font_prefix}http${Font_color_suffix} 不是${Green_font_prefix}https${Font_color_suffix}"
     
 start_menu
 }
