@@ -4,7 +4,7 @@ export PATH
 #=================================================
 #	System Required: CentOS 7/8,Debian/ubuntu,oraclelinux
 #	Description: 颜sir WhatsApp 机器人
-#	Version: 2.1
+#	Version: 3.1
 #	Author: 颜sir
 #	更新内容及反馈:  
 #=================================================
@@ -15,7 +15,7 @@ export PATH
 # SKYBLUE='\033[0;36m'
 # PLAIN='\033[0m'
 
-sh_ver="3.0"
+sh_ver="3.1"
 github="raw.githubusercontent.com/yansircc/WhatsApp/master"
 
   # 获取当前IP地址，设置超时为3秒
@@ -141,7 +141,8 @@ start_menu() {
  ${Green_font_prefix}5.${Font_color_suffix} 更新WhatsApp服务    --保留数据库，只更新聊天服务插件
  ————————————————————————————————————————————————————————————————
  ${Green_font_prefix}10.${Font_color_suffix} 安装lobechat服务    --全新安装lobechat
- ${Green_font_prefix}11.${Font_color_suffix} 卸载lobechat服务    --卸载并清空lobechat所有安装
+ ${Green_font_prefix}11.${Font_color_suffix} 升级lobechat服务    --升级最新lobechat
+ ${Green_font_prefix}12.${Font_color_suffix} 卸载lobechat服务    --卸载并清空lobechat所有安装
 ————————————————————————————————————————————————————————————————
  ${Green_font_prefix}0.${Font_color_suffix} 退出脚本 
  ${Green_font_prefix}首次运行 请按照 2 3 依次运行；重新安装请选择 1 升级代码； 然后选择 4 卸载； 再选择 3 全新安装${Font_color_suffix} 
@@ -199,6 +200,9 @@ fi
     install_lobechat
     ;;
   11)
+    update_lobechat
+    ;;
+  12)
     uninstall_lobechat
     ;;
   0)
@@ -812,6 +816,53 @@ start_menu
 
 }
 
+#升级lobechat
+update_lobechat() {
+
+#!/bin/bash
+# auto-update-lobe-chat.sh
+
+# 设置代理（可选）
+export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
+
+# 拉取最新的镜像并将输出存储在变量中
+output=$(docker pull lobehub/lobe-chat:latest 2>&1)
+
+# 检查拉取命令是否成功执行
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
+# 检查输出中是否包含特定的字符串
+echo "$output" | grep -q "Image is up to date for lobehub/lobe-chat:latest"
+
+# 如果镜像已经是最新的，则不执行任何操作
+if [ $? -eq 0 ]; then
+  exit 0
+fi
+
+echo "Detected Lobe-Chat update"
+
+# 删除旧的容器
+echo "Removed: $(docker rm -f Lobe-Chat)"
+
+# 运行新的容器
+echo "Started: $(docker run -d --network=host --env-file /path/to/lobe.env --name=Lobe-Chat --restart=always lobehub/lobe-chat)"
+
+# 打印更新的时间和版本
+echo "Update time: $(date)"
+echo "Version: $(docker inspect lobehub/lobe-chat:latest | grep 'org.opencontainers.image.version' | awk -F'"' '{print $4}')"
+
+# 清理不再使用的镜像
+docker images | grep 'lobehub/lobe-chat' | grep -v 'latest' | awk '{print $3}' | xargs -r docker rmi > /dev/null 2>&1
+echo "Removed old images."
+
+
+echo -e "${Green_font_prefix}Lobe Chat 升级成功 将返回主菜单${Font_color_suffix}"
+
+start_menu
+
+}
 
 
 #############系统检测组件#############
