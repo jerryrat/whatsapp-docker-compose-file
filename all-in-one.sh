@@ -773,7 +773,7 @@ docker run -d -p 3210:3210 \
 
 echo -e " ${Green_font_prefix}lobe-chat 安装完成${Font_color_suffix} 如果所有服务正常（running or started）运行，请访问 ${Green_font_prefix}http://$current_ip:3210${Font_color_suffix} 进行更多设置，注意是${Green_font_prefix}http${Font_color_suffix} 不是${Green_font_prefix}https${Font_color_suffix}"
 
-echo -e " ${Green_font_prefix}如果登录时或者聊天时要求输入密码，就输入lobe66${Font_color_suffix} 
+echo -e " ${Green_font_prefix}如果登录时或者聊天时要求输入密码，就输入lobe66${Font_color_suffix} "
 
 
 start_menu
