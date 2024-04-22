@@ -748,6 +748,38 @@ start_menu
 
 
 #删除WhatsApp
+install_lobechat() {
+
+#!/bin/bash
+
+check_disk_space
+    
+    
+    if ! command -v docker >/dev/null 2>&1; then
+      echo "Docker 未安装，请返回菜单后选择 2 安装 Docker"
+      start_menu
+    fi
+
+    
+docker pull lobehub/lobe-chat
+
+read -p "请输入 Openai API key 如果没有请学习如何申请：" openaiapi
+
+echo "$apipw"
+
+docker run -d -p 3210:3210 \
+  -e OPENAI_API_KEY="$apipw" \
+  -e ACCESS_CODE=lobe66 \
+  --name lobe-chat \
+  lobehub/lobe-chat
+
+echo -e " ${Green_font_prefix}lobe-chat 安装完成${Font_color_suffix} 如果所有服务正常（running or started）运行，请访问 ${Green_font_prefix}http://$current_ip:3210${Font_color_suffix} 进行更多设置，注意是${Green_font_prefix}http${Font_color_suffix} 不是${Green_font_prefix}https${Font_color_suffix}"
+
+start_menu
+
+}
+
+#删除WhatsApp
 uninstall_lobechat() {
 
 #!/bin/bash
@@ -757,54 +789,24 @@ read -p "确定删除全部lobechat，恢复初始状态? 一旦删除所有聊�
 
 if [[ $confirm == "Y" ]]; then
 
-# 检查容器
+#!/bin/bash
 
-for container in "${containers[@]}"; do
-  if docker ps -a | grep -q "$container"; then
-    echo "发现容器：$container"
-  fi
-done
+# 停止所有正在运行的 Lobe Chat 容器
+docker stop $(docker ps -q | grep lobe-chat)
 
-# 删除容器
+# 删除所有正在运行的 Lobe Chat 容器
+docker rm $(docker ps -q | grep lobe-chat)
 
-for container in "${containers[@]}"; do
-  if docker ps -a | grep -q "$container"; then
-    docker rm -f $(docker ps -a | grep -E "$container" | awk '{print $1}')
-    echo "已删除容器：$container"
-  fi
-done
+# 删除所有 Lobe Chat 卷
+docker volume rm $(docker volume ls | grep lobe-chat | awk '{print $2}')
 
-# 检查镜像
+# 删除所有 Lobe Chat 网络
+docker network rm $(docker network ls | grep lobe-chat | awk '{print $2}')
 
-for image in "${images[@]}"; do
-  if docker images | grep -q "$image"; then
-    echo "发现镜像：$image"
-  fi
-done
+# 删除所有 Lobe Chat 镜像
+docker rmi lobe-chat
 
-# 删除镜像
-
-for image in "${images[@]}"; do
-  if docker images | grep -q "$image"; then
-    docker rmi -f $(docker images | grep -E "$image" | awk '{print $3}')
-    echo "已删除镜像：$image"
-  fi
-done
-
-
-# 检查网络是否存在
-networks=$(docker network ls | grep -v "NETWORK ID")
-
-for network in $networks; do
-  if [[ $network =~ "yansir-network" ]]; then
-    echo -e "存在网络 ${Green_font_prefix}yansir-network${Font_color_suffix} "
-    
-    # 删除网络
-    docker network rm $network   
-    echo -e "已删除网络${Green_font_prefix}yansir-network${Font_color_suffix}"
-  fi
-done
-
+echo -e "${Green_font_prefix}Lobe Chat 全部删除成功 将返回主菜单${Font_color_suffix}"
       
 else
   echo "已取消删除"
