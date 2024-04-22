@@ -615,12 +615,12 @@ containers=(
 for container in "${containers[@]}"; do
   if docker ps -a | grep -q "$container"; then
     if docker ps | grep -q "$container"; then
-      echo -e " ${Green_font_prefix}$container${Font_color_suffix} 正常运行"
+      echo -e " 已安装${Green_font_prefix}$container${Font_color_suffix}服务正常运行"
     else
-      echo -e " ${Error}  ${Green_font_prefix}$container${Font_color_suffix}  停止中 请重新安装并并启动"
+      echo -e " ${Error}  ${Green_font_prefix}$container${Font_color_suffix}服务停止中 请重新安装并并启动"
     fi
   else
-      echo -e " ${Error} 不存在 ${Green_font_prefix}$container${Font_color_suffix} 服务,请依次安装服务"
+      echo -e " ${Error} 未安装${Green_font_prefix}$container${Font_color_suffix} 服务 如需要请安装服务"
   fi
 done
 
@@ -637,13 +637,13 @@ if docker network ls | grep -q "yansir-network"; then
 
     check_containers
 
-    echo -e " whatsapp 必要网络服务${Green_font_prefix}yansir-network${Font_color_suffix} 正常运行"
+    echo -e " 已建立${Green_font_prefix}yansir-network${Font_color_suffix}网络 正常运行"
         
 else
 # 网络不存在
   check_containers
 
-  echo -e " ${Error} 不存在  whatsapp 必要网络服务 ${Green_font_prefix}yansir-network${Font_color_suffix} 不存在 请依次安装服务"
+  echo -e " ${Error} 未建立${Green_font_prefix}yansir-network${Font_color_suffix}网络 请依次安装服务"
 fi
 
   
