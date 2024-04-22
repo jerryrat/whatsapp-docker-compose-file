@@ -747,7 +747,7 @@ start_menu
 }
 
 
-#删除WhatsApp
+#删除lobechat
 install_lobechat() {
 
 #!/bin/bash
@@ -780,7 +780,7 @@ start_menu
 
 }
 
-#删除WhatsApp
+#删除lobechat
 uninstall_lobechat() {
 
 #!/bin/bash
