@@ -139,10 +139,10 @@ start_menu() {
  ${Green_font_prefix}3.${Font_color_suffix} 安装WhatsApp服务    --全自动安装服务
  ${Green_font_prefix}4.${Font_color_suffix} 卸载Whatsapp服务    --清空服务器从0开始配置
  ${Green_font_prefix}5.${Font_color_suffix} 更新WhatsApp服务    --保留数据库，只更新聊天服务插件
- ————————————————————————————————————————————————————————————————" &&
+ ————————————————————————————————————————————————————————————————
  ${Green_font_prefix}10.${Font_color_suffix} 安装lobechat服务    --全新安装lobechat
  ${Green_font_prefix}11.${Font_color_suffix} 卸载lobechat服务    --卸载并清空lobechat所有安装
-————————————————————————————————————————————————————————————————" &&
+————————————————————————————————————————————————————————————————
  ${Green_font_prefix}0.${Font_color_suffix} 退出脚本 
  ${Green_font_prefix}首次运行 请按照 2 3 依次运行；重新安装请选择 1 升级代码； 然后选择 4 卸载； 再选择 3 全新安装${Font_color_suffix} 
  ${Green_font_prefix}如果输入错误或者乱码请按CTRL + C 退出脚本 并重新运行${Font_color_suffix} 
@@ -194,6 +194,12 @@ fi
     ;;
   5)
     update_whatsapp
+    ;;
+  10)
+    install_lobechat
+    ;;
+  11)
+    uninstall_lobechat
     ;;
   0)
     exit 1
