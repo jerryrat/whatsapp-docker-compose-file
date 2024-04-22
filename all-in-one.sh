@@ -607,19 +607,20 @@ containers=(
   "mongo-express"
   "whatsapp-http-api"
   "redis"
-  "yansir-whatsapp"
+  "yansir-whatsapp"  
+  "lobe-chat"
 )
 
 # 检查容器是否存在并正常运行
 for container in "${containers[@]}"; do
   if docker ps -a | grep -q "$container"; then
     if docker ps | grep -q "$container"; then
-      echo -e " whatsapp 必要服务${Green_font_prefix}$container${Font_color_suffix} 正常运行"
+      echo -e " ${Green_font_prefix}$container${Font_color_suffix} 正常运行"
     else
-      echo -e " ${Error}  whatsapp 必要服务 ${Green_font_prefix}$container${Font_color_suffix}  停止中 请重新安装并并启动"
+      echo -e " ${Error}  ${Green_font_prefix}$container${Font_color_suffix}  停止中 请重新安装并并启动"
     fi
   else
-      echo -e " ${Error} 不存在  whatsapp 必要服务 ${Green_font_prefix}$container${Font_color_suffix} 请依次安装服务"
+      echo -e " ${Error} 不存在 ${Green_font_prefix}$container${Font_color_suffix} 服务,请依次安装服务"
   fi
 done
 
