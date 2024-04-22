@@ -789,20 +789,14 @@ if [[ $confirm == "Y" ]]; then
 
 #!/bin/bash
 
-# 停止所有正在运行的 Lobe Chat 容器
-docker stop $(docker ps -q | grep lobe-chat)
+#!/bin/bash
 
-# 删除所有正在运行的 Lobe Chat 容器
-docker rm $(docker ps -q | grep lobe-chat)
+# 删除包含 "lobe-chat" 的容器
+docker ps -a | grep "lobe-chat" | awk '{print $1}' | xargs -r docker rm -f
 
-# 删除所有 Lobe Chat 卷
-docker volume rm $(docker volume ls | grep lobe-chat | awk '{print $2}')
+# 删除包含 "lobe-chat" 的镜像
+docker images | grep "lobe-chat" | awk '{print $3}' | xargs -r docker rmi -f
 
-# 删除所有 Lobe Chat 网络
-docker network rm $(docker network ls | grep lobe-chat | awk '{print $2}')
-
-# 删除所有 Lobe Chat 镜像
-docker rmi lobe-chat
 
 echo -e "${Green_font_prefix}Lobe Chat 全部删除成功 将返回主菜单${Font_color_suffix}"
       
