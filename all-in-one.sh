@@ -514,7 +514,7 @@ fi
 
 
 
-#删除
+#删除WhatsApp
 uninstall_whatsapp() {
 
 #!/bin/bash
@@ -747,6 +747,72 @@ start_menu
 }
 
 
+#删除WhatsApp
+uninstall_lobechat() {
+
+#!/bin/bash
+
+
+read -p "确定删除全部lobechat，恢复初始状态? 一旦删除所有聊天记录将彻底删除 确定请按Y: " confirm
+
+if [[ $confirm == "Y" ]]; then
+
+# 检查容器
+
+for container in "${containers[@]}"; do
+  if docker ps -a | grep -q "$container"; then
+    echo "发现容器：$container"
+  fi
+done
+
+# 删除容器
+
+for container in "${containers[@]}"; do
+  if docker ps -a | grep -q "$container"; then
+    docker rm -f $(docker ps -a | grep -E "$container" | awk '{print $1}')
+    echo "已删除容器：$container"
+  fi
+done
+
+# 检查镜像
+
+for image in "${images[@]}"; do
+  if docker images | grep -q "$image"; then
+    echo "发现镜像：$image"
+  fi
+done
+
+# 删除镜像
+
+for image in "${images[@]}"; do
+  if docker images | grep -q "$image"; then
+    docker rmi -f $(docker images | grep -E "$image" | awk '{print $3}')
+    echo "已删除镜像：$image"
+  fi
+done
+
+
+# 检查网络是否存在
+networks=$(docker network ls | grep -v "NETWORK ID")
+
+for network in $networks; do
+  if [[ $network =~ "yansir-network" ]]; then
+    echo -e "存在网络 ${Green_font_prefix}yansir-network${Font_color_suffix} "
+    
+    # 删除网络
+    docker network rm $network   
+    echo -e "已删除网络${Green_font_prefix}yansir-network${Font_color_suffix}"
+  fi
+done
+
+      
+else
+  echo "已取消删除"
+fi
+
+start_menu
+
+}
 
 
 
