@@ -820,6 +820,12 @@ start_menu
 update_lobechat() {
 
 #!/bin/bash
+
+# 检查是否包含 "lobe-chat" 的容器
+if docker ps -a --format '{{.Names}}' | grep -q "lobe-chat"; then
+    echo "包含 'lobe-chat' 的容器存在."
+
+#!/bin/bash
 # auto-update-lobe-chat.sh
 
 # 设置代理（可选）
@@ -857,8 +863,11 @@ echo "Version: $(docker inspect lobehub/lobe-chat:latest | grep 'org.opencontain
 docker images | grep 'lobehub/lobe-chat' | grep -v 'latest' | awk '{print $3}' | xargs -r docker rmi > /dev/null 2>&1
 echo "Removed old images."
 
-
 echo -e "${Green_font_prefix}Lobe Chat 升级成功 将返回主菜单${Font_color_suffix}"
+
+else
+    echo -e " ${Error} "没有找到包含 ${Green_font_prefix}lobe-chat${Font_color_suffix}服务 请选择10安装服务"
+fi
 
 start_menu
 
