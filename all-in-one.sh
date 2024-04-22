@@ -765,10 +765,8 @@ docker pull lobehub/lobe-chat
 
 read -p "请输入 Openai API key 如果没有请学习如何申请：" openaiapi
 
-echo "$apipw"
-
 docker run -d -p 3210:3210 \
-  -e OPENAI_API_KEY="$apipw" \
+  -e OPENAI_API_KEY="$openaiapi" \
   -e ACCESS_CODE=lobe66 \
   --name lobe-chat \
   lobehub/lobe-chat
