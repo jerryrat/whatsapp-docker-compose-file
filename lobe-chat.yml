@@ -1,0 +1,5 @@
+docker run -d -p 3210:3210 \
+  -e OPENAI_API_KEY=sk-xxx \
+  -e ACCESS_CODE=lobe66 \
+  --name lobe-chat \
+  lobehub/lobe-chat
