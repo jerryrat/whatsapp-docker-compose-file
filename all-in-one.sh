@@ -93,7 +93,7 @@ check_disk_space() {
     if [ $(echo "$available_space <= 0" | bc) -eq 1 ]; then
         echo "警告：磁盘空间已用尽，请勿重启，先清理空间。建议先卸载刚才安装的内核来释放空间，仅供参考。"
     else
-        echo echo -e "当前磁盘剩余空间：${Green_font_prefix}$available_space GB${Font_color_suffix}"
+        echo -e "当前磁盘剩余空间：${Green_font_prefix}$available_space GB${Font_color_suffix}"
     fi
 }
 
