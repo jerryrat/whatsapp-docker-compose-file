@@ -650,7 +650,12 @@ if docker network ls | grep -q "yansir-network"; then
         
 else
 # 网络不存在
-  check_containers
+    if ! command -v docker >/dev/null 2>&1; then
+      echo "Docker 未安装，请返回菜单后选择 2 安装 Docker"
+      start_menu
+    else  
+    check_containers
+    fi
 
   echo -e " ${Error} 未建立${Green_font_prefix}yansir-network${Font_color_suffix}网络 请依次安装服务"
 fi
