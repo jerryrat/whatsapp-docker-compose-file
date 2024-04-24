@@ -99,7 +99,13 @@ check_disk_space() {
 
 
 
-
+break_end() {
+      echo -e "\033[0;32m操作完成\033[0m"
+      echo "按任意键继续..."
+      read -n 1 -s -r -p ""
+      echo ""
+      clear
+}
 
 #更新脚本
 Update_Shell() {
@@ -126,6 +132,7 @@ Update_Shell() {
   else
     echo "脚本是最新版本，无需更新。"
   fi
+  break_end
   start_menu
 }
 
@@ -467,6 +474,7 @@ check_disk_space
     
     if ! command -v docker >/dev/null 2>&1; then
       echo -e "${Error}Docker 未安装，请返回菜单后选择 2 安装 Docker"
+      break_end
       start_menu
     fi
 
@@ -600,7 +608,7 @@ done
 else
   echo "已取消删除"
 fi
-
+break_end
 start_menu
 
 }
@@ -639,6 +647,7 @@ echo && echo
 
 if ! command -v docker >/dev/null 2>&1; then
       echo -e "${Error}Docker 未安装，请返回菜单后选择 2 安装 Docker"
+      break_end
       start_menu
       exit 0
 fi
@@ -723,6 +732,7 @@ install_docker() {
         install_add_docker
     else
         echo -e "${Green_font_prefix}Docker 已经安装 将返回主菜单${Font_color_suffix}"
+        break_end
         start_menu
     fi
 }
@@ -756,7 +766,7 @@ fi
 git clone https://github.com/jerryrat/whatsapp-docker-compose-file.git && cd whatsapp-docker-compose-file ; docker login -u devlikeapro -p $apipw && docker-compose -f ${apiarch}  pull  && docker-compose -f ${apiarch} up -d  && docker logout
 
 echo -e " ${Green_font_prefix}升级完成${Font_color_suffix} 如果所有服务正常（running or started）运行，请访问 ${Green_font_prefix}http://$current_ip:3000${Font_color_suffix} 进行机器人的更多设置，注意是${Green_font_prefix}http${Font_color_suffix} 不是${Green_font_prefix}https${Font_color_suffix}"
-    
+break_end
 start_menu
 }
 
@@ -771,6 +781,7 @@ check_disk_space
     
     if ! command -v docker >/dev/null 2>&1; then
       echo "Docker 未安装，请返回菜单后选择 2 安装 Docker"
+      break_end
       start_menu
     fi
 
@@ -789,7 +800,7 @@ echo -e " ${Green_font_prefix}lobe-chat 安装完成${Font_color_suffix} 如果�
 
 echo -e " ${Green_font_prefix}如果登录时或者聊天时要求输入密码，就输入lobe66${Font_color_suffix} "
 
-
+break_end
 start_menu
 
 }
@@ -820,7 +831,7 @@ echo -e "${Green_font_prefix}Lobe Chat 全部删除成功 将返回主菜单${Fo
 else
   echo "已取消删除"
 fi
-
+break_end
 start_menu
 
 }
@@ -877,7 +888,7 @@ echo -e "${Green_font_prefix}Lobe Chat 升级成功 将返回主菜单${Font_col
 else
     echo -e " ${Error} 没有找到包含 ${Green_font_prefix}lobe-chat${Font_color_suffix}服务 请选择10安装服务"
 fi
-
+break_end
 start_menu
 
 }
