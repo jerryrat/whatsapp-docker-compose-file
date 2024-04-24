@@ -185,7 +185,7 @@ fi
     Update_Shell
     ;;
   2)
-    install_docker
+    install_add_docker
     ;;
   3)
     install_whatsapp
