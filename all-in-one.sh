@@ -93,7 +93,7 @@ check_disk_space() {
     if [ $(echo "$available_space <= 0" | bc) -eq 1 ]; then
         echo "警告：磁盘空间已用尽，请勿重启，先清理空间。建议先卸载刚才安装的内核来释放空间，仅供参考。"
     else
-        echo "当前磁盘剩余空间：$available_space GB"
+        echo echo -e "当前磁盘剩余空间：${Green_font_prefix}$available_space GB${Font_color_suffix}"
     fi
 }
 
@@ -466,7 +466,7 @@ check_disk_space
     
     
     if ! command -v docker >/dev/null 2>&1; then
-      echo "Docker 未安装，请返回菜单后选择 2 安装 Docker"
+      echo -e "${Error}Docker 未安装，请返回菜单后选择 2 安装 Docker"
       start_menu
     fi
 
@@ -640,7 +640,7 @@ echo && echo
 if docker network ls | grep -q "yansir-network"; then
 
     if ! command -v docker >/dev/null 2>&1; then
-      echo "Docker 未安装，请返回菜单后选择 2 安装 Docker"
+      echo -e "${Error}Docker 未安装，请返回菜单后选择 2 安装 Docker"
       start_menu
     else  
     check_containers
@@ -651,7 +651,7 @@ if docker network ls | grep -q "yansir-network"; then
 else
 # 网络不存在
     if ! command -v docker >/dev/null 2>&1; then
-      echo "Docker 未安装，请返回菜单后选择 2 安装 Docker"
+     echo -e "${Error}Docker 未安装，请返回菜单后选择 2 安装 Docker"
       start_menu
     else  
     check_containers
