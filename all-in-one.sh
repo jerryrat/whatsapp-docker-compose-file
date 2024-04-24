@@ -548,6 +548,7 @@ containers=(
   "whatsapp-http-api"
   "redis"
   "yansir-whatsapp"
+  "qdrant"
 )
 
 images=(
@@ -556,6 +557,7 @@ images=(
   "whatsapp-http-api"
   "redis"
   "yansir-whatsapp"
+  "qdrant"
 )
 
 # 检查容器
