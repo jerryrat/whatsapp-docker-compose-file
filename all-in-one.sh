@@ -467,7 +467,8 @@ fi
 
 #检查安装要求
 install_whatsapp() {
-    
+
+rm -rf whatsapp-docker-compose-file    
     
 check_disk_space
     
