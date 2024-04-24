@@ -639,8 +639,13 @@ echo && echo
 
 if docker network ls | grep -q "yansir-network"; then
 
+    if ! command -v docker >/dev/null 2>&1; then
+      echo "Docker 未安装，请返回菜单后选择 2 安装 Docker"
+      start_menu
+    else  
     check_containers
-
+    fi
+    
     echo -e " 已建立${Green_font_prefix}yansir-network${Font_color_suffix}网络 正常运行"
         
 else
