@@ -60,3 +60,6 @@ services:
       - "3002:3000"
     networks:
       - yansir-network
+networks:
+  yansir-network:
+    driver: bridge
