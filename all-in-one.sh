@@ -122,7 +122,7 @@ Update_Shell() {
     chmod +x "$shell_file"
 
     echo "脚本已更新，请重新运行。"
-    exit 0
+    #exit 0
   else
     echo "脚本是最新版本，无需更新。"
   fi
@@ -637,25 +637,24 @@ check_whatsapp() {
 
 echo && echo 
 
-if docker network ls | grep -q "yansir-network"; then
-
-    if ! command -v docker >/dev/null 2>&1; then
+if ! command -v docker >/dev/null 2>&1; then
       echo -e "${Error}Docker 未安装，请返回菜单后选择 2 安装 Docker"
       start_menu
-    else  
+      exit 0
+fi
+
+    
+if docker network ls | grep -q "yansir-network"; then
+
+
     check_containers
-    fi
+
     
     echo -e " 已建立${Green_font_prefix}yansir-network${Font_color_suffix}网络 正常运行"
         
 else
 # 网络不存在
-    if ! command -v docker >/dev/null 2>&1; then
-     echo -e "${Error}Docker 未安装，请返回菜单后选择 2 安装 Docker"
-      start_menu
-    else  
     check_containers
-    fi
 
   echo -e " ${Error} 未建立${Green_font_prefix}yansir-network${Font_color_suffix}网络 请依次安装服务"
 fi
