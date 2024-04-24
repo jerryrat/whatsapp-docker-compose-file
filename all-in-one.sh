@@ -485,7 +485,8 @@ check_disk_space
     # 网络存在 继续安装
     if docker network ls | grep -q yansir-network; then
       echo -e " ${Green_font_prefix}yansir-network${Font_color_suffix} 网络已存在"
-      
+      docker network rm $network
+      echo "网络 $network 已删除"
     install_yansir
 
     check_whatsapp
@@ -512,8 +513,8 @@ check_disk_space
     
       # 创建 yansir-network 网络
       # 删除后继续安装
-      docker network create yansir-network
-      echo -e " ${Green_font_prefix}yansir-network${Font_color_suffix} 创建成功 "
+      #docker network create yansir-network
+      #echo -e " ${Green_font_prefix}yansir-network${Font_color_suffix} 创建成功 "
      
      install_yansir
 
