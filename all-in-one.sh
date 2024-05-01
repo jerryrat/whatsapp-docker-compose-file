@@ -609,9 +609,10 @@ for network in $networks; do
     echo -e "已删除网络${Green_font_prefix}yansir-network${Font_color_suffix}"
   fi
 done
-
+;;
 *)
   echo "已取消删除"
+;;
 esac
      
 break_end
