@@ -536,7 +536,9 @@ uninstall_whatsapp() {
 
 read -p "确定删除全部数据库和镜像，恢复初始状态? 一旦删除所有聊天记录将彻底删除 确定请按Y: " confirm
 
-if [[ $confirm == "Y" ]]; then
+#if [[ $confirm == "Y" ]]; then
+case $confirm in
+	    [yY][eE][sS]|[yY])
 
 rm -rf whatsapp-docker-compose-file
 
@@ -608,10 +610,10 @@ for network in $networks; do
   fi
 done
 
-      
-else
+*)
   echo "已取消删除"
-fi
+esac
+     
 break_end
 start_menu
 
