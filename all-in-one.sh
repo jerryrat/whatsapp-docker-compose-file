@@ -538,7 +538,7 @@ read -p "确定删除全部数据库和镜像，恢复初始状态? 一旦删除
 
 #if [[ $confirm == "Y" ]]; then
 case $confirm in
-	    [yY][eE][sS]|[yY])
+     [yY])
 
 rm -rf whatsapp-docker-compose-file
 
