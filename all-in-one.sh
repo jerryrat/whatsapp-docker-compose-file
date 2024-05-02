@@ -820,11 +820,11 @@ uninstall_lobechat() {
 
 read -p "确定删除全部lobechat，恢复初始状态? 一旦删除所有聊天记录将彻底删除 确定请按Y: " confirm
 
-if [[ $confirm == "Y" ]]; then
+#if [[ $confirm == "Y" ]]; then
 
-#!/bin/bash
+case $confirm in
+     [yY])
 
-#!/bin/bash
 
 # 删除包含 "lobe-chat" 的容器
 docker ps -a | grep "lobe-chat" | awk '{print $1}' | xargs -r docker rm -f
@@ -835,9 +835,11 @@ docker images | grep "lobe-chat" | awk '{print $3}' | xargs -r docker rmi -f
 
 echo -e "${Green_font_prefix}Lobe Chat 全部删除成功 将返回主菜单${Font_color_suffix}"
       
-else
+;;
+*)
   echo "已取消删除"
-fi
+;;
+esac
 break_end
 start_menu
 
