@@ -151,6 +151,8 @@ start_menu() {
  ${Green_font_prefix}11.${Font_color_suffix} 升级lobechat服务    --升级最新lobechat
  ${Green_font_prefix}12.${Font_color_suffix} 卸载lobechat服务    --卸载并清空lobechat所有安装
 ————————————————————————————————————————————————————————————————
+ ${Green_font_prefix}22.${Font_color_suffix} 安装开心版宝塔面板    --测试功能给有需要的人
+————————————————————————————————————————————————————————————————
  ${Green_font_prefix}0.${Font_color_suffix} 退出脚本 
  ${Green_font_prefix}首次运行 请按照 2 3 依次运行；重新安装请选择 1 升级代码； 然后选择 4 卸载； 再选择 3 全新安装 ${Font_color_suffix} 
  echo 
@@ -214,6 +216,9 @@ fi
     ;;
   12)
     uninstall_lobechat
+    ;;
+  22)
+    install_bt
     ;;
   0)
     exit 1
@@ -904,8 +909,10 @@ break_end
 start_menu
 
 }
-
-
+#安装宝塔
+install_bt() {
+wget -O install.sh http://io.bt.sy/install/install-ubuntu_6.0.sh && sudo bash install.sh
+}
 #############系统检测组件#############
 check_sys
 check_version
