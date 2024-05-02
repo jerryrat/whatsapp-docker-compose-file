@@ -4,7 +4,7 @@ export PATH
 #=================================================
 #	System Required: CentOS 7/8,Debian/ubuntu,oraclelinux
 #	Description: 颜sir WhatsApp 机器人
-#	Version: 3.1
+#	Version: 3.2
 #	Author: 颜sir
 #	更新内容及反馈:  
 #=================================================
@@ -15,7 +15,7 @@ export PATH
 # SKYBLUE='\033[0;36m'
 # PLAIN='\033[0m'
 
-sh_ver="3.1"
+sh_ver="3.2"
 github="raw.githubusercontent.com/yansircc/WhatsApp/master"
 
   # 获取当前IP地址，设置超时为3秒
@@ -152,7 +152,10 @@ start_menu() {
  ${Green_font_prefix}12.${Font_color_suffix} 卸载lobechat服务    --卸载并清空lobechat所有安装
 ————————————————————————————————————————————————————————————————
  ${Green_font_prefix}0.${Font_color_suffix} 退出脚本 
- ${Green_font_prefix}首次运行 请按照 2 3 依次运行；重新安装请选择 1 升级代码； 然后选择 4 卸载； 再选择 3 全新安装${Font_color_suffix} 
+ ${Green_font_prefix}首次运行 请按照 2 3 依次运行；重新安装请选择 1 升级代码； 然后选择 4 卸载； 再选择 3 全新安装 ${Font_color_suffix} 
+ echo 
+ ${Green_font_prefix}密码为 颜sir购买的 dckr_pat_开头的那段密码${Font_color_suffix} 
+ echo 
  ${Green_font_prefix}如果输入错误或者乱码请按CTRL + C 退出脚本 并重新运行${Font_color_suffix} 
 ————————————————————————————————————————————————————————————————" &&
   get_system_info
@@ -405,7 +408,7 @@ check_sys() {
     echo 'CA证书检查OK'
 
     # 检查并安装 curl、wget 和 dmidecode 包
-    for pkg in curl wget git; do
+    for pkg in curl wget git yum; do
       if ! type $pkg >/dev/null 2>&1; then
         echo "未安装 $pkg，正在安装..."
         apt-get update || apt-get --allow-releaseinfo-change update && apt-get install $pkg -y
