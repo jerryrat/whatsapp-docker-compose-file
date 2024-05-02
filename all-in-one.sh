@@ -408,7 +408,7 @@ check_sys() {
     echo 'CA证书检查OK'
 
     # 检查并安装 curl、wget 和 dmidecode 包
-    for pkg in curl wget git yum; do
+    for pkg in curl wget git; do
       if ! type $pkg >/dev/null 2>&1; then
         echo "未安装 $pkg，正在安装..."
         apt-get update || apt-get --allow-releaseinfo-change update && apt-get install $pkg -y
