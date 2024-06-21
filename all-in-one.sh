@@ -234,7 +234,7 @@ fi
     ;;
   *)
     clear
-    echo -e "${Error}:请输入正确数字 [0-3]"
+    echo -e "${Error}:请输入正确数字 [0-30]"
     sleep 2s
     start_menu
     ;;
