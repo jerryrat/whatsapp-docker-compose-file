@@ -141,7 +141,8 @@ Update_Shell() {
 start_menu() {
   #clear 修复闪屏
   echo && echo -e " 颜sir WhatsApp 一键安装管理脚本 ${Red_font_prefix}[v${sh_ver}] 
- ${Green_font_prefix}1.${Font_color_suffix} 升级脚本    --颜Sir更新了脚本后选1自动更新vps本地脚本
+ ${Green_font_prefix}1.${Font_color_suffix} 升级脚本    --颜Sir更新了脚本后选1自动更新vps本地脚本，几乎用不着不用选
+ 
   ————————————————————————————————————————————————————————————————
   ${Green_font_prefix}WhatsApp 自动对话服务 如果之前没有安装过颜sir脚本，先选2，再选3${Font_color_suffix}
   
