@@ -142,32 +142,21 @@ start_menu() {
   #clear 修复闪屏
   echo && echo -e " 颜sir WhatsApp 一键安装管理脚本 ${Red_font_prefix}[v${sh_ver}] 
  ${Green_font_prefix}1.${Font_color_suffix} 升级脚本    --颜Sir更新了脚本后选1自动更新vps本地脚本，几乎用不着不用选
- 
-  ————————————————————————————————————————————————————————————————
-  ${Green_font_prefix}WhatsApp 自动对话服务 如果之前没有安装过颜sir脚本，先选2，再选3${Font_color_suffix}
-  
+ ${Green_font_prefix}WhatsApp 自动对话服务 如果之前没有安装过颜sir脚本，先选2，再选3${Font_color_suffix}
  ${Green_font_prefix}2.${Font_color_suffix} 安装docker    --安装docker环境，可以选择查看是否已经安装
  ${Green_font_prefix}3.${Font_color_suffix} 安装WhatsApp服务    --全自动安装服务
- 
- ————————————————————————————————————————————————————————————————
- 
  ${Green_font_prefix}不要轻易选4，除非无法升级和修复${Font_color_suffix}
  ${Green_font_prefix}4.${Font_color_suffix} 卸载Whatsapp服务    --清空服务器从0开始配置
- 
-————————————————————————————————————————————————————————————————
-
  ${Green_font_prefix}更新在此！选5${Font_color_suffix}
  ${Green_font_prefix}5.${Font_color_suffix} 更新WhatsApp服务    --保留数据库，只更新聊天服务插件
  
  ————————————————————————————————————————————————————————————————
- 
- lobechat服务 如果提示未安装 不影响WhatsApp 自动对话服务机器人
+  lobechat服务 如果提示未安装 不影响WhatsApp 自动对话服务机器人
  ${Green_font_prefix}10.${Font_color_suffix} 安装lobechat服务    --全新安装lobechat
  ${Green_font_prefix}11.${Font_color_suffix} 升级lobechat服务    --升级最新lobechat
  ${Green_font_prefix}12.${Font_color_suffix} 卸载lobechat服务    --卸载并清空lobechat所有安装
  
 ————————————————————————————————————————————————————————————————
-
  ${Green_font_prefix}20.${Font_color_suffix} 安装开心版宝塔面板    --测试功能给有需要的人
 ————————————————————————————————————————————————————————————————
  ${Green_font_prefix}30.${Font_color_suffix} 测试服务器的IP质量是否支持ChatGPT    --测试功能
