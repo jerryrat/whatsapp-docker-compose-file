@@ -10,7 +10,7 @@ services:
       - yansir-network
 
   mongo:
-    image: mongo
+    image: mongo:7.0.11
     container_name: mongo
     environment:
       MONGO_INITDB_ROOT_USERNAME: yansir
