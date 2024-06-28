@@ -765,6 +765,19 @@ install_docker() {
 #升级
 update_whatsapp() {
 
+# 检查网络是否存在
+networks=$(docker network ls | grep -v "NETWORK ID")
+
+for network in $networks; do
+  if [[ $network =~ "yansir-network" ]]; then
+    echo -e "存在网络 ${Green_font_prefix}yansir-network${Font_color_suffix} "
+    
+    # 删除网络
+    docker network rm $network   
+    echo -e "已删除网络${Green_font_prefix}yansir-network${Font_color_suffix}"
+  fi
+done
+
 rm -rf whatsapp-docker-compose-file
 
 read -p "请输入 whatsapp-http-api-plus 密码" apipw
