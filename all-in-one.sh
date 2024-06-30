@@ -564,7 +564,6 @@ rm -rf whatsapp-docker-compose-file
 containers=(
   "mongo"
   "mongo-express"
-  "whatsapp-http-api"
   "redis"
   "yansir-whatsapp"
   "qdrant"
@@ -574,7 +573,6 @@ containers=(
 images=(
   "mongo"
   "mongo-express"
-  "whatsapp-http-api"
   "redis"
   "yansir-whatsapp"
   "qdrant"
@@ -643,7 +641,6 @@ check_containers() {
 containers=(
   "mongo"
   "mongo-express"
-  "whatsapp-http-api"
   "redis"
   "yansir-whatsapp"  
   "lobe-chat"
@@ -767,6 +764,21 @@ install_docker() {
 
 #升级
 update_whatsapp() {
+
+# 查找名为 “whatsapp-http-api” 的容器
+container_id=$(docker ps -a | grep whatsapp-http-api | awk '{print $1}')
+
+# 如果容器存在，则停止并删除容器和卷
+if [ -n "$container_id" ]; then
+  echo "停止容器 $container_id ..."
+  docker stop $container_id
+
+  echo "删除容器 $container_id 和关联卷 ..."
+  docker rm -f $container_id
+else
+  echo "未找到容器 whatsapp-http-api。"
+fi
+
 
 rm -rf whatsapp-docker-compose-file
 
