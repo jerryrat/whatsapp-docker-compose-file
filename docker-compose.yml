@@ -54,7 +54,7 @@ services:
       - yansir-network
       
   whatsapp-http-api:
-    image: devlikeapro/whatsapp-http-api-plus:chrome
+    image: devlikeapro/waha-plus
     container_name: whatsapp-http-api
     ports:
       - "3002:3000"
