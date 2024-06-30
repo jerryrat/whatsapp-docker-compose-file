@@ -10,7 +10,7 @@ services:
       - yansir-network
 
   mongo:
-    image: mongo:6.0
+    image: mongo:
     container_name: mongo
     environment:
       MONGO_INITDB_ROOT_USERNAME: yansir
@@ -37,7 +37,7 @@ services:
       - yansir-network
 
   redis:
-    image: redis:6.0
+    image: redis:
     container_name: redis
     ports:
       - "6379:6379"
