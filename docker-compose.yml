@@ -10,7 +10,7 @@ services:
       - yansir-network
 
   mongo:
-    image: mongo:6.0
+    image: mongo
     container_name: mongo
     environment:
       MONGO_INITDB_ROOT_USERNAME: yansir
@@ -37,13 +37,12 @@ services:
       - yansir-network
 
   redis:
-    image: redis:6.0
+    image: redis
     container_name: redis
     ports:
       - "6379:6379"
     networks:
       - yansir-network
-
 
   qdrant:
     image: qdrant/qdrant
@@ -52,14 +51,15 @@ services:
       - "6333:6333"
     networks:
       - yansir-network
-      
-  whatsapp-http-api:
-    image: devlikeapro/waha-plus:chrome
-    container_name: whatsapp-http-api
+
+  waha:
+    image: devlikeapro/waha-plus
+    container_name: waha
     ports:
       - "3002:3000"
     networks:
       - yansir-network
+
 networks:
   yansir-network:
     driver: bridge
