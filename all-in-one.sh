@@ -568,6 +568,7 @@ containers=(
   "redis"
   "yansir-whatsapp"
   "qdrant"
+  "waha"
 )
 
 images=(
@@ -646,6 +647,7 @@ containers=(
   "redis"
   "yansir-whatsapp"  
   "lobe-chat"
+  "waha"
 )
 
 # 检查容器是否存在并正常运行
