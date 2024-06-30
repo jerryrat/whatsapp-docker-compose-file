@@ -577,6 +577,7 @@ images=(
   "redis"
   "yansir-whatsapp"
   "qdrant"
+  "waha-plus"
 )
 
 # 检查容器
