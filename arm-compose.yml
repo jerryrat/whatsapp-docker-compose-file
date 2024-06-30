@@ -10,7 +10,7 @@ services:
       - yansir-network
 
   mongo:
-    image: mongo:7.0.11
+    image: mongo:6.0
     container_name: mongo
     environment:
       MONGO_INITDB_ROOT_USERNAME: yansir
@@ -54,7 +54,7 @@ services:
 
 
   whatsapp-http-api:
-    image: devlikeapro/whatsapp-http-api-plus:arm
+    image: devlikeapro/waha-plus:arm
     container_name: whatsapp-http-api
     ports:
       - "3002:3000"
