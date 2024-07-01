@@ -577,6 +577,7 @@ images=(
   "yansir-whatsapp"
   "qdrant"
   "waha-plus"
+  "whatsapp-http-api"
 )
 
 # 检查容器
