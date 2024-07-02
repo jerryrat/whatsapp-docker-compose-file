@@ -568,6 +568,7 @@ containers=(
   "yansir-whatsapp"
   "qdrant"
   "waha"
+  "whatsapp-http-api"
 )
 
 images=(
