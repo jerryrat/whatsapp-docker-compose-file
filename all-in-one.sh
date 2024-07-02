@@ -944,7 +944,7 @@ wget -O install.sh http://io.bt.sy/install/install-ubuntu_6.0.sh && sudo bash in
 
 #安装1panel
 install_onepanel() {
-wget -O install.sh https://resource.fit2cloud.com/1panel/package/quick_start.sh && sudo bash quick_start.sh
+wget -O quick_start.sh https://resource.fit2cloud.com/1panel/package/quick_start.sh && sudo bash quick_start.sh
 }
 #测试IP
 testgpt() {
