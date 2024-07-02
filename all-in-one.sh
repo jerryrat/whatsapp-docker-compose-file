@@ -652,7 +652,7 @@ for container in "${containers[@]}"; do
     if docker ps | grep -q "$container"; then
       echo -e " 已安装${Green_font_prefix}$container${Font_color_suffix}服务正常运行"
     else
-      echo -e " ${Error}  ${Green_font_prefix}$container${Font_color_suffix}服务停止中 请重新安装并并启动"
+      echo -e " ${Error}  ${Green_font_prefix}$container${Font_color_suffix}服务停止中 请重新安装并启动"
     fi
   else
       echo -e " ${Error} 未安装${Green_font_prefix}$container${Font_color_suffix} 服务 如需要请安装服务"
