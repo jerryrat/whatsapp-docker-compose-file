@@ -156,6 +156,8 @@ start_menu() {
 ————————————————————————————————————————————————————————————————
  ${Green_font_prefix}20.${Font_color_suffix} 安装开心版宝塔面板    --测试功能给有需要的人
 ————————————————————————————————————————————————————————————————
+ ${Green_font_prefix}21.${Font_color_suffix} 安装1Panel面板        --测试功能给有需要的人，集成了AI大模型UI一键安装
+————————————————————————————————————————————————————————————————
  ${Green_font_prefix}30.${Font_color_suffix} 测试服务器的IP质量是否支持ChatGPT    --测试功能
 ————————————————————————————————————————————————————————————————
  ${Green_font_prefix}0.${Font_color_suffix} 退出脚本 
@@ -200,7 +202,7 @@ fi
     Update_Shell
     ;;
   2)
-    install_add_docker
+    install_docker
     ;;
   3)
     install_whatsapp
