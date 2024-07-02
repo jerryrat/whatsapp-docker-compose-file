@@ -10,7 +10,7 @@ services:
       - yansir-network
 
   waha:
-    image: devlikeapro/waha-plus
+    image: devlikeapro/waha-plus:arm
     container_name: waha
     ports:
       - "3002:3000"
