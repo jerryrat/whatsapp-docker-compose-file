@@ -225,6 +225,9 @@ fi
   20)
     install_bt
     ;;
+  21)
+    install_onepanel
+    ;;
   30)
     testgpt
     ;;
@@ -938,7 +941,12 @@ start_menu
 install_bt() {
 wget -O install.sh http://io.bt.sy/install/install-ubuntu_6.0.sh && sudo bash install.sh
 }
-#安装宝塔
+
+#安装1panel
+install_onepanel() {
+wget -O install.sh https://resource.fit2cloud.com/1panel/package/quick_start.sh && sudo bash quick_start.sh
+}
+#测试IP
 testgpt() {
 bash <(curl -Ls IP.Check.Place)
 }
