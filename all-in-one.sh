@@ -794,13 +794,13 @@ architecture=$(uname -m)
 
 # 判断系统架构并输出不同文字
 if [[ $architecture == "x86_64" ]]; then
- apiarch="docker-compose.yml"
+ apiarch="update.yml"
 elif [[ $architecture == "armv7l" ]]; then
- apiarch="arm-compose.yml"
+ apiarch="arm-update.yml"
 elif [[ $architecture == "aarch64" ]]; then
- apiarch="arm-compose.yml"
+ apiarch="arm-update.yml"
 else
- apiarch="docker-compose.yml"
+ apiarch="update.yml"
 fi
 
 
