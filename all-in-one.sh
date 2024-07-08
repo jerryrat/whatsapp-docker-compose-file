@@ -493,7 +493,7 @@ check_disk_space
     
     
     if ! command -v docker >/dev/null 2>&1; then
-      echo -e "${Error}Docker 未安装，请返回菜单后选择 2 安装 Docker"
+      echo -e "${Error}Docker 未安装，请按键盘任意键返回菜单后选择 2 安装 Docker"
       break_end
       start_menu
     fi
@@ -674,7 +674,7 @@ check_whatsapp() {
 echo && echo 
 
 if ! command -v docker >/dev/null 2>&1; then
-      echo -e "${Error}Docker 未安装，请返回菜单后选择 2 安装 Docker"
+      echo -e "${Error}Docker 未安装，按键盘任意键返回菜单后选择 2 安装 Docker"
       break_end
       start_menu
       exit 0
@@ -825,7 +825,7 @@ check_disk_space
     
     
     if ! command -v docker >/dev/null 2>&1; then
-      echo "Docker 未安装，请返回菜单后选择 2 安装 Docker"
+      echo "Docker 未安装，请按键盘任意键返回菜单后选择 2 安装 Docker"
       break_end
       start_menu
     fi
