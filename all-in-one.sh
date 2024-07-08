@@ -127,10 +127,10 @@ Update_Shell() {
     cp "/tmp/all-in-one.sh" "$shell_file"
     chmod +x "$shell_file"
 
-    echo "脚本已更新，请重新运行。"
+    echo "脚本已更新，请重新运行。按键盘任意按键返回主菜单。"
     #exit 0
   else
-    echo "脚本是最新版本，无需更新。"
+    echo "脚本是最新版本，无需更新。按键盘任意按键返回主菜单。"
   fi
   break_end
   start_menu
