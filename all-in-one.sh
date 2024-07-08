@@ -502,7 +502,7 @@ check_disk_space
     # 网络存在 继续安装
     if docker network ls | grep -q yansir-network; then
       echo -e " 看起来你曾经安装过WhatsApp机器人且${Green_font_prefix}yansir-network${Font_color_suffix} 网络已存在，不建议覆盖安装"
-      echo -e "请按键盘任意按键返回主菜单选择 请选择4删除后重新安装并启动"
+      echo -e "请按键盘任意按键返回主菜单选择"
       break_end
       start_menu
   else 
@@ -514,7 +514,7 @@ check_disk_space
     for network in $networks; do
     if [[ $network =~ "yansir-network" ]]; then
       echo -e " 看起来你曾经安装过WhatsApp机器人且${Green_font_prefix}yansir-network${Font_color_suffix} 网络已存在，不建议覆盖安装"
-      echo -e "请按键盘任意按键返回主菜单选择 请选择4删除后重新安装并启动"
+      echo -e "请按键盘任意按键返回主菜单选择"
       break_end
       start_menu
       # 删除网络
