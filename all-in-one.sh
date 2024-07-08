@@ -142,7 +142,7 @@ start_menu() {
   #clear 修复闪屏
   echo && echo -e " 颜sir WhatsApp 一键安装管理脚本 ${Red_font_prefix}[v${sh_ver}] 
  ${Green_font_prefix}1.${Font_color_suffix} 几乎用不着不用选    --颜Sir更新了脚本后选1自动更新vps本地脚本
- ${Green_font_prefix}2.${Font_color_suffix} 安装docker          --安装docker环境，可以选择查看是否已经安装，全新VPS建议安装
+ ${Green_font_prefix}2.${Font_color_suffix} 安装docker          --全系系统请务必安装docker环境，可以选择查看是否已经安装
  ${Green_font_prefix}3.${Font_color_suffix} 安装WhatsApp服务    --全自动安装服务
  ${Green_font_prefix}4.${Font_color_suffix} 卸载Whatsapp服务    --清空服务器从0开始配置，出了问题选这个删除重装
  ${Green_font_prefix}5.${Font_color_suffix} 更新WhatsApp服务    --保留数据库，只更新聊天服务插件
@@ -744,11 +744,13 @@ get_system_architecture() {
 
 install_add_docker() {
     if [ -f "/etc/alpine-release" ]; then
+        sudo su
         apk update
         apk add docker docker-compose
         rc-update add docker default
         service docker start
     else
+        sudo su
         curl -fsSL https://get.docker.com | sh && ln -s /usr/libexec/docker/cli-plugins/docker-compose /usr/local/bin
         systemctl start docker
         systemctl enable docker
