@@ -535,6 +535,7 @@ containers=(
   "mongo-express"
   "redis"
   "yansir-whatsapp"
+  "whatsapp-http-api"
   "waha"
   "lobe-chat"
 )
@@ -975,6 +976,8 @@ wget -O quick_start.sh https://resource.fit2cloud.com/1panel/package/quick_start
 #卸载1panel
 uninstall_onepanel() {
 1pctl uninstall
+break_end
+start_menu
 }
 #测试IP
 testgpt() {
