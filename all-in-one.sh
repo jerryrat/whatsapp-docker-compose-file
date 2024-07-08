@@ -964,6 +964,8 @@ wget -O install.sh http://io.bt.sy/install/install-ubuntu_6.0.sh && sudo bash in
 #卸载宝塔
 uninstall_bt() {
 wget -O bt-uninstall.sh http://download.bt.cn/install/bt-uninstall.sh && sudo bash bt-uninstall.sh
+break_end
+start_menu
 }
 
 #安装1panel
