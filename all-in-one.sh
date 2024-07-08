@@ -498,46 +498,57 @@ check_disk_space
       start_menu
     fi
 
-
-
     # 检查 yansir-network 网络是否存在
     # 网络存在 继续安装
     if docker network ls | grep -q yansir-network; then
-      echo -e " ${Green_font_prefix}yansir-network${Font_color_suffix} 网络已存在"
-      docker network rm $network
-      echo "网络 $network 已删除"
-    install_yansir
-
-    check_whatsapp
-     
-
-    else
-
-
-        
+      echo -e " 看起来你曾经安装过WhatsApp机器人且${Green_font_prefix}yansir-network${Font_color_suffix} 网络已存在，不建议覆盖安装"
+      echo -e "请按键盘任意按键返回主菜单选择 请选择4删除后重新安装并启动"
+      break_end
+      start_menu
+  else 
+  
     # 检查 root-yansir-network 网络是否存在 或者类似的
     # 类似网络存在 删除
     networks=$(docker network ls | grep -v "NETWORK ID")
     
     for network in $networks; do
     if [[ $network =~ "yansir-network" ]]; then
-      echo -e " ${Green_font_prefix}yansir-network${Font_color_suffix} 网络已存在"
+      echo -e " 看起来你曾经安装过WhatsApp机器人且${Green_font_prefix}yansir-network${Font_color_suffix} 网络已存在，不建议覆盖安装"
+      echo -e "请按键盘任意按键返回主菜单选择 请选择4删除后重新安装并启动"
+      break_end
+      start_menu
       # 删除网络
-      
-      docker network rm $network
-      echo "网络 $network 已删除"
      fi
     done
 
     
-      # 创建 yansir-network 网络
-      # 删除后继续安装
-      #docker network create yansir-network
-      #echo -e " ${Green_font_prefix}yansir-network${Font_color_suffix} 创建成功 "
-     
-     install_yansir
+containers=(
+  "mongo"
+  "mongo-express"
+  "redis"
+  "yansir-whatsapp"
+  "waha"
+  "lobe-chat"
+)
 
-     check_whatsapp
+# 检查容器是否存在并正常运行
+for container in "${containers[@]}"; do
+  if docker ps -a | grep -q "$container"; then
+    if docker ps | grep -q "$container"; then
+      echo -e " 看起来你曾经安装过${Green_font_prefix}$container${Font_color_suffix}服务且正常运行，不建议覆盖安装，请按键盘任意按键返回主菜单选择"
+      break_end
+      start_menu
+    else
+      echo -e " ${Error} 看起来你曾经安装过 ${Green_font_prefix}$container${Font_color_suffix}服务但停止中"
+      echo -e "请按键盘任意按键返回主菜单选择 请选择4删除后重新安装并启动"
+      break_end
+      start_menu
+    fi
+  else
+    install_yansir
+    check_whatsapp
+  fi
+done
 
 fi
 
