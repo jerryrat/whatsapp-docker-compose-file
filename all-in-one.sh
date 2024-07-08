@@ -56,7 +56,7 @@ check_github() {
   check_domain "https://github.com"
 
   if [ "$github_network" -eq 0 ]; then
-    echo -e "${Error}github网络访问受限，将影响内核的安装以及脚本的检查更新，5秒后继续运行脚本"
+    echo -e "${Error}github网络访问受限，将影响内核的安装以及脚本的检查，5秒后继续运行脚本"
     sleep 5
   else
     # 所有域名均可访问，打印成功提示
@@ -107,7 +107,7 @@ break_end() {
       clear
 }
 
-#更新脚本
+#脚本
 Update_Shell() {
   local shell_file
   shell_file="$(readlink -f "$0")"
