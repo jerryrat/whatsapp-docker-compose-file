@@ -759,7 +759,7 @@ install_docker() {
     if ! command -v docker &>/dev/null; then
         install_add_docker
     else
-        echo -e "${Green_font_prefix}Docker 已经安装 将返回主菜单${Font_color_suffix}"
+        echo -e "${Green_font_prefix}Docker 已经安装 按键盘任意按键将返回主菜单${Font_color_suffix}"
         break_end
         start_menu
     fi
@@ -869,7 +869,7 @@ docker ps -a | grep "lobe-chat" | awk '{print $1}' | xargs -r docker rm -f
 docker images | grep "lobe-chat" | awk '{print $3}' | xargs -r docker rmi -f
 
 
-echo -e "${Green_font_prefix}Lobe Chat 全部删除成功 将返回主菜单${Font_color_suffix}"
+echo -e "${Green_font_prefix}Lobe Chat 全部删除成功 按键盘任意按键将返回主菜单${Font_color_suffix}"
       
 ;;
 *)
@@ -928,7 +928,7 @@ echo "Version: $(docker inspect lobehub/lobe-chat:latest | grep 'org.opencontain
 docker images | grep 'lobehub/lobe-chat' | grep -v 'latest' | awk '{print $3}' | xargs -r docker rmi > /dev/null 2>&1
 echo "Removed old images."
 
-echo -e "${Green_font_prefix}Lobe Chat 升级成功 将返回主菜单${Font_color_suffix}"
+echo -e "${Green_font_prefix}Lobe Chat 升级成功 按键盘任意按键将返回主菜单${Font_color_suffix}"
 
 else
     echo -e " ${Error} 没有找到包含 ${Green_font_prefix}lobe-chat${Font_color_suffix}服务 请选择10安装服务"
