@@ -971,7 +971,7 @@ install_onepanel() {
 wget -O quick_start.sh https://resource.fit2cloud.com/1panel/package/quick_start.sh && sudo bash quick_start.sh
 }
 #卸载1panel
-install_onepanel() {
+uninstall_onepanel() {
 1pctl uninstall
 }
 #测试IP
