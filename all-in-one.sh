@@ -744,16 +744,14 @@ get_system_architecture() {
 
 install_add_docker() {
     if [ -f "/etc/alpine-release" ]; then
-        sudo su
-        apk update
-        apk add docker docker-compose
-        rc-update add docker default
-        service docker start
+        sudo apk update
+        sudo apk add docker docker-compose
+        sudo rc-update add docker default
+        sudo service docker start
     else
-        sudo su
-        curl -fsSL https://get.docker.com | sh && ln -s /usr/libexec/docker/cli-plugins/docker-compose /usr/local/bin
-        systemctl start docker
-        systemctl enable docker
+        sudo curl -fsSL https://get.docker.com | sh && ln -s /usr/libexec/docker/cli-plugins/docker-compose /usr/local/bin
+        sudo systemctl start docker
+        sudo systemctl enable docker
     fi
 }
 
