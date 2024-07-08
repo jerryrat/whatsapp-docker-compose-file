@@ -155,10 +155,12 @@ start_menu() {
  
 ————————————————————————————————————————————————————————————————
  ${Green_font_prefix}20.${Font_color_suffix} 安装开心版宝塔面板    --测试功能给有需要的人
+ ${Green_font_prefix}21.${Font_color_suffix} 卸载开心版宝塔面板    
 ————————————————————————————————————————————————————————————————
- ${Green_font_prefix}21.${Font_color_suffix} 安装1Panel面板        --测试功能给有需要的人，集成了AI大模型UI一键安装
+ ${Green_font_prefix}30.${Font_color_suffix} 安装1Panel面板        --测试功能给有需要的人，集成了AI大模型UI一键安装
+ ${Green_font_prefix}31.${Font_color_suffix} 卸载1Panel面板        
 ————————————————————————————————————————————————————————————————
- ${Green_font_prefix}30.${Font_color_suffix} 测试服务器的IP质量是否支持ChatGPT    --测试功能
+ ${Green_font_prefix}40.${Font_color_suffix} 测试服务器的IP质量是否支持ChatGPT    --测试功能
 ————————————————————————————————————————————————————————————————
  ${Green_font_prefix}0.${Font_color_suffix} 退出脚本 
  ${Green_font_prefix}首次运行 请按照 2 3 依次运行；重新安装请选择 1 升级代码； 然后选择 4 卸载； 再选择 3 全新安装 ${Font_color_suffix} 
@@ -226,9 +228,15 @@ fi
     install_bt
     ;;
   21)
-    install_onepanel
+    uninstall_bt
     ;;
   30)
+    install_onepanel
+    ;;
+  31)
+    uninstall_onepanel
+    ;;
+  40)
     testgpt
     ;;
   0)
@@ -953,9 +961,18 @@ install_bt() {
 wget -O install.sh http://io.bt.sy/install/install-ubuntu_6.0.sh && sudo bash install.sh
 }
 
+#卸载宝塔
+uninstall_bt() {
+wget -O bt-uninstall.sh http://download.bt.cn/install/bt-uninstall.sh && sudo bash bt-uninstall.sh
+}
+
 #安装1panel
 install_onepanel() {
 wget -O quick_start.sh https://resource.fit2cloud.com/1panel/package/quick_start.sh && sudo bash quick_start.sh
+}
+#卸载1panel
+install_onepanel() {
+1pctl uninstall
 }
 #测试IP
 testgpt() {
