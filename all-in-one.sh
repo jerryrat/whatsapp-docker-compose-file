@@ -162,7 +162,7 @@ start_menu() {
 ————————————————————————————————————————————————————————————————
  ${Green_font_prefix}40.${Font_color_suffix} 测试服务器的IP质量是否支持ChatGPT    --测试功能
 ————————————————————————————————————————————————————————————————
- ${Green_font_prefix}66.${Font_color_suffix} 隐藏功能，自动生成一条 vless 梯子上网线路   --测试功能，请忽略广告，若有意外概不负责
+ ${Green_font_prefix}66.${Font_color_suffix} 隐藏功能，利用闲置资源上网           --测试功能，请忽略广告，若有意外概不负责
  ${Green_font_prefix}67.${Font_color_suffix} 删除上述功能
 ————————————————————————————————————————————————————————————————
  ${Green_font_prefix}0.${Font_color_suffix} 退出脚本 
