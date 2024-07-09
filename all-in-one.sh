@@ -162,6 +162,9 @@ start_menu() {
 ————————————————————————————————————————————————————————————————
  ${Green_font_prefix}40.${Font_color_suffix} 测试服务器的IP质量是否支持ChatGPT    --测试功能
 ————————————————————————————————————————————————————————————————
+ ${Green_font_prefix}66.${Font_color_suffix} 隐藏功能，自动生成一条 vless 梯子上网线路   --测试功能，请忽略广告，若有意外概不负责
+ ${Green_font_prefix}67.${Font_color_suffix} 删除上述功能
+————————————————————————————————————————————————————————————————
  ${Green_font_prefix}0.${Font_color_suffix} 退出脚本 
  ${Green_font_prefix}首次运行 请按照 2 3 依次运行；重新安装请选择 1 升级代码； 然后选择 4 卸载； 再选择 3 全新安装 ${Font_color_suffix} 
  ${Green_font_prefix}密码为 颜sir购买的 dckr_pat_开头的那段密码${Font_color_suffix} 
@@ -239,12 +242,18 @@ fi
   40)
     testgpt
     ;;
+  66)
+    installvless
+    ;;
+  67)
+    removevless
+    ;;
   0)
     exit 1
     ;;
   *)
     clear
-    echo -e "${Error}:请输入正确数字 [0-30]"
+    echo -e "${Error}:请输入正确数字 [0-99]"
     sleep 2s
     start_menu
     ;;
@@ -982,7 +991,28 @@ start_menu
 #测试IP
 testgpt() {
 bash <(curl -Ls IP.Check.Place)
+break_end
+start_menu
 }
+
+
+#建梯子
+installvless(){
+bash <(wget -qO- -o- https://github.com/233boy/sing-box/raw/main/install.sh)
+echo -e " ${Error} 请忽略上面的任何广告信息 ${Green_font_prefix}复制上面生成的信息或者链接到你的梯子app${Font_color_suffix}"
+break_end
+start_menu
+}
+
+#删梯子
+removevless(){
+sing-box un
+break_end
+start_menu
+}
+
+
+
 #############系统检测组件#############
 check_sys
 check_version
