@@ -999,7 +999,7 @@ start_menu
 #建梯子
 installvless(){
 bash <(wget -qO- -o- https://github.com/233boy/sing-box/raw/main/install.sh)
-echo -e " ${Error} 请忽略上面的任何广告信息 ${Green_font_prefix}复制上面生成的信息或者链接到你的梯子app${Font_color_suffix}"
+echo -e " ${Red_font_prefix}请忽略上面的任何广告信息${Font_color_suffix}，${Green_font_prefix}复制上面生成的信息或者链接到你的梯子app${Font_color_suffix}"
 break_end
 start_menu
 }
