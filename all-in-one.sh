@@ -476,7 +476,7 @@ check_version() {
 
 install_yansir(){
     
-read -p "请输入 whatsapp-http-api-plus 密码" apipw
+read -p "请输入 whatsapp-http-api-plus 密码：" apipw
 
 
 echo "$apipw" | docker login -u devlikeapro --password-stdin
@@ -777,10 +777,14 @@ install_add_docker() {
         sudo apk add docker docker-compose
         sudo rc-update add docker default
         sudo service docker start
+        break_end
+        start_menu
     else
         sudo curl -fsSL https://get.docker.com | sh && ln -s /usr/libexec/docker/cli-plugins/docker-compose /usr/local/bin
         sudo systemctl start docker
         sudo systemctl enable docker
+        break_end
+        start_menu
     fi
 }
 
