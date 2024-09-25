@@ -1025,7 +1025,7 @@ echo
 echo -e "请访问 ${Green_font_prefix}http://$current_ip:8081/db/admin/authCollection${Font_color_suffix}"
 echo -e "登录用户名 ${Green_font_prefix}yansir${Font_color_suffix}"
 echo -e "登录密码 ${Green_font_prefix}Ydj2qEhshAHwMnm2${Font_color_suffix}"
-echo -e "登录后会显示明文密码，请勿泄露，可以单击密码进行修改"
+echo -e "登录后会显示明文密码，请勿泄露"
 break_end
 start_menu
 }
