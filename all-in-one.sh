@@ -1025,6 +1025,8 @@ echo
 echo -e "请访问 ${Green_font_prefix}http://$current_ip:8081/db/admin/authCollection${Font_color_suffix}"
 echo -e "登录用户名 ${Green_font_prefix}yansir${Font_color_suffix}"
 echo -e "登录密码 ${Green_font_prefix}Ydj2qEhshAHwMnm2${Font_color_suffix}"
+break_end
+start_menu
 }
 
 #############系统检测组件#############
