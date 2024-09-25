@@ -146,6 +146,7 @@ start_menu() {
  ${Green_font_prefix}3.${Font_color_suffix} 安装WhatsApp服务    --全自动安装服务
  ${Green_font_prefix}4.${Font_color_suffix} 卸载Whatsapp服务    --清空服务器从0开始配置，出了问题选这个删除重装
  ${Green_font_prefix}5.${Font_color_suffix} 更新WhatsApp服务    --保留数据库，只更新聊天服务插件
+ ${Green_font_prefix}6.${Font_color_suffix} 查看WhatsApp设置密码 --请勿泄露IP
  
  ————————————————————————————————————————————————————————————————
   lobechat服务 如果提示未安装 不影响WhatsApp 自动对话服务机器人
@@ -217,6 +218,9 @@ fi
     ;;
   5)
     update_whatsapp
+    ;;
+  6)
+    findpw
     ;;
   10)
     install_lobechat
@@ -1015,7 +1019,12 @@ break_end
 start_menu
 }
 
-
+#查找密码
+findpw() {
+echo -e "请访问 http://${Green_font_prefix}$current_ip:8081/db/admin/authCollection${Font_color_suffix}"
+echo -e "登录用户名${Green_font_prefix}yansir${Font_color_suffix}"
+echo -e "登录密码${Green_font_prefix}Ydj2qEhshAHwMnm2${Font_color_suffix}"
+}
 
 #############系统检测组件#############
 check_sys
