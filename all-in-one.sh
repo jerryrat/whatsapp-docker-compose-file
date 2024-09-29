@@ -1043,7 +1043,6 @@ for container in $(docker ps -aq); do
     echo -e "${Green_font_prefix}容器（$(docker inspect --format='{{.Name}}' $container | cut -c2-)）重启失败，请尝试卸载软件并重装${Font_color_suffix}"
   fi
 done
-docker ps -a
 break_end
 start_menu
 }
