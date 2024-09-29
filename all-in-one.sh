@@ -1037,6 +1037,7 @@ start_menu
 #重启服务
 restartwhatsapp() {
 for container in $(docker ps -aq); do
+  name=$(docker inspect --format='{{.Name}}' $container | cut -c2-)
   if docker restart $container; then
     echo -e "${Green_font_prefix}服务（$(docker inspect --format='{{.Name}}' $container | cut -c2-)）重启成功${Font_color_suffix}"
   else
