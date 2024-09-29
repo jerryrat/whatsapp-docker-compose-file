@@ -1038,9 +1038,9 @@ start_menu
 restartwhatsapp() {
 for container in $(docker ps -aq); do
   if docker restart $container; then
-    echo -e "${Green_font_prefix}容器（$(docker inspect --format='{{.Name}}' $container | cut -c2-)）重启成功${Font_color_suffix}"
+    echo -e "${Green_font_prefix}服务（$(docker inspect --format='{{.Name}}' $container | cut -c2-)）重启成功${Font_color_suffix}"
   else
-    echo -e "${Red_font_prefix}容器（$(docker inspect --format='{{.Name}}' $container | cut -c2-)）重启失败，请尝试卸载软件并重装${Font_color_suffix}"
+    echo -e "${Red_font_prefix}服务（$(docker inspect --format='{{.Name}}' $container | cut -c2-)）重启失败，请尝试选择 4 卸载软件并选择 3 重装${Font_color_suffix}"
   fi
 done
 break_end
