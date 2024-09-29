@@ -132,6 +132,7 @@ Update_Shell() {
   else
     echo "脚本是最新版本，无需更新。按键盘任意按键返回主菜单。"
   fi
+  echo
   break_end
   start_menu
 }
@@ -167,6 +168,7 @@ start_menu() {
  ${Green_font_prefix}66.${Font_color_suffix} 隐藏功能，利用闲置资源上网           --测试功能，请忽略广告，若有意外概不负责
  ${Green_font_prefix}67.${Font_color_suffix} 删除上述功能
 ————————————————————————————————————————————————————————————————
+ ${Green_font_prefix}99.${Font_color_suffix} 查看VPS前十CPU进程    --如果遇到whatsapp频繁死机，重启故障依旧，排查VPS是否被植入木马或者挖矿程序
  ${Green_font_prefix}0.${Font_color_suffix} 退出脚本 
  ${Green_font_prefix}首次运行 请按照 2 3 依次运行；重新安装请选择 1 升级代码； 然后选择 4 卸载； 再选择 3 全新安装 ${Font_color_suffix} 
  ${Green_font_prefix}密码为 颜sir购买的 dckr_pat_开头的那段密码${Font_color_suffix} 
@@ -255,6 +257,9 @@ fi
     ;;
   67)
     removevless
+    ;;
+  99)
+    checkcpu
     ;;
   0)
     exit 1
@@ -519,6 +524,7 @@ check_disk_space
     
     if ! command -v docker >/dev/null 2>&1; then
       echo -e "${Error}Docker 未安装，请按键盘任意键返回菜单后选择 2 安装 Docker"
+      echo
       break_end
       start_menu
     fi
@@ -528,6 +534,7 @@ check_disk_space
     if docker network ls | grep -q yansir-network; then
       echo -e " 看起来你曾经安装过WhatsApp机器人且${Green_font_prefix}yansir-network${Font_color_suffix} 网络已存在，不建议覆盖安装"
       echo -e "请按键盘任意按键返回主菜单选择"
+      echo
       break_end
       start_menu
   else 
@@ -540,6 +547,7 @@ check_disk_space
     if [[ $network =~ "yansir-network" ]]; then
       echo -e " 看起来你曾经安装过WhatsApp机器人且${Green_font_prefix}yansir-network${Font_color_suffix} 网络已存在，不建议覆盖安装"
       echo -e "请按键盘任意按键返回主菜单选择"
+      echo
       break_end
       start_menu
       # 删除网络
@@ -562,11 +570,13 @@ for container in "${containers[@]}"; do
   if docker ps -a | grep -q "$container"; then
     if docker ps | grep -q "$container"; then
       echo -e " 看起来你曾经安装过${Green_font_prefix}$container${Font_color_suffix}服务且正常运行，不建议覆盖安装，请按键盘任意按键返回主菜单选择"
+      echo
       break_end
       start_menu
     else
       echo -e " ${Error} 看起来你曾经安装过 ${Green_font_prefix}$container${Font_color_suffix}服务但停止中"
       echo -e "请按键盘任意按键返回主菜单选择 请选择4删除后重新安装并启动"
+      echo
       break_end
       start_menu
     fi
@@ -672,7 +682,7 @@ done
   echo "已取消删除"
 ;;
 esac
-     
+echo
 break_end
 start_menu
 
@@ -712,6 +722,7 @@ echo && echo
 
 if ! command -v docker >/dev/null 2>&1; then
       echo -e "${Error}Docker 未安装，按键盘任意键返回菜单后选择 2 安装 Docker"
+      echo
       break_end
       start_menu
       exit 0
@@ -785,12 +796,14 @@ install_add_docker() {
         sudo apk add docker docker-compose
         sudo rc-update add docker default
         sudo service docker start
+        echo
         break_end
         start_menu
     else
         sudo curl -fsSL https://get.docker.com | sh && ln -s /usr/libexec/docker/cli-plugins/docker-compose /usr/local/bin
         sudo systemctl start docker
         sudo systemctl enable docker
+        echo
         break_end
         start_menu
     fi
@@ -801,6 +814,7 @@ install_docker() {
         install_add_docker
     else
         echo -e "${Green_font_prefix}Docker 已经安装 按键盘任意按键将返回主菜单${Font_color_suffix}"
+        echo
         break_end
         start_menu
     fi
@@ -850,6 +864,7 @@ fi
 git clone https://github.com/jerryrat/whatsapp-docker-compose-file.git && cd whatsapp-docker-compose-file ; docker login -u devlikeapro -p $apipw && docker-compose -f ${apiarch}  pull  && docker-compose -f ${apiarch} up -d  && docker logout
 
 echo -e " ${Green_font_prefix}升级完成${Font_color_suffix} 如果所有服务正常（running or started）运行，请访问 ${Green_font_prefix}http://$current_ip:3000${Font_color_suffix} 进行机器人的更多设置，注意是${Green_font_prefix}http${Font_color_suffix} 不是${Green_font_prefix}https${Font_color_suffix}"
+echo
 break_end
 start_menu
 }
@@ -865,6 +880,7 @@ check_disk_space
     
     if ! command -v docker >/dev/null 2>&1; then
       echo "Docker 未安装，请按键盘任意键返回菜单后选择 2 安装 Docker"
+      echo
       break_end
       start_menu
     fi
@@ -883,7 +899,7 @@ docker run -d -p 3210:3210 \
 echo -e " ${Green_font_prefix}lobe-chat 安装完成${Font_color_suffix} 如果所有服务正常（running or started）运行，请访问 ${Green_font_prefix}http://$current_ip:3210${Font_color_suffix} 进行更多设置，注意是${Green_font_prefix}http${Font_color_suffix} 不是${Green_font_prefix}https${Font_color_suffix}"
 
 echo -e " ${Green_font_prefix}如果登录时或者聊天时要求输入密码，就输入lobe66${Font_color_suffix} "
-
+echo
 break_end
 start_menu
 
@@ -917,6 +933,7 @@ echo -e "${Green_font_prefix}Lobe Chat 全部删除成功 按键盘任意按键�
   echo "已取消删除"
 ;;
 esac
+echo
 break_end
 start_menu
 
@@ -974,6 +991,7 @@ echo -e "${Green_font_prefix}Lobe Chat 升级成功 按键盘任意按键将返�
 else
     echo -e " ${Error} 没有找到包含 ${Green_font_prefix}lobe-chat${Font_color_suffix}服务 请选择10安装服务"
 fi
+echo
 break_end
 start_menu
 
@@ -986,6 +1004,7 @@ wget -O install.sh http://io.bt.sy/install/install-ubuntu_6.0.sh && sudo bash in
 #卸载宝塔
 uninstall_bt() {
 wget -O bt-uninstall.sh http://download.bt.cn/install/bt-uninstall.sh && sudo bash bt-uninstall.sh
+echo
 break_end
 start_menu
 }
@@ -997,12 +1016,14 @@ wget -O quick_start.sh https://resource.fit2cloud.com/1panel/package/quick_start
 #卸载1panel
 uninstall_onepanel() {
 1pctl uninstall
+echo
 break_end
 start_menu
 }
 #测试IP
 testgpt() {
 bash <(curl -Ls IP.Check.Place)
+echo
 break_end
 start_menu
 }
@@ -1012,6 +1033,7 @@ start_menu
 installvless(){
 bash <(wget -qO- -o- https://github.com/233boy/sing-box/raw/main/install.sh)
 echo -e " ${Red_font_prefix}请忽略上面的任何广告信息${Font_color_suffix}，${Green_font_prefix}复制上面生成的信息或者链接到你的梯子app${Font_color_suffix}"
+echo
 break_end
 start_menu
 }
@@ -1019,6 +1041,7 @@ start_menu
 #删梯子
 removevless(){
 sing-box un
+echo
 break_end
 start_menu
 }
@@ -1030,6 +1053,7 @@ echo -e "请访问 ${Green_font_prefix}http://$current_ip:8081/db/admin/authColl
 echo -e "登录用户名 ${Green_font_prefix}yansir${Font_color_suffix}"
 echo -e "登录密码 ${Green_font_prefix}Ydj2qEhshAHwMnm2${Font_color_suffix}"
 echo -e "登录后会显示明文密码，请勿泄露"
+echo
 break_end
 start_menu
 }
@@ -1044,10 +1068,20 @@ for container in $(docker ps -aq); do
     echo -e "${Red_font_prefix}服务（$(docker inspect --format='{{.Name}}' $container | cut -c2-)）重启失败，请尝试选择 4 卸载软件并选择 3 重装${Font_color_suffix}"
   fi
 done
+echo
 break_end
 start_menu
 }
 
+#重启服务
+checkcpu() {
+echo
+echo -e "${Green_font_prefix}通过此菜单可以查看CPU和内存占用率，如果过高，请联系客服排查${Font_color_suffix}"
+ps aux --sort=-%cpu | awk 'NR==1{printf "%-8s %-8s %-8s %-8s %-8s\n", "用户", "PID", "CPU使用率%", "内存使用率%", "进程名称"; next} NR<=11{printf "%-8s %-12s %-12s %-12s %-20s\n", $1, $2, $3, $4, $11}'
+echo
+break_end
+start_menu
+}
 
 #############系统检测组件#############
 check_sys
