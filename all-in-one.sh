@@ -15,7 +15,7 @@ export PATH
 # SKYBLUE='\033[0;36m'
 # PLAIN='\033[0m'
 
-sh_ver="3.2"
+sh_ver="3.5"
 github="raw.githubusercontent.com/yansircc/WhatsApp/master"
 
   # 获取当前IP地址，设置超时为3秒
@@ -144,9 +144,10 @@ start_menu() {
  ${Green_font_prefix}1.${Font_color_suffix} 几乎用不着不用选    --颜Sir更新了脚本后选1自动更新vps本地脚本
  ${Green_font_prefix}2.${Font_color_suffix} 安装docker          --全系系统请务必安装docker环境，可以选择查看是否已经安装
  ${Green_font_prefix}3.${Font_color_suffix} 安装WhatsApp服务    --全自动安装服务
- ${Green_font_prefix}4.${Font_color_suffix} 卸载Whatsapp服务    --清空服务器从0开始配置，出了问题选这个删除重装
+ ${Green_font_prefix}4.${Font_color_suffix} 卸载Whatsapp服务    --清空服务器从0开始配置，出了问题选这个卸载重装
  ${Green_font_prefix}5.${Font_color_suffix} 更新WhatsApp服务    --保留数据库，只更新聊天服务插件
  ${Green_font_prefix}6.${Font_color_suffix} 查看WhatsApp设置密码 --请勿泄露IP
+ ${Green_font_prefix}7.${Font_color_suffix} 重启WhatsApp服务    --遇到设置网页无法显示或者机器人无法工作 可以先尝试该选项
  
  ————————————————————————————————————————————————————————————————
   lobechat服务 如果提示未安装 不影响WhatsApp 自动对话服务机器人
@@ -221,6 +222,9 @@ fi
     ;;
   6)
     findpw
+    ;;
+  7)
+    restartwhatsapp
     ;;
   10)
     install_lobechat
@@ -1029,6 +1033,21 @@ echo -e "登录后会显示明文密码，请勿泄露"
 break_end
 start_menu
 }
+
+#重启服务
+restartwhatsapp() {
+for container in $(docker ps -aq); do
+  if docker restart $container; then
+    echo -e "${Green_font_prefix}容器（$(docker inspect --format='{{.Name}}' $container | cut -c2-)）重启成功${Font_color_suffix}"
+  else
+    echo -e "${Green_font_prefix}容器（$(docker inspect --format='{{.Name}}' $container | cut -c2-)）重启失败，请尝试卸载软件并重装${Font_color_suffix}"
+  fi
+done
+docker ps -a
+break_end
+start_menu
+}
+
 
 #############系统检测组件#############
 check_sys
