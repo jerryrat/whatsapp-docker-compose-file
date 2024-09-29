@@ -170,6 +170,7 @@ start_menu() {
 ————————————————————————————————————————————————————————————————
  ${Green_font_prefix}99.${Font_color_suffix} 查看VPS前十CPU进程    --如果遇到whatsapp频繁死机，重启故障依旧，排查VPS是否被植入木马或者挖矿程序
  ${Green_font_prefix}0.${Font_color_suffix} 退出脚本 
+ 
  ${Green_font_prefix}首次运行 请按照 2 3 依次运行；重新安装请选择 1 升级代码； 然后选择 4 卸载； 再选择 3 全新安装 ${Font_color_suffix} 
  ${Green_font_prefix}密码为 颜sir购买的 dckr_pat_开头的那段密码${Font_color_suffix} 
  ${Green_font_prefix}如果输入错误或者乱码请按CTRL + C 退出脚本 并重新运行${Font_color_suffix} 
