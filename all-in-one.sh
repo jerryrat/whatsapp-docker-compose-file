@@ -583,7 +583,6 @@ for container in "${containers[@]}"; do
     fi
   else
     install_yansir
-    check_whatsapp
   fi
 done
 
@@ -596,7 +595,7 @@ fi
 
 
 #删除WhatsApp
-uninstall_whatsapp() {
+un() {
 
 #!/bin/bash
 
