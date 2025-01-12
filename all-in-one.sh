@@ -583,6 +583,7 @@ for container in "${containers[@]}"; do
     fi
   else
     install_yansir
+    check_whatsapp
   fi
 done
 
@@ -702,7 +703,7 @@ containers=(
 for container in "${containers[@]}"; do
   if docker ps -a | grep -q "$container"; then
     if docker ps | grep -q "$container"; then
-      echo -e " 已安装${Green_font_prefix}$container${Font_color_suffix}服务正常运行"
+      echo -e " 已安装${Green_font_prefix}$container${Font_color_suffix}服务正常运行 如果所有服务正常（running or started）运行，请访问 ${Green_font_prefix}http://$current_ip:3000${Font_color_suffix} 进行机器人的更多设置，注意是${Green_font_prefix}http${Font_color_suffix} 不是${Green_font_prefix}https${Font_color_suffix}"
     else
       echo -e " ${Error}  ${Green_font_prefix}$container${Font_color_suffix}服务已安装但停止中(启动失败) 请重启服务器后检测 或者重新安装并启动"
     fi
@@ -735,7 +736,7 @@ if docker network ls | grep -q "yansir-network"; then
     check_containers
 
     
-    echo -e " 已建立${Green_font_prefix}yansir-network${Font_color_suffix}网络 正常运行"
+    echo -e " 已建立${Green_font_prefix}yansir-network${Font_color_suffix}网络 正常运行 如果所有服务正常（running or started）运行，请访问 ${Green_font_prefix}http://$current_ip:3000${Font_color_suffix} 进行机器人的更多设置，注意是${Green_font_prefix}http${Font_color_suffix} 不是${Green_font_prefix}https${Font_color_suffix}"
         
 else
 # 网络不存在
