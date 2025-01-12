@@ -534,7 +534,7 @@ check_disk_space
     # 网络存在 继续安装
     if docker network ls | grep -q yansir-network; then
       echo -e " 看起来你曾经安装过WhatsApp机器人且${Green_font_prefix}yansir-network${Font_color_suffix} 网络已存在，不建议覆盖安装"
-      echo -e "请按键盘任意按键返回主菜单选择"
+      echo -e "请按键盘任意按键返回主菜单选择 或者访问 ${Green_font_prefix}http://$current_ip:3000${Font_color_suffix}进行机器人的更多设置"
       echo
       break_end
       start_menu
@@ -547,7 +547,7 @@ check_disk_space
     for network in $networks; do
     if [[ $network =~ "yansir-network" ]]; then
       echo -e " 看起来你曾经安装过WhatsApp机器人且${Green_font_prefix}yansir-network${Font_color_suffix} 网络已存在，不建议覆盖安装"
-      echo -e "请按键盘任意按键返回主菜单选择"
+      echo -e "请按键盘任意按键返回主菜单选择 或者访问 ${Green_font_prefix}http://$current_ip:3000${Font_color_suffix}进行机器人的更多设置"
       echo
       break_end
       start_menu
@@ -703,7 +703,7 @@ containers=(
 for container in "${containers[@]}"; do
   if docker ps -a | grep -q "$container"; then
     if docker ps | grep -q "$container"; then
-      echo -e " 已安装${Green_font_prefix}$container${Font_color_suffix}服务正常运行 如果所有服务正常（running or started）运行，请访问 ${Green_font_prefix}http://$current_ip:3000${Font_color_suffix} 进行机器人的更多设置，注意是${Green_font_prefix}http${Font_color_suffix} 不是${Green_font_prefix}https${Font_color_suffix}"
+      echo -e " 已安装${Green_font_prefix}$container${Font_color_suffix}服务正常运行"
     else
       echo -e " ${Error}  ${Green_font_prefix}$container${Font_color_suffix}服务已安装但停止中(启动失败) 请重启服务器后检测 或者重新安装并启动"
     fi
@@ -736,7 +736,7 @@ if docker network ls | grep -q "yansir-network"; then
     check_containers
 
     
-    echo -e " 已建立${Green_font_prefix}yansir-network${Font_color_suffix}网络 正常运行 如果所有服务正常（running or started）运行，请访问 ${Green_font_prefix}http://$current_ip:3000${Font_color_suffix} 进行机器人的更多设置，注意是${Green_font_prefix}http${Font_color_suffix} 不是${Green_font_prefix}https${Font_color_suffix}"
+    echo -e " 已建立${Green_font_prefix}yansir-network${Font_color_suffix}网络 正常运行"
         
 else
 # 网络不存在
