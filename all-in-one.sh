@@ -596,7 +596,7 @@ fi
 
 
 #删除WhatsApp
-un() {
+uninstall_whatsapp() {
 
 #!/bin/bash
 
