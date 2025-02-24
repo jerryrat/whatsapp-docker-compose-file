@@ -582,6 +582,10 @@ install_whatsapp() {
     if docker ps | grep -q "waha"; then
         echo -e " 如果所有服务正常运行，请访问 ${Green_font_prefix}http://$current_ip:3000${Font_color_suffix}进行机器人的更多设置，注意是${Green_font_prefix}http${Font_color_suffix} 不是${Green_font_prefix}https${Font_color_suffix}"
     fi
+
+break_end
+start_menu
+    
 }
 
 
@@ -698,7 +702,7 @@ for container in "${containers[@]}"; do
       echo -e " ${Error}  ${Green_font_prefix}$container${Font_color_suffix}服务已安装但停止中(启动失败) 请重启服务器后检测 或者重新安装并启动"
     fi
   else
-      echo -e " ${Error} 未安装${Green_font_prefix}$container${Font_color_suffix} 服务 如需要请安装服务 lobe-chat 不影响 Whatsapp 服务"
+      echo -e " ${Error} 未安装${Green_font_prefix}$container${Font_color_suffix} 服务 如需要请安装服务"
   fi
 done
 
