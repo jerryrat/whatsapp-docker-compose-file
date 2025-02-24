@@ -519,73 +519,70 @@ fi
 
 }
 
-#检查安装要求
+# 检查安装要求
 install_whatsapp() {
+    rm -rf whatsapp-docker-compose-file
 
-rm -rf whatsapp-docker-compose-file    
-    
-check_disk_space
-    
-    
+    check_disk_space
+
+    # 检查 Docker 是否安装
     if ! command -v docker >/dev/null 2>&1; then
-      echo -e "${Error}Docker 未安装，请按键盘任意键返回菜单后选择 2 安装 Docker"
-      echo
-      break_end
-      start_menu
+        echo -e "${Error}Docker 未安装，请按键盘任意键返回菜单后选择 2 安装 Docker"
+        echo
+        break_end
+        start_menu
     fi
 
     # 检查 yansir-network 网络是否存在
-    # 网络存在 继续安装
     if docker network ls | grep -q yansir-network; then
-      echo -e " 看起来你曾经安装过WhatsApp机器人且${Green_font_prefix}yansir-network${Font_color_suffix} 网络已存在，不建议覆盖安装"
-      echo -e "请按键盘任意按键返回主菜单选择 或者访问 ${Green_font_prefix}http://$current_ip:3000${Font_color_suffix}进行机器人的更多设置"
-      echo
-  else 
-  
-    # 检查 root-yansir-network 网络是否存在 或者类似的
-    # 类似网络存在 删除
-    networks=$(docker network ls | grep -v "NETWORK ID")
-    
-    for network in $networks; do
-    if [[ $network =~ "yansir-network" ]]; then
-      echo -e " 看起来你曾经安装过WhatsApp机器人且${Green_font_prefix}yansir-network${Font_color_suffix} 网络已存在，不建议覆盖安装"
-      echo -e "请按键盘任意按键返回主菜单选择 或者访问 ${Green_font_prefix}http://$current_ip:3000${Font_color_suffix}进行机器人的更多设置"
-      echo
-      # 删除网络
-     fi
+        echo -e " 看起来你曾经安装过WhatsApp机器人且${Green_font_prefix}yansir-network${Font_color_suffix} 网络已存在，不建议覆盖安装"
+        echo -e "请按键盘任意按键返回主菜单选择 或者访问 ${Green_font_prefix}http://$current_ip:3000${Font_color_suffix}进行机器人的更多设置"
+        echo
+    else
+        # 检查是否存在类似网络
+        networks=$(docker network ls --format '{{.Name}}' | grep -v "NETWORK ID")
+        for network in $networks; do
+            if [[ $network =~ "yansir-network" ]]; then
+                echo -e " 看起来你曾经安装过WhatsApp机器人且${Green_font_prefix}yansir-network${Font_color_suffix} 网络已存在，不建议覆盖安装"
+                echo -e "请按键盘任意按键返回主菜单选择 或者访问 ${Green_font_prefix}http://$current_ip:3000${Font_color_suffix}进行机器人的更多设置"
+                echo
+                # 删除网络
+                docker network rm "$network"
+            fi
+        done
+    fi
+
+    # 定义容器列表
+    containers=(
+        "mongo"
+        "mongo-express"
+        "redis"
+        "yansir-whatsapp"
+        "waha"
+        "lobe-chat"
+    )
+
+    # 检查容器是否存在并正常运行
+    for container in "${containers[@]}"; do
+        if docker ps -a | grep -q "$container"; then
+            if docker ps | grep -q "$container"; then
+                echo -e " 看起来你曾经安装过${Green_font_prefix}$container${Font_color_suffix}服务且正常运行，不建议覆盖安装，请按键盘任意按键返回主菜单选择"
+            else
+                echo -e " ${Error} 看起来你曾经安装过 ${Green_font_prefix}$container${Font_color_suffix}服务但停止中"
+                echo -e "请按键盘任意按键返回主菜单选择 请选择4删除后重新安装并启动"
+                echo
+            fi
+        else
+            echo -e " ${Green_font_prefix}$container${Font_color_suffix} 容器未安装，正在安装..."
+            install_yansir
+            check_whatsapp
+        fi
     done
 
-    
-containers=(
-  "mongo"
-  "mongo-express"
-  "redis"
-  "yansir-whatsapp"
-  "waha"
-  "lobe-chat"
-)
-# 检查容器是否存在并正常运行
-  for container in "${containers[@]}"; do
-    if docker ps -a | grep -q "$container"; then
-      if docker ps | grep -q "$container"; then
-        echo -e " 看起来你曾经安装过${Green_font_prefix}$container${Font_color_suffix}服务且正常运行，不建议覆盖安装，请按键盘任意按键返回主菜单选择"
-      else
-        echo -e " ${Error} 看起来你曾经安装过 ${Green_font_prefix}$container${Font_color_suffix}服务但停止中"
-        echo -e "请按键盘任意按键返回主菜单选择 请选择4删除后重新安装并启动"
-        echo
-      fi
-    else
-      echo -e " ${Green_font_prefix}$container${Font_color_suffix} 容器未安装，正在安装..."
-      install_yansir
-      check_whatsapp
+    # 如果所有服务正常运行，提示访问地址
+    if docker ps | grep -q "waha"; then
+        echo -e " 如果所有服务正常运行，请访问 ${Green_font_prefix}http://$current_ip:3000${Font_color_suffix}进行机器人的更多设置，注意是${Green_font_prefix}http${Font_color_suffix} 不是${Green_font_prefix}https${Font_color_suffix}"
     fi
-  done
-
-  # 如果所有服务正常运行，提示访问地址
-  if docker ps | grep -q "waha"; then
-    echo -e " 如果所有服务正常运行，请访问 ${Green_font_prefix}http://$current_ip:3000${Font_color_suffix}进行机器人的更多设置，注意是${Green_font_prefix}http${Font_color_suffix} 不是${Green_font_prefix}https${Font_color_suffix}"
-  fi
-
 }
 
 
