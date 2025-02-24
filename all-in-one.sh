@@ -554,7 +554,6 @@ check_disk_space
       # 删除网络
      fi
     done
-check_containers
 
 
     
