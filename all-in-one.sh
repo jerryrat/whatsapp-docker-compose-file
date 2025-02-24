@@ -565,7 +565,6 @@ containers=(
   "mongo-express"
   "redis"
   "yansir-whatsapp"
-  "whatsapp-http-api"
   "waha"
   "lobe-chat"
 )
