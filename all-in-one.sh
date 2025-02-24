@@ -565,8 +565,29 @@ containers=(
   "lobe-chat"
 )
 
+# 检查容器是否存在并正常运行
+  for container in "${containers[@]}"; do
+    if docker ps -a | grep -q "$container"; then
+      if docker ps | grep -q "$container"; then
+        echo -e " 看起来你曾经安装过${Green_font_prefix}$container${Font_color_suffix}服务且正常运行，不建议覆盖安装，请按键盘任意按键返回主菜单选择"
+      else
+        echo -e " ${Error} 看起来你曾经安装过 ${Green_font_prefix}$container${Font_color_suffix}服务但停止中"
+        echo -e "请按键盘任意按键返回主菜单选择 请选择4删除后重新安装并启动"
+        echo
+      fi
+    else
+      echo -e " ${Green_font_prefix}$container${Font_color_suffix} 容器未安装，正在安装..."
+      install_yansir
+      check_whatsapp
+    fi
+  done
 
-}
+  # 如果所有服务正常运行，提示访问地址
+  if docker ps | grep -q "$container"; then
+    echo -e " 如果所有服务正常运行，请访问 ${Green_font_prefix}http://$current_ip:3000${Font_color_suffix}进行机器人的更多设置，注意是${Green_font_prefix}http${Font_color_suffix} 不是${Green_font_prefix}https${Font_color_suffix}"
+  fi
+
+ }
 
 
 
