@@ -555,7 +555,6 @@ check_disk_space
      fi
     done
 
-
     
 containers=(
   "mongo"
@@ -566,7 +565,6 @@ containers=(
   "lobe-chat"
 )
 # 检查容器是否存在并正常运行
-check_containers() {
   for container in "${containers[@]}"; do
     if docker ps -a | grep -q "$container"; then
       if docker ps | grep -q "$container"; then
@@ -587,9 +585,6 @@ check_containers() {
   if docker ps | grep -q "waha"; then
     echo -e " 如果所有服务正常运行，请访问 ${Green_font_prefix}http://$current_ip:3000${Font_color_suffix}进行机器人的更多设置，注意是${Green_font_prefix}http${Font_color_suffix} 不是${Green_font_prefix}https${Font_color_suffix}"
   fi
-}
-
-check_containers
 
 }
 
