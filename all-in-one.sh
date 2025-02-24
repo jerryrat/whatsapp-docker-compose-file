@@ -556,7 +556,7 @@ check_disk_space
     done
 check_containers
 
-}
+
     
 containers=(
   "mongo"
@@ -590,7 +590,9 @@ check_containers() {
   fi
 }
 
+check_containers
 
+}
 
 
 #删除WhatsApp
