@@ -559,7 +559,6 @@ install_whatsapp() {
         "redis"
         "yansir-whatsapp"
         "waha"
-        "lobe-chat"
     )
 
     # 检查容器是否存在并正常运行
