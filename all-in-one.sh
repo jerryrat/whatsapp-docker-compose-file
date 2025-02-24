@@ -1156,10 +1156,14 @@ RANDOM_STRING=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | head -c $LENGTH)
 # 添加 "wa-" 前缀
 API_KEY="wa-$RANDOM_STRING"
 # 输出 API Key
+echo
+echo
+echo
 echo -e "${Green_font_prefix}请截图保存或者复制保存${Font_color_suffix}"
-echo "WAHA API 管理的用户名和密码为:${Green_font_prefix} $apiusername ${Font_color_suffix} API管理平台的密码为:${Green_font_prefix} $apipassword ${Font_color_suffix} "
-echo "WAHA API 为:${Green_font_prefix} $API_KEY ${Font_color_suffix}"
-
+echo -e "WAHA API 管理的用户名和密码为:${Green_font_prefix} $apiusername ${Font_color_suffix} API管理平台的密码为:${Green_font_prefix} $apipassword ${Font_color_suffix} "
+echo -e "WAHA API 为:${Green_font_prefix} $API_KEY ${Font_color_suffix}"
+echo
+echo
 # 使用 sed 更新 YAML 文件
 sed -i "/waha:/a \    environment:\n      WAHA_DASHBOARD_USERNAME: $apiusername\n      WAHA_DASHBOARD_PASSWORD: $apipassword\n      WHATSAPP_API_KEY: $API_KEY" ${apiarch}
 
