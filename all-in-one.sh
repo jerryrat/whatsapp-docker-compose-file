@@ -540,8 +540,6 @@ check_disk_space
       echo -e " 看起来你曾经安装过WhatsApp机器人且${Green_font_prefix}yansir-network${Font_color_suffix} 网络已存在，不建议覆盖安装"
       echo -e "请按键盘任意按键返回主菜单选择 或者访问 ${Green_font_prefix}http://$current_ip:3000${Font_color_suffix}进行机器人的更多设置"
       echo
-      break_end
-      start_menu
   else 
   
     # 检查 root-yansir-network 网络是否存在 或者类似的
@@ -553,8 +551,6 @@ check_disk_space
       echo -e " 看起来你曾经安装过WhatsApp机器人且${Green_font_prefix}yansir-network${Font_color_suffix} 网络已存在，不建议覆盖安装"
       echo -e "请按键盘任意按键返回主菜单选择 或者访问 ${Green_font_prefix}http://$current_ip:3000${Font_color_suffix}进行机器人的更多设置"
       echo
-      break_end
-      start_menu
       # 删除网络
      fi
     done
