@@ -230,7 +230,7 @@ fi
   7)
     restartwhatsapp
     ;;
-  7)
+  8)
     whatsappapi
     ;;
   10)
