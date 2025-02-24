@@ -52,14 +52,17 @@ services:
     networks:
       - yansir-network
 
-
-  whatsapp-http-api:
+  waha:
     image: devlikeapro/waha-plus:arm
-    container_name: whatsapp-http-api
+    container_name: waha
+    environment:
+      WAHA_DASHBOARD_USERNAME: yansir
+      WAHA_DASHBOARD_PASSWORD: Ydj2qEhshAHwMnm2
     ports:
       - "3002:3000"
     networks:
       - yansir-network
+      
 networks:
   yansir-network:
     driver: bridge
