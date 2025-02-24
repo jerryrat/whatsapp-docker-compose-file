@@ -565,7 +565,7 @@ install_whatsapp() {
     for container in "${containers[@]}"; do
         if docker ps -a | grep -q "$container"; then
             if docker ps | grep -q "$container"; then
-                echo -e " 看起来你曾经安装过${Green_font_prefix}$container${Font_color_suffix}服务且正常运行，不建议覆盖安装，请按键盘任意按键返回主菜单选择"
+                echo -e " ${Green_font_prefix}$container${Font_color_suffix}服务且正常运行，不建议覆盖安装，请按键盘任意按键返回主菜单选择"
             else
                 echo -e " ${Error} 看起来你曾经安装过 ${Green_font_prefix}$container${Font_color_suffix}服务但停止中"
                 echo -e "请按键盘任意按键返回主菜单选择 请选择4删除后重新安装并启动"
