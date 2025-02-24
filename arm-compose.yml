@@ -55,10 +55,6 @@ services:
   waha:
     image: devlikeapro/waha-plus:arm
     container_name: waha
-    environment:
-      WAHA_DASHBOARD_USERNAME: yansir
-      WAHA_DASHBOARD_PASSWORD: Ydj2qEhshAHwMnm2
-      WHATSAPP_API_KEY: yoursecretkey
     ports:
       - "3002:3000"
     networks:
