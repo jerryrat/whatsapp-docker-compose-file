@@ -586,6 +586,7 @@ containers=(
   if docker ps | grep -q "$container"; then
     echo -e " 如果所有服务正常运行，请访问 ${Green_font_prefix}http://$current_ip:3000${Font_color_suffix}进行机器人的更多设置，注意是${Green_font_prefix}http${Font_color_suffix} 不是${Green_font_prefix}https${Font_color_suffix}"
   fi
+
 }
 
 
