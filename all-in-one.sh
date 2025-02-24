@@ -1166,7 +1166,7 @@ echo -e "WAHA API 管理平台为:${Green_font_prefix} http://$current_ip:3002/d
 echo
 echo
 # 使用 sed 更新 YAML 文件
-sed -i "/waha:/a \    environment:\n      WAHA_DASHBOARD_USERNAME: $apiusername\n      WAHA_DASHBOARD_PASSWORD: $apipassword" ${apiarch}
+sed -i "/waha:/a \    environment:\n      WAHA_DASHBOARD_USERNAME: $apiusername\n      WAHA_DASHBOARD_PASSWORD: $apipassword"\n      WHATSAPP_API_KEY: $API_KEY" ${apiarch}
 
 echo -e "${Green_font_prefix}安装文件已更新！${Font_color_suffix}"
 echo -e "${Green_font_prefix}开始安装！${Font_color_suffix}"
