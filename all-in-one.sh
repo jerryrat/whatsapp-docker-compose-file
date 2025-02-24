@@ -149,6 +149,7 @@ start_menu() {
  ${Green_font_prefix}5.${Font_color_suffix} 更新WhatsApp服务    --保留数据库，只更新聊天服务插件
  ${Green_font_prefix}6.${Font_color_suffix} 查看WhatsApp设置密码 --请勿泄露IP
  ${Green_font_prefix}7.${Font_color_suffix} 重启WhatsApp服务    --遇到设置网页无法显示或者机器人无法工作 可以先尝试该选项
+ ${Green_font_prefix}8.${Font_color_suffix} 添加APIkey          --为WhatsApp机器人添加API-KEY 发消息用 二开功能
  
  ————————————————————————————————————————————————————————————————
   lobechat服务 如果提示未安装 不影响WhatsApp 自动对话服务机器人
@@ -228,6 +229,9 @@ fi
     ;;
   7)
     restartwhatsapp
+    ;;
+  7)
+    whatsappapi
     ;;
   10)
     install_lobechat
@@ -455,7 +459,7 @@ check_sys() {
     echo 'CA证书检查OK'
 
     # 检查并安装 curl、wget 和 dmidecode 包
-    for pkg in curl wget git sudo; do
+    for pkg in curl wget git yq sudo; do
       if ! type $pkg >/dev/null 2>&1; then
         echo "未安装 $pkg，正在安装..."
         apt-get update || apt-get --allow-releaseinfo-change update && apt-get install $pkg -y
@@ -1079,10 +1083,103 @@ break_end
 start_menu
 }
 
+
+# 检查 yq 是否安装
+check_yq_installed() {
+    if ! command -v yq &> /dev/null; then
+        echo -e "${Red_font_prefix}未找到 yq 工具，请先安装 yq！${Font_color_suffix}"
+        echo "尝试自动安装..."
+        pip install yq
+        exit 1
+    fi
+}
+
+
+#添加API
+whatsappapi() {
+
+echo -e "${Green_font_prefix}通过此菜单可以添加API服务，安装后请务必截图或者复制保存${Font_color_suffix}"
+
+# 查找名为 “whatsapp-http-api” 的容器
+container_id=$(docker ps -a | grep whatsapp-http-api | awk '{print $1}')
+
+# 如果容器存在，则停止并删除容器和卷
+if [ -n "$container_id" ]; then
+  echo "停止容器 $container_id ..."
+  docker stop $container_id
+
+  echo "删除容器 $container_id 和关联卷 ..."
+  docker rm -f $container_id
+else
+  echo "未找到容器 whatsapp-http-api。"
+fi
+
+
+rm -rf whatsapp-docker-compose-file
+
+read -p "请输入 whatsapp-http-api-plus 密码" apipw
+
+
+echo "$apipw" | docker login -u devlikeapro --password-stdin
+
+# 获取系统架构
+architecture=$(uname -m)
+
+# 判断系统架构并输出不同文字
+if [[ $architecture == "x86_64" ]]; then
+ apiarch="update.yml"
+elif [[ $architecture == "armv7l" ]]; then
+ apiarch="arm-update.yml"
+elif [[ $architecture == "aarch64" ]]; then
+ apiarch="arm-update.yml"
+else
+ apiarch="update.yml"
+fi
+
+
+git clone https://github.com/jerryrat/whatsapp-docker-compose-file.git && cd whatsapp-docker-compose-file
+
+echo -e "${Green_font_prefix}请输入 WAHA API 管理的用户名和密码：${Font_color_suffix}"
+read -p "API管理平台的用户名: " apiusername
+read -p "API管理平台的密码: " apipassword
+
+# 检查输入是否为空
+if [[ -z "$apiusername" || -z "$apipassword" ]]; then
+  echo -e "${Red_font_prefix}用户名和密码不能为空！${Font_color_suffix}"
+  exit 1
+fi
+
+# 设置随机字符串长度
+LENGTH=32
+# 生成随机字符串
+RANDOM_STRING=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | head -c $LENGTH)
+# 添加 "wa-" 前缀
+API_KEY="wa-$RANDOM_STRING"
+# 输出 API Key
+echo -e "${Green_font_prefix}请截图保存或者复制保存${Font_color_suffix}"
+echo "WAHA API 管理的用户名和密码为:${Green_font_prefix} $apiusername ${Font_color_suffix} API管理平台的密码为:${Green_font_prefix} $apipassword ${Font_color_suffix} "
+echo "WAHA API 为:${Green_font_prefix} $API_KEY ${Font_color_suffix}"
+
+# 使用 sed 更新 YAML 文件
+sed -i "/waha:/a \    environment:\n      WAHA_DASHBOARD_USERNAME: $apiusername\n      WAHA_DASHBOARD_PASSWORD: $apipassword\n      WHATSAPP_API_KEY: $API_KEY" ${apiarch}
+
+echo -e "${Green_font_prefix}安装文件已更新！${Font_color_suffix}"
+echo -e "${Green_font_prefix}开始安装！${Font_color_suffix}"
+docker login -u devlikeapro -p $apipw && docker-compose -f ${apiarch}  pull  && docker-compose -f ${apiarch} up -d  && docker logout
+echo -e " ${Green_font_prefix}API升级完成${Font_color_suffix} 如果所有服务正常（running or started）运行，请访问 ${Green_font_prefix}http://$current_ip:3002/dashboard/${Font_color_suffix} 进行API的更多设置，注意是${Green_font_prefix}http${Font_color_suffix} 不是${Green_font_prefix}https${Font_color_suffix}"
+echo -e " ${Green_font_prefix}请更新面板中的 Metadata 值 登录用户名密码参见截图 ${Font_color_suffix} "
+
+echo
+break_end
+start_menu
+}
+
+
 #############系统检测组件#############
 check_sys
 check_version
 check_disk_space
 [[ "${OS_type}" == "Debian" ]] && [[ "${OS_type}" == "CentOS" ]] && echo -e "${Error} 本脚本不支持当前系统 ${release} !" && exit 1
 check_whatsapp
+break_end
 start_menu
