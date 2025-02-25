@@ -1155,18 +1155,22 @@ sed -i "/waha:/a \    environment:\n      WAHA_DASHBOARD_USERNAME: $apiusername\
 echo -e "${Green_font_prefix}API服务正在安装更新！${Font_color_suffix}"
 echo -e "${Green_font_prefix}开始安装！${Font_color_suffix}"
 
+apinetwork=$(docker network ls --filter "name=yansir-network" --format "{{.Name}}" | head -n 1)
+
+
+
 # 获取系统架构
 architecture=$(uname -m)
 
 # 判断系统架构并输出不同文字
 if [[ $architecture == "x86_64" ]]; then
- docker run -d --name waha-api -e WAHA_DASHBOARD_USERNAME=ooitech -e WAHA_DASHBOARD_PASSWORD=ooitech -e WHATSAPP_API_KEY=wa-V7FwX7QECu1Oqa09OAgI4LuqXmnGlfJW -p 3003:3000 --network yansir-network devlikeapro/waha-plus
+ docker run -d --name waha-api -e WAHA_DASHBOARD_USERNAME=ooitech -e WAHA_DASHBOARD_PASSWORD=ooitech -e WHATSAPP_API_KEY=wa-V7FwX7QECu1Oqa09OAgI4LuqXmnGlfJW -p 3003:3000 --network $apinetwork devlikeapro/waha-plus
 elif [[ $architecture == "armv7l" ]]; then
- docker run -d --name waha-api -e WAHA_DASHBOARD_USERNAME=ooitech -e WAHA_DASHBOARD_PASSWORD=ooitech -e WHATSAPP_API_KEY=wa-V7FwX7QECu1Oqa09OAgI4LuqXmnGlfJW -p 3003:3000 --network yansir-network devlikeapro/waha-plus:arm
+ docker run -d --name waha-api -e WAHA_DASHBOARD_USERNAME=ooitech -e WAHA_DASHBOARD_PASSWORD=ooitech -e WHATSAPP_API_KEY=wa-V7FwX7QECu1Oqa09OAgI4LuqXmnGlfJW -p 3003:3000 --network $apinetwork devlikeapro/waha-plus:arm
 elif [[ $architecture == "aarch64" ]]; then
- docker run -d --name waha-api -e WAHA_DASHBOARD_USERNAME=ooitech -e WAHA_DASHBOARD_PASSWORD=ooitech -e WHATSAPP_API_KEY=wa-V7FwX7QECu1Oqa09OAgI4LuqXmnGlfJW -p 3003:3000 --network yansir-network devlikeapro/waha-plus:arm
+ docker run -d --name waha-api -e WAHA_DASHBOARD_USERNAME=ooitech -e WAHA_DASHBOARD_PASSWORD=ooitech -e WHATSAPP_API_KEY=wa-V7FwX7QECu1Oqa09OAgI4LuqXmnGlfJW -p 3003:3000 --network $apinetwork devlikeapro/waha-plus:arm
 else
- docker run -d --name waha-api -e WAHA_DASHBOARD_USERNAME=ooitech -e WAHA_DASHBOARD_PASSWORD=ooitech -e WHATSAPP_API_KEY=wa-V7FwX7QECu1Oqa09OAgI4LuqXmnGlfJW -p 3003:3000 --network yansir-network devlikeapro/waha-plus
+ docker run -d --name waha-api -e WAHA_DASHBOARD_USERNAME=ooitech -e WAHA_DASHBOARD_PASSWORD=ooitech -e WHATSAPP_API_KEY=wa-V7FwX7QECu1Oqa09OAgI4LuqXmnGlfJW -p 3003:3000 --network $apinetwork devlikeapro/waha-plus
 fi
 
 docker logout
