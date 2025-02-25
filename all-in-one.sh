@@ -1117,20 +1117,6 @@ read -p "请输入 whatsapp-http-api-plus 密码" apipw
 
 echo "$apipw" | docker login -u devlikeapro --password-stdin
 
-# 获取系统架构
-architecture=$(uname -m)
-
-# 判断系统架构并输出不同文字
-if [[ $architecture == "x86_64" ]]; then
- apiarch="update.yml"
-elif [[ $architecture == "armv7l" ]]; then
- apiarch="arm-update.yml"
-elif [[ $architecture == "aarch64" ]]; then
- apiarch="arm-update.yml"
-else
- apiarch="update.yml"
-fi
-
 
 git clone https://github.com/jerryrat/whatsapp-docker-compose-file.git && cd whatsapp-docker-compose-file
 
@@ -1157,16 +1143,33 @@ echo
 echo -e "${Green_font_prefix}请截图保存或者复制保存${Font_color_suffix}"
 echo -e "WAHA API 管理的用户名和密码为:${Green_font_prefix} $apiusername ${Font_color_suffix} API管理平台的密码为:${Green_font_prefix} $apipassword ${Font_color_suffix} "
 echo -e "WAHA API 为:${Green_font_prefix} $API_KEY ${Font_color_suffix}"
-echo -e "WAHA API 管理平台为:${Green_font_prefix} http://$current_ip:3002/dashboard/ ${Font_color_suffix}"
+echo -e "WAHA API 管理平台为:${Green_font_prefix} http://$current_ip:3003/dashboard/ ${Font_color_suffix}"
 echo
 echo
+# 使用 sed 更新 YAML 文件 暂时不能用
+# sed -i "/waha:/a \    environment:\n      WAHA_DASHBOARD_USERNAME: $apiusername\n      WAHA_DASHBOARD_PASSWORD: $apipassword\n      WHATSAPP_API_KEY: $API_KEY" ${apiarch}
+
 # 使用 sed 更新 YAML 文件
 sed -i "/waha:/a \    environment:\n      WAHA_DASHBOARD_USERNAME: $apiusername\n      WAHA_DASHBOARD_PASSWORD: $apipassword\n      WHATSAPP_API_KEY: $API_KEY" ${apiarch}
 
-echo -e "${Green_font_prefix}安装文件已更新！${Font_color_suffix}"
+echo -e "${Green_font_prefix}API服务正在安装更新！${Font_color_suffix}"
 echo -e "${Green_font_prefix}开始安装！${Font_color_suffix}"
-docker login -u devlikeapro -p $apipw && docker-compose -f ${apiarch}  pull  && docker-compose -f ${apiarch} up -d  && docker logout
-echo -e " ${Green_font_prefix}API升级完成${Font_color_suffix} 如果所有服务正常（running or started）运行，请访问 ${Green_font_prefix}http://$current_ip:3002/dashboard/${Font_color_suffix} 进行API的更多设置，注意是${Green_font_prefix}http${Font_color_suffix} 不是${Green_font_prefix}https${Font_color_suffix}"
+
+# 获取系统架构
+architecture=$(uname -m)
+
+# 判断系统架构并输出不同文字
+if [[ $architecture == "x86_64" ]]; then
+ docker run -d --name waha-api -e WAHA_DASHBOARD_USERNAME=ooitech -e WAHA_DASHBOARD_PASSWORD=ooitech -e WHATSAPP_API_KEY=wa-V7FwX7QECu1Oqa09OAgI4LuqXmnGlfJW -p 3003:3000 --network yansir-network devlikeapro/waha-plus
+elif [[ $architecture == "armv7l" ]]; then
+ docker run -d --name waha-api -e WAHA_DASHBOARD_USERNAME=ooitech -e WAHA_DASHBOARD_PASSWORD=ooitech -e WHATSAPP_API_KEY=wa-V7FwX7QECu1Oqa09OAgI4LuqXmnGlfJW -p 3003:3000 --network yansir-network devlikeapro/waha-plus:arm
+elif [[ $architecture == "aarch64" ]]; then
+ docker run -d --name waha-api -e WAHA_DASHBOARD_USERNAME=ooitech -e WAHA_DASHBOARD_PASSWORD=ooitech -e WHATSAPP_API_KEY=wa-V7FwX7QECu1Oqa09OAgI4LuqXmnGlfJW -p 3003:3000 --network yansir-network devlikeapro/waha-plus:arm
+else
+ docker run -d --name waha-api -e WAHA_DASHBOARD_USERNAME=ooitech -e WAHA_DASHBOARD_PASSWORD=ooitech -e WHATSAPP_API_KEY=wa-V7FwX7QECu1Oqa09OAgI4LuqXmnGlfJW -p 3003:3000 --network yansir-network devlikeapro/waha-plus
+fi
+
+echo -e " ${Green_font_prefix}API升级完成${Font_color_suffix} 如果所有服务正常（running or started）运行，请访问 ${Green_font_prefix}http://$current_ip:3003/dashboard/${Font_color_suffix} 进行API的更多设置，注意是${Green_font_prefix}http${Font_color_suffix} 不是${Green_font_prefix}https${Font_color_suffix}"
 echo -e " ${Green_font_prefix}请更新面板中的 Metadata 值 登录用户名密码参见截图 ${Font_color_suffix} "
 
 echo
