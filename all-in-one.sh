@@ -1155,9 +1155,18 @@ sed -i "/waha:/a \    environment:\n      WAHA_DASHBOARD_USERNAME: $apiusername\
 echo -e "${Green_font_prefix}API服务正在安装更新！${Font_color_suffix}"
 echo -e "${Green_font_prefix}开始安装！${Font_color_suffix}"
 
+# 查找包含 yansir-network 的 Docker 网络名称
 apinetwork=$(docker network ls --filter "name=yansir-network" --format "{{.Name}}" | head -n 1)
 
+# 如果没有找到相关网络，则创建一个新的网桥
+if [[ -z "$apinetwork" ]]; then
+    echo "未找到 yansir-network 网络，正在创建 yansir-network-api..."
+    docker network create yansir-network-api
+    apinetwork="yansir-network-api"
+fi
 
+# 输出结果
+echo "使用的网络名称: $apinetwork"
 
 # 获取系统架构
 architecture=$(uname -m)
