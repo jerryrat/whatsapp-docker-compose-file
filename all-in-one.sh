@@ -1276,13 +1276,37 @@ del8n() {
 
 #!/bin/bash
 
+#!/bin/bash
+
 # 容器名称
 CONTAINER_NAME="n8n"
 
-# 停止并删除旧容器
-echo "停止并删除旧容器..."
-docker stop $CONTAINER_NAME
-docker rm $CONTAINER_NAME
+# 镜像名称
+IMAGE_NAME="docker.n8n.io/n8nio/n8n"
+
+# Docker 卷名称
+VOLUME_NAME="n8n_data"
+
+# 停止并删除容器
+echo "停止并删除容器..."
+docker stop $CONTAINER_NAME 2>/dev/null
+docker rm $CONTAINER_NAME 2>/dev/null
+
+# 删除镜像
+echo "删除镜像..."
+docker rmi $IMAGE_NAME 2>/dev/null
+
+# 删除 Docker 卷
+echo "删除 Docker 卷..."
+docker volume rm $VOLUME_NAME 2>/dev/null
+
+# 检查是否删除成功
+echo "检查容器、镜像和卷是否已删除..."
+docker ps -a | grep $CONTAINER_NAME
+docker images | grep $(echo $IMAGE_NAME | cut -d'/' -f2-)
+docker volume ls | grep $VOLUME_NAME
+
+echo "n8n 已完全删除！"
 
 
 echo
