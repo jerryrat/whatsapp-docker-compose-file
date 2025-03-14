@@ -1219,7 +1219,8 @@ CONTAINER_NAME="n8n"
 if docker ps -a --format '{{.Names}}' | grep -q "^$CONTAINER_NAME$"; then
   echo -e " ${Green_font_prefix}n8n安装成功${Font_color_suffix} 请访问 ${Green_font_prefix}http://$domain:5678/${Font_color_suffix} 进行更多设置，注意是${Green_font_prefix}http${Font_color_suffix} 不是${Green_font_prefix}https${Font_color_suffix}"
   echo -e " ${Green_font_prefix}如果有问题请直接升级，会保留上次安装的配置和自动化脚本${Font_color_suffix}"
-  exit 0
+  break_end
+  start_menu
 fi
 
 # 提示用户输入域名地址
@@ -1252,7 +1253,8 @@ CONTAINER_NAME="n8n"
 # 检查容器是否存在
 if ! docker ps -a --format '{{.Names}}' | grep -q "^$CONTAINER_NAME$"; then
   echo "n8n 程序不存在，无需升级。"
-  exit 0
+  break_end
+  start_menu
 fi
 
 # 容器名称
