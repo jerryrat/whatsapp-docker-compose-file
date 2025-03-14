@@ -272,6 +272,15 @@ fi
   99)
     checkcpu
     ;;
+  50)
+    installn8n
+    ;;
+  51)
+    updaten8n
+    ;;
+  52)
+    deln8n
+    ;;
   0)
     exit 1
     ;;
@@ -1195,6 +1204,91 @@ echo -e " ${Green_font_prefix}请更新面板中的 Metadata 值 登录用户名
 echo
 break_end
 start_menu
+}
+
+
+#安装n8n
+installn8n() {
+
+#!/bin/bash
+
+# 提示用户输入域名地址
+read -p "请输入域名地址（回车默认使用当前 IP 地址 $current_ip）：" domain
+
+# 如果用户直接回车，则使用当前 IP 地址
+if [ -z "$domain" ]; then
+  domain=$current_ip
+fi
+
+# 输出结果
+echo "使用的地址为：$domain"
+docker run -d --name n8n -p 5678:5678 -v n8n_data:/home/node/.n8n -e N8N_SECURE_COOKIE=false  -e N8N_HOST=$domain -e WEBHOOK_URL=https://$domain -e GENERIC_TIMEZONE=Asia/Shanghai docker.n8n.io/n8nio/n8n
+echo -e " ${Green_font_prefix}n8n安装成功${Font_color_suffix} 请访问 ${Green_font_prefix}http://$domain:5678/${Font_color_suffix} 进行更多设置，注意是${Green_font_prefix}http${Font_color_suffix} 不是${Green_font_prefix}https${Font_color_suffix}"
+
+echo
+break_end
+start_menu
+
+}
+
+#升级n8n
+updaten8n() {
+
+#!/bin/bash
+
+# 容器名称
+CONTAINER_NAME="n8n"
+
+# 停止并删除旧容器
+echo "停止并升级旧程序..."
+docker stop $CONTAINER_NAME
+docker rm $CONTAINER_NAME
+
+# 拉取最新镜像
+echo "拉取最新镜像..."
+docker pull docker.n8n.io/n8nio/n8n
+
+# 重新运行容器
+echo "重新运行容器..."
+
+# 提示用户输入域名地址
+read -p "请输入域名地址（回车默认使用当前 IP 地址 $current_ip）：" domain
+
+# 如果用户直接回车，则使用当前 IP 地址
+if [ -z "$domain" ]; then
+  domain=$current_ip
+fi
+
+# 输出结果
+echo "使用的地址为：$domain"
+docker run -d --name n8n -p 5678:5678 -v n8n_data:/home/node/.n8n -e N8N_SECURE_COOKIE=false  -e N8N_HOST=$domain -e WEBHOOK_URL=https://$domain -e GENERIC_TIMEZONE=Asia/Shanghai docker.n8n.io/n8nio/n8n
+echo -e " ${Green_font_prefix}n8n升级成功${Font_color_suffix} 请访问 ${Green_font_prefix}http://$domain:5678/${Font_color_suffix} 进行更多设置，注意是${Green_font_prefix}http${Font_color_suffix} 不是${Green_font_prefix}https${Font_color_suffix}"
+
+echo
+break_end
+start_menu
+
+}
+
+
+#升级n8n
+del8n() {
+
+#!/bin/bash
+
+# 容器名称
+CONTAINER_NAME="n8n"
+
+# 停止并删除旧容器
+echo "停止并删除旧容器..."
+docker stop $CONTAINER_NAME
+docker rm $CONTAINER_NAME
+
+
+echo
+break_end
+start_menu
+
 }
 
 
