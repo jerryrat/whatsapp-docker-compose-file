@@ -1294,7 +1294,7 @@ start_menu
 
 
 #升级n8n
-del8n() {
+deln8n() {
 
 #!/bin/bash
 
