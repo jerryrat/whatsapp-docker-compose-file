@@ -151,6 +151,12 @@ start_menu() {
  ${Green_font_prefix}7.${Font_color_suffix} 重启WhatsApp服务    --遇到设置网页无法显示或者机器人无法工作 可以先尝试该选项
  ${Green_font_prefix}8.${Font_color_suffix} 添加APIkey          --为WhatsApp机器人添加API-KEY 发消息用 二开功能
  
+  ————————————————————————————————————————————————————————————————
+  N8N服务 自动化工作流软件 类似 make.com
+ ${Green_font_prefix}50.${Font_color_suffix} 安装N8N服务        --全新安装N8N工作流软件
+ ${Green_font_prefix}51.${Font_color_suffix} 升级N8N服务        --升级最新N8N
+ ${Green_font_prefix}52.${Font_color_suffix} 卸载N8N服务        --卸载并清空N8N服务
+ 
  ————————————————————————————————————————————————————————————————
   lobechat服务 如果提示未安装 不影响WhatsApp 自动对话服务机器人
  ${Green_font_prefix}10.${Font_color_suffix} 安装lobechat服务    --全新安装lobechat
@@ -690,7 +696,6 @@ containers=(
   "redis"
   "yansir-whatsapp"
   "waha"
-  "lobe-chat"
 )
 
 # 检查容器是否存在并正常运行
