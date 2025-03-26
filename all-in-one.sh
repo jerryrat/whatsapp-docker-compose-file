@@ -1156,7 +1156,7 @@ echo
 echo
 echo -e "${Green_font_prefix}请截图保存或者复制保存${Font_color_suffix}"
 echo -e "WAHA API 管理的用户名和密码为:${Green_font_prefix} $apiusername ${Font_color_suffix} API管理平台的密码为:${Green_font_prefix} $apipassword ${Font_color_suffix} "
-echo -e "WAHA API 为:${Green_font_prefix} $API_KEY ${Font_color_suffix}"
+echo -e "WAHA API Metadata X-Api-Key 为:${Green_font_prefix} $API_KEY ${Font_color_suffix}"
 echo -e "WAHA API 管理平台为:${Green_font_prefix} http://$current_ip:3003/dashboard/ ${Font_color_suffix}"
 echo
 echo
@@ -1199,7 +1199,7 @@ fi
 docker logout
 
 echo -e " ${Green_font_prefix}API升级完成${Font_color_suffix} 如果所有服务正常（running or started）运行，请访问 ${Green_font_prefix}http://$current_ip:3003/dashboard/${Font_color_suffix} 进行API的更多设置，注意是${Green_font_prefix}http${Font_color_suffix} 不是${Green_font_prefix}https${Font_color_suffix}"
-echo -e " ${Green_font_prefix}请更新面板中的 Metadata 值 登录用户名密码参见截图 ${Font_color_suffix} "
+echo -e " ${Green_font_prefix}请更新面板中的 Metadata X-Api-Key 登录用户名密码参见截图 ${Font_color_suffix} "
 
 echo
 break_end
