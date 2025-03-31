@@ -156,7 +156,8 @@ start_menu() {
  ${Green_font_prefix}50.${Font_color_suffix} 安装N8N服务        --全新安装N8N工作流软件
  ${Green_font_prefix}51.${Font_color_suffix} 升级N8N服务        --升级最新N8N
  ${Green_font_prefix}52.${Font_color_suffix} 卸载N8N服务        --卸载并清空N8N服务
- 
+ ${Green_font_prefix}53.${Font_color_suffix} 查询配置信息        --忘记API时一键查询
+  
  ————————————————————————————————————————————————————————————————
   lobechat服务 如果提示未安装 不影响WhatsApp 自动对话服务机器人
  ${Green_font_prefix}10.${Font_color_suffix} 安装lobechat服务    --全新安装lobechat
@@ -280,6 +281,9 @@ fi
     ;;
   52)
     deln8n
+    ;;
+  53)
+    findn8n
     ;;
   0)
     exit 1
@@ -1293,7 +1297,7 @@ start_menu
 }
 
 
-#升级n8n
+#删除n8n
 deln8n() {
 
 #!/bin/bash
@@ -1342,6 +1346,18 @@ docker volume ls | grep $VOLUME_NAME
 
 echo "n8n 已完全删除！"
 
+
+echo
+break_end
+start_menu
+
+}
+
+#查询n8n
+findn8n() {
+
+
+docker exec waha-api env | grep -E "WAHA_DASHBOARD_USERNAME|WAHA_DASHBOARD_PASSWORD|WHATSAPP_API_KEY"
 
 echo
 break_end
