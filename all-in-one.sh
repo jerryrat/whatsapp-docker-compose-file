@@ -1391,7 +1391,7 @@ check_docker_installed() {
 check_container_exists() {
     if ! docker ps -a --format '{{.Names}}' | grep -q "^waha-api$"; then
         echo -e "${YELLOW}提示: waha-api 容器不存在${NC}"
-        exit 1
+        exit 0
     fi
 }
 
@@ -1413,7 +1413,7 @@ delwahaapimain() {
     
     if [[ "$confirm" != "y" && "$confirm" != "Y" ]]; then
         echo -e "${BLUE}操作已取消${NC}"
-        exit 1
+        exit 0
     fi
     
     # 执行删除
@@ -1427,7 +1427,7 @@ delwahaapimain() {
         exit 1
     else
         echo -e "${GREEN}✓ waha-api 容器已成功删除${NC}"
-        exit 1
+        exit 0
     fi
 }
 
