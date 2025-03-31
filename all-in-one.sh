@@ -142,8 +142,7 @@ Update_Shell() {
     echo "脚本是最新版本，无需更新。按键盘任意按键返回主菜单。"
   fi
   echo
-  break_end
-  start_menu
+  ./all-in-one.sh
 }
 
 
