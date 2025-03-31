@@ -14,6 +14,8 @@ export PATH
 # YELLOW='\033[0;33m'
 # SKYBLUE='\033[0;36m'
 # PLAIN='\033[0m'
+# 颜色定义
+
 
 sh_ver="3.5"
 github="raw.githubusercontent.com/yansircc/WhatsApp/master"
@@ -29,6 +31,13 @@ github_network=1
 Green_font_prefix="\033[32m"
 Red_font_prefix="\033[31m"
 Font_color_suffix="\033[0m"
+# 颜色定义
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
 Info="${Green_font_prefix}[信息]${Font_color_suffix}"
 Error="${Red_font_prefix}[错误]${Font_color_suffix}"
 Tip="${Green_font_prefix}[注意]${Font_color_suffix}"
@@ -150,13 +159,15 @@ start_menu() {
  ${Green_font_prefix}6.${Font_color_suffix} 查看WhatsApp设置密码 --请勿泄露IP
  ${Green_font_prefix}7.${Font_color_suffix} 重启WhatsApp服务    --遇到设置网页无法显示或者机器人无法工作 可以先尝试该选项
  ${Green_font_prefix}8.${Font_color_suffix} 添加APIkey          --为WhatsApp机器人添加API-KEY 发消息用 二开功能
+ ${Green_font_prefix}81.${Font_color_suffix} 查询配置信息        --忘记API时一键查询
+ ${Green_font_prefix}82.${Font_color_suffix} 删除APIkey          --删除waha-api服务
  
   ————————————————————————————————————————————————————————————————
   N8N服务 自动化工作流软件 类似 make.com
  ${Green_font_prefix}50.${Font_color_suffix} 安装N8N服务        --全新安装N8N工作流软件
  ${Green_font_prefix}51.${Font_color_suffix} 升级N8N服务        --升级最新N8N
  ${Green_font_prefix}52.${Font_color_suffix} 卸载N8N服务        --卸载并清空N8N服务
- ${Green_font_prefix}53.${Font_color_suffix} 查询配置信息        --忘记API时一键查询
+
   
  ————————————————————————————————————————————————————————————————
   lobechat服务 如果提示未安装 不影响WhatsApp 自动对话服务机器人
@@ -282,8 +293,11 @@ fi
   52)
     deln8n
     ;;
-  53)
-    findn8n
+  81)
+    findwahaapi
+    ;;
+  82)
+    delwahaapi
     ;;
   0)
     exit 1
@@ -1354,10 +1368,76 @@ start_menu
 }
 
 #查询n8n
-findn8n() {
+findwahaapi() {
 
 
 docker exec waha-api env | grep -E "WAHA_DASHBOARD_USERNAME|WAHA_DASHBOARD_PASSWORD|WHATSAPP_API_KEY"
+
+echo
+break_end
+start_menu
+
+}
+
+
+# 检查Docker是否安装
+check_docker_installed() {
+    if ! command -v docker &> /dev/null; then
+        echo -e "${RED}错误: Docker 未安装，请先安装Docker${NC}"
+        exit 1
+    fi
+}
+
+# 检查容器是否存在
+check_container_exists() {
+    if ! docker ps -a --format '{{.Names}}' | grep -q "^waha-api$"; then
+        echo -e "${YELLOW}提示: waha-api 容器不存在${NC}"
+        exit 0
+    fi
+}
+
+# 主函数
+delwahaapimain() {
+    echo -e "${BLUE}=== waha-api 容器删除脚本 ===${NC}"
+    
+    # 检查Docker
+    check_docker_installed
+    echo -e "${GREEN}✓ Docker 已安装${NC}"
+    
+    # 检查容器
+    check_container_exists
+    echo -e "${GREEN}✓ 找到 waha-api 容器${NC}"
+    
+    # 确认提示
+    echo -e "${YELLOW}警告: 这将永久删除 waha-api 容器${NC}"
+    read -p "确定要删除吗? [y/N]: " confirm
+    
+    if [[ "$confirm" != "y" && "$confirm" != "Y" ]]; then
+        echo -e "${BLUE}操作已取消${NC}"
+        exit 0
+    fi
+    
+    # 执行删除
+    echo -e "${YELLOW}正在删除 waha-api 容器...${NC}"
+    docker rm -f waha-api
+    
+    # 验证结果
+    sleep 1
+    if docker ps -a --format '{{.Names}}' | grep -q "^waha-api$"; then
+        echo -e "${RED}错误: 删除失败，waha-api 容器仍然存在${NC}"
+        exit 1
+    else
+        echo -e "${GREEN}✓ waha-api 容器已成功删除${NC}"
+        exit 0
+    fi
+}
+
+
+
+#查询n8n
+delwahaapi() {
+
+delwahaapimain
 
 echo
 break_end
