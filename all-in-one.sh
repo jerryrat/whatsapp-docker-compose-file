@@ -837,11 +837,15 @@ install_add_docker() {
 
 install_docker() {
     if ! command -v docker &>/dev/null; then
-        install_add_docker
+        install_add_docker || {
+            echo -e "${Red_font_prefix}Docker 安装失败！${Font_color_suffix}"
+            read -n 1 -s -r -p "按任意键返回主菜单..."
+            start_menu
+            return 1
+        }
     else
-        echo -e "${Green_font_prefix}Docker 已经安装 按键盘任意按键将返回主菜单${Font_color_suffix}"
-        echo
-        break_end
+        echo -e "${Green_font_prefix}Docker 已经安装。${Font_color_suffix}"
+        read -n 1 -s -r -p "按任意键返回主菜单..."
         start_menu
     fi
 }
