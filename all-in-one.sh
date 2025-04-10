@@ -1208,13 +1208,13 @@ architecture=$(uname -m)
 
 # 判断系统架构并输出不同文字
 if [[ $architecture == "x86_64" ]]; then
- docker run -d --name waha-api -e WAHA_DASHBOARD_USERNAME=$apiusername -e WAHA_DASHBOARD_PASSWORD=$apipassword -e WHATSAPP_API_KEY=$API_KEY -p 3003:3000 --network $apinetwork devlikeapro/waha-plus
+ docker run -d --name whatsapp-api -e WAHA_DASHBOARD_USERNAME=$apiusername -e WAHA_DASHBOARD_PASSWORD=$apipassword -e WHATSAPP_API_KEY=$API_KEY -p 3003:3000 --network $apinetwork devlikeapro/waha-plus
 elif [[ $architecture == "armv7l" ]]; then
- docker run -d --name waha-api -e WAHA_DASHBOARD_USERNAME=$apiusername -e WAHA_DASHBOARD_PASSWORD=$apipassword -e WHATSAPP_API_KEY=$API_KEY -p 3003:3000 --network $apinetwork devlikeapro/waha-plus:arm
+ docker run -d --name whatsapp-api -e WAHA_DASHBOARD_USERNAME=$apiusername -e WAHA_DASHBOARD_PASSWORD=$apipassword -e WHATSAPP_API_KEY=$API_KEY -p 3003:3000 --network $apinetwork devlikeapro/waha-plus:arm
 elif [[ $architecture == "aarch64" ]]; then
- docker run -d --name waha-api -e WAHA_DASHBOARD_USERNAME=$apiusername -e WAHA_DASHBOARD_PASSWORD=$apipassword -e WHATSAPP_API_KEY=$API_KEY -p 3003:3000 --network $apinetwork devlikeapro/waha-plus:arm
+ docker run -d --name whatsapp-api -e WAHA_DASHBOARD_USERNAME=$apiusername -e WAHA_DASHBOARD_PASSWORD=$apipassword -e WHATSAPP_API_KEY=$API_KEY -p 3003:3000 --network $apinetwork devlikeapro/waha-plus:arm
 else
- docker run -d --name waha-api -e WAHA_DASHBOARD_USERNAME=$apiusername -e WAHA_DASHBOARD_PASSWORD=$apipassword -e WHATSAPP_API_KEY=$API_KEY -p 3003:3000 --network $apinetwork devlikeapro/waha-plus
+ docker run -d --name whatsapp-api -e WAHA_DASHBOARD_USERNAME=$apiusername -e WAHA_DASHBOARD_PASSWORD=$apipassword -e WHATSAPP_API_KEY=$API_KEY -p 3003:3000 --network $apinetwork devlikeapro/waha-plus
 fi
 
 docker logout
@@ -1374,7 +1374,7 @@ start_menu
 findwahaapi() {
 
 
-docker exec waha-api env | grep -E "WAHA_DASHBOARD_USERNAME|WAHA_DASHBOARD_PASSWORD|WHATSAPP_API_KEY"
+docker exec whatsapp-api env | grep -E "WAHA_DASHBOARD_USERNAME|WAHA_DASHBOARD_PASSWORD|WHATSAPP_API_KEY"
 
 echo
 break_end
@@ -1393,7 +1393,7 @@ check_docker_installed() {
 
 # 检查容器是否存在
 check_container_exists() {
-    if ! docker ps -a --format '{{.Names}}' | grep -q "^waha-api$"; then
+    if ! docker ps -a --format '{{.Names}}' | grep -q "^whatsapp-api$"; then
         echo -e "${YELLOW}提示: waha-api 容器不存在${NC}"
         exit 0
     fi
@@ -1422,7 +1422,7 @@ delwahaapimain() {
     
     # 执行删除
     echo -e "${YELLOW}正在删除 waha-api 容器...${NC}"
-    docker rm -f waha-api
+    docker rm -f whatsapp-api
     
     # 验证结果
     sleep 1
