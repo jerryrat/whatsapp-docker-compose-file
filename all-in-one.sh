@@ -722,6 +722,7 @@ containers=(
   "redis"
   "yansir-whatsapp"
   "waha"
+  "whatsapp-api"
 )
 
 # 检查容器是否存在并正常运行
