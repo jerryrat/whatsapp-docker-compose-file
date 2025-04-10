@@ -591,12 +591,15 @@ install_whatsapp() {
         "redis"
         "yansir-whatsapp"
         "waha"
+        "whatsapp-api"
     )
 
     # 检查容器是否存在并正常运行
     for container in "${containers[@]}"; do
-        if docker ps -a | grep -q "$container"; then
-            if docker ps | grep -q "$container"; then
+        # 检查容器是否存在(包括运行中和停止的)
+        if docker ps -a --format '{{.Names}}' | grep -q "^${container}\$"; then
+            # 检查容器是否正在运行
+            if docker ps --format '{{.Names}}' --filter status=running | grep -q "^${container}\$"; 
                 echo -e " ${Green_font_prefix}$container${Font_color_suffix}服务且正常运行，不建议覆盖安装，请按键盘任意按键返回主菜单选择"
             else
                 echo -e " ${Error} 看起来你曾经安装过 ${Green_font_prefix}$container${Font_color_suffix}服务但停止中"
@@ -727,8 +730,10 @@ containers=(
 
 # 检查容器是否存在并正常运行
 for container in "${containers[@]}"; do
-  if docker ps -a | grep -q "$container"; then
-    if docker ps | grep -q "$container"; then
+    # 检查容器是否存在(包括运行中和停止的)
+  if docker ps -a --format '{{.Names}}' | grep -q "^${container}\$"; then
+        # 检查容器是否正在运行
+    if docker ps --format '{{.Names}}' --filter status=running | grep -q "^${container}\$"; 
       echo -e " 已安装${Green_font_prefix}$container${Font_color_suffix}服务正常运行"
     else
       echo -e " ${Error}  ${Green_font_prefix}$container${Font_color_suffix}服务已安装但停止中(启动失败) 请重启服务器后检测 或者重新安装并启动"
