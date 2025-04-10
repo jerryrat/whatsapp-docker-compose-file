@@ -1130,8 +1130,8 @@ whatsappapi() {
 
 echo -e "${Green_font_prefix}通过此菜单可以添加API服务，安装后请务必截图或者复制保存${Font_color_suffix}"
 
-# 查找名为 “whatsapp-http-api” 的容器
-container_id=$(docker ps -a | grep whatsapp-http-api | awk '{print $1}')
+# 查找名为 “whatsapp-api” 的容器
+container_id=$(docker ps -a | grep whatsapp-api | awk '{print $1}')
 
 # 如果容器存在，则停止并删除容器和卷
 if [ -n "$container_id" ]; then
@@ -1141,7 +1141,7 @@ if [ -n "$container_id" ]; then
   echo "删除容器 $container_id 和关联卷 ..."
   docker rm -f $container_id
 else
-  echo "未找到容器 whatsapp-http-api。"
+  echo "未找到容器 whatsapp-api。"
 fi
 
 
@@ -1426,7 +1426,7 @@ delwahaapimain() {
     
     # 验证结果
     sleep 1
-    if docker ps -a --format '{{.Names}}' | grep -q "^waha-api$"; then
+    if docker ps -a --format '{{.Names}}' | grep -q "^whatsapp-api$"; then
         echo -e "${RED}错误: 删除失败，waha-api 容器仍然存在${NC}"
         exit 1
     else
