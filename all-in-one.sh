@@ -739,7 +739,7 @@ for container in "${containers[@]}"; do
       echo -e " ${Error}  ${Green_font_prefix}$container${Font_color_suffix}服务已安装但停止中(启动失败) 请重启服务器后检测 或者重新安装并启动"
     fi
   else
-      echo -e " ${Error} 未安装${Green_font_prefix}$container${Font_color_suffix} 服务 Whatsapp机器人无法使用！如需要请安装服务"
+      echo -e " ${Error} 未安装${Green_font_prefix}$container${Font_color_suffix} 服务 如需要请安装服务"
   fi
 done
 
@@ -766,13 +766,15 @@ if docker network ls | grep -q "yansir-network"; then
 
     check_containers
 
+    echo -e "${Green_font_prefix}whatsapp-api 为DIY扩展功能不影响WhatsApp机器人${Font_color_suffix}"
+
     
     echo -e " 已建立${Green_font_prefix}yansir-network${Font_color_suffix}网络 正常运行"
         
 else
 # 网络不存在
     check_containers
-
+echo -e "${Green_font_prefix}whatsapp-api 为DIY扩展功能不影响WhatsApp机器人${Font_color_suffix}"
   echo -e " ${Error} 未建立${Green_font_prefix}yansir-network${Font_color_suffix}网络 请依次安装服务"
 fi
 
