@@ -159,7 +159,7 @@ start_menu() {
  ${Green_font_prefix}7.${Font_color_suffix} 重启WhatsApp服务    --遇到设置网页无法显示或者机器人无法工作 可以先尝试该选项${NC}
  
   ——————————————以下为二次开发内容 无需求勿安装————————————————————————
-${Green_font_prefix}8.${Font_color_suffix} 添加APIkey          --为WhatsApp机器人添加API-KEY 发消息用 二开功能
+ ${Green_font_prefix}8.${Font_color_suffix} 添加APIkey          --为WhatsApp机器人添加API-KEY 发消息用 二开功能
  ${Green_font_prefix}81.${Font_color_suffix} 查询配置信息        --忘记API时一键查询
  ${Green_font_prefix}82.${Font_color_suffix} 删除APIkey          --删除waha-api服务
  
