@@ -302,7 +302,7 @@ fi
     updatenocodb
     ;;
   62)
-    delnocodb
+    uninstallnocodb
     ;;
   81)
     findwahaapi
