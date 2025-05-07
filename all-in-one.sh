@@ -157,36 +157,35 @@ start_menu() {
  ${Green_font_prefix}5.${Font_color_suffix} 更新WhatsApp服务    --保留数据库，只更新聊天服务插件
  ${Green_font_prefix}6.${Font_color_suffix} 查看WhatsApp设置密码 --请勿泄露IP
  ${Green_font_prefix}7.${Font_color_suffix} 重启WhatsApp服务    --遇到设置网页无法显示或者机器人无法工作 可以先尝试该选项
+ 
   ——————————————以下为二次开发内容 无需求勿安装————————————————————————
- ${Green_font_prefix}8.${Font_color_suffix} 添加APIkey          --为WhatsApp机器人添加API-KEY 发消息用 二开功能
+${Green_font_prefix}8.${Font_color_suffix} 添加APIkey          --为WhatsApp机器人添加API-KEY 发消息用 二开功能
  ${Green_font_prefix}81.${Font_color_suffix} 查询配置信息        --忘记API时一键查询
  ${Green_font_prefix}82.${Font_color_suffix} 删除APIkey          --删除waha-api服务
  
-  ————————————————————————————————————————————————————————————————
-  N8N服务 自动化工作流软件 类似 make.com
+  ——————————————N8N服务 自动化工作流软件 类似 make.com—————————————————
  ${Green_font_prefix}50.${Font_color_suffix} 安装N8N服务        --全新安装N8N工作流软件
  ${Green_font_prefix}51.${Font_color_suffix} 升级N8N服务        --升级最新N8N
  ${Green_font_prefix}52.${Font_color_suffix} 卸载N8N服务        --卸载并清空N8N服务
 
   
- ————————————————————————————————————————————————————————————————
-  lobechat服务 如果提示未安装 不影响WhatsApp 自动对话服务机器人
+ ——————————————lobechat服务 如果提示未安装 不影响WhatsApp 自动对话服务机器人——————————
  ${Green_font_prefix}10.${Font_color_suffix} 安装lobechat服务    --全新安装lobechat
  ${Green_font_prefix}11.${Font_color_suffix} 升级lobechat服务    --升级最新lobechat
  ${Green_font_prefix}12.${Font_color_suffix} 卸载lobechat服务    --卸载并清空lobechat所有安装
  
-————————————————————————————————————————————————————————————————
+———————————————开心版宝塔面板———————————————————————————————————
  ${Green_font_prefix}20.${Font_color_suffix} 安装开心版宝塔面板    --测试功能给有需要的人
  ${Green_font_prefix}21.${Font_color_suffix} 卸载开心版宝塔面板    
-————————————————————————————————————————————————————————————————
+——————————————1Panel面板———————————————————————————————————————
  ${Green_font_prefix}30.${Font_color_suffix} 安装1Panel面板        --测试功能给有需要的人，集成了AI大模型UI一键安装
  ${Green_font_prefix}31.${Font_color_suffix} 卸载1Panel面板        
-————————————————————————————————————————————————————————————————
+—————————————测试服务器的IP质量—————————————————————————————————
  ${Green_font_prefix}40.${Font_color_suffix} 测试服务器的IP质量是否支持ChatGPT    --测试功能
-————————————————————————————————————————————————————————————————
+—————————————一键安装梯子——————————————————————————————————
  ${Green_font_prefix}66.${Font_color_suffix} 隐藏功能，利用闲置资源上网           --测试功能，请忽略广告，若有意外概不负责
  ${Green_font_prefix}67.${Font_color_suffix} 删除上述功能
-————————————————————————————————————————————————————————————————
+——————————————查看CPU占用—————————————————————————————————————————
  ${Green_font_prefix}99.${Font_color_suffix} 查看VPS前十CPU进程    --如果遇到whatsapp频繁死机，重启故障依旧，排查VPS是否被植入木马或者挖矿程序
  ${Green_font_prefix}0.${Font_color_suffix} 退出脚本 
  
