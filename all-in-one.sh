@@ -168,6 +168,10 @@ start_menu() {
  ${Green_font_prefix}51.${Font_color_suffix} 升级N8N服务        --升级最新N8N
  ${Green_font_prefix}52.${Font_color_suffix} 卸载N8N服务        --卸载并清空N8N服务
 
+ ${Green_font_prefix}60.${Font_color_suffix} 安装NOCODE数据库        --全新安装NOCODE轻量数据库
+ ${Green_font_prefix}61.${Font_color_suffix} 升级NOCODE数据库        --升级最新NOCODE
+ ${Green_font_prefix}62.${Font_color_suffix} 卸载NOCODE数据库        --卸载并清空NOCODE服务
+
   ——————————————lobechat服务 如果提示未安装 不影响WhatsApp 自动对话服务机器人——————————
  ${Green_font_prefix}10.${Font_color_suffix} 安装lobechat服务    --全新安装lobechat
  ${Green_font_prefix}11.${Font_color_suffix} 升级lobechat服务    --升级最新lobechat
@@ -290,6 +294,15 @@ fi
     ;;
   52)
     deln8n
+    ;;
+  60)
+    installnocodb
+    ;;
+  61)
+    updatenocodb
+    ;;
+  62)
+    delnocodb
     ;;
   81)
     findwahaapi
@@ -1450,6 +1463,88 @@ echo
 break_end
 start_menu
 
+}
+
+# 变量配置
+CONTAINER_NAME="nocodb"
+VOLUME_NAME="nocodb_data"
+PORT="8080"
+IMAGE="nocodb/nocodb:latest"
+
+
+
+# 安装NocoDB
+installnocodb() {
+    check_docker_installed
+    
+    if [ "$(docker ps -aq -f name=${CONTAINER_NAME})" ]; then
+        echo -e "${YELLOW}检测到已存在的NocoDB容器，请先卸载或更新${NC}"
+        exit 1
+    fi
+
+    echo -e "${GREEN}正在安装NocoDB...${NC}"
+    docker run -d --name ${CONTAINER_NAME} \
+        -p ${PORT}:8080 \
+        -v ${VOLUME_NAME}:/usr/app/data/ \
+        ${IMAGE}
+
+    echo -e "${GREEN}NocoDB 安装成功！${NC}"
+    echo -e "访问地址: ${YELLOW}http://localhost:${PORT}${NC}"
+}
+
+# 更新NocoDB
+updatenocodb() {
+    check_docker_installed
+
+    if [ ! "$(docker ps -aq -f name=${CONTAINER_NAME})" ]; then
+        echo -e "${YELLOW}未找到NocoDB容器，请先安装${NC}"
+        exit 1
+    fi
+
+    echo -e "${GREEN}正在更新NocoDB...${NC}"
+    
+    echo "拉取最新镜像..."
+    docker pull ${IMAGE}
+
+    echo "停止并移除旧容器..."
+    docker stop ${CONTAINER_NAME} && docker rm ${CONTAINER_NAME}
+
+    echo "启动新容器..."
+    docker run -d --name ${CONTAINER_NAME} \
+        -p ${PORT}:8080 \
+        -v ${VOLUME_NAME}:/usr/app/data/ \
+        ${IMAGE}
+
+    echo -e "${GREEN}NocoDB 更新成功！${NC}"
+}
+
+# 完全卸载
+uninstallnocodb() {
+    check_docker_installed
+
+    read -p "确定要完全卸载NocoDB吗？这将删除所有数据！(y/n) " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        echo -e "${YELLOW}已取消卸载操作${NC}"
+        exit 0
+    fi
+
+    echo -e "${RED}正在完全卸载NocoDB...${NC}"
+    
+    if [ "$(docker ps -aq -f name=${CONTAINER_NAME})" ]; then
+        echo "停止并删除容器..."
+        docker stop ${CONTAINER_NAME} && docker rm -v ${CONTAINER_NAME}
+    fi
+
+    if [ "$(docker volume ls -q -f name=${VOLUME_NAME})" ]; then
+        echo "删除数据卷..."
+        docker volume rm ${VOLUME_NAME}
+    fi
+
+    echo "清理镜像..."
+    docker rmi ${IMAGE} 2>/dev/null || true
+
+    echo -e "${GREEN}NocoDB 已完全卸载！${NC}"
 }
 
 
