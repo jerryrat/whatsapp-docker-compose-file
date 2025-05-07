@@ -858,8 +858,8 @@ install_docker() {
 #升级
 update_whatsapp() {
 
-# 查找名为 “whatsapp-http-api” 的容器
-container_id=$(docker ps -a | grep whatsapp-api | awk '{print $1}')
+# 查找名为 “whatsapp-http-api” 的容器 未升级前的旧版本
+container_id=$(docker ps -a | grep whatsapp-http-api | awk '{print $1}')
 
 # 如果容器存在，则停止并删除容器和卷
 if [ -n "$container_id" ]; then
@@ -871,7 +871,7 @@ if [ -n "$container_id" ]; then
 else
   echo "未找到容器 whatsapp-http-api。"
 fi
-
+# 未升级前的旧版本结束
 
 rm -rf whatsapp-docker-compose-file
 
