@@ -871,7 +871,7 @@ if [ -n "$container_id" ]; then
 else
   echo "未找到容器 whatsapp-http-api。"
 fi
-# 未升级前的旧版本结束
+# 未升级前的旧版本删除结束
 
 rm -rf whatsapp-docker-compose-file
 
