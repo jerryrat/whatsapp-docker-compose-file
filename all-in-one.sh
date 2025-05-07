@@ -151,12 +151,12 @@ start_menu() {
   #clear 修复闪屏
   echo && echo -e " 颜sir WhatsApp 一键安装管理脚本 ${Red_font_prefix}[v${sh_ver}] 
  ${Green_font_prefix}1.${Font_color_suffix} 几乎用不着不用选    --颜Sir更新了脚本后选1自动更新vps本地脚本
- ${Green_font_prefix}2.${Font_color_suffix} ${YELLOW}安装docker${YELLOW}          --全系系统请务必安装docker环境，可以选择查看是否已经安装
- ${Green_font_prefix}3.${Font_color_suffix} ${YELLOW}安装WhatsApp服务${YELLOW}    --全自动安装服务
- ${Green_font_prefix}4.${Font_color_suffix} ${YELLOW}卸载Whatsapp服务${YELLOW}    --清空服务器从0开始配置，出了问题选这个卸载重装
- ${Green_font_prefix}5.${Font_color_suffix} ${YELLOW}更新WhatsApp服务${YELLOW}    --保留数据库，只更新聊天服务插件
- ${Green_font_prefix}6.${Font_color_suffix} ${YELLOW}查看WhatsApp设置密码${YELLOW} --请勿泄露IP
- ${Green_font_prefix}7.${Font_color_suffix} ${YELLOW}重启WhatsApp服务${YELLOW}    --遇到设置网页无法显示或者机器人无法工作 可以先尝试该选项
+ ${Green_font_prefix}2.${Font_color_suffix} ${YELLOW}安装docker          --全系系统请务必安装docker环境，可以选择查看是否已经安装
+ ${Green_font_prefix}3.${Font_color_suffix} ${YELLOW}安装WhatsApp服务    --全自动安装服务
+ ${Green_font_prefix}4.${Font_color_suffix} ${YELLOW}卸载Whatsapp服务   --清空服务器从0开始配置，出了问题选这个卸载重装
+ ${Green_font_prefix}5.${Font_color_suffix} ${YELLOW}更新WhatsApp服务    --保留数据库，只更新聊天服务插件
+ ${Green_font_prefix}6.${Font_color_suffix} ${YELLOW}查看WhatsApp设置密码 --请勿泄露IP
+ ${Green_font_prefix}7.${Font_color_suffix} ${YELLOW}重启WhatsApp服务${NC}    --遇到设置网页无法显示或者机器人无法工作 可以先尝试该选项
  
   ——————————————以下为二次开发内容 无需求勿安装————————————————————————
 ${Green_font_prefix}8.${Font_color_suffix} 添加APIkey          --为WhatsApp机器人添加API-KEY 发消息用 二开功能
