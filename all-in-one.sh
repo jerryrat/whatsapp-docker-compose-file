@@ -151,12 +151,12 @@ start_menu() {
   #clear 修复闪屏
   echo && echo -e " 颜sir WhatsApp 一键安装管理脚本 ${Red_font_prefix}[v${sh_ver}] 
  ${Green_font_prefix}1.${Font_color_suffix} 几乎用不着不用选    --颜Sir更新了脚本后选1自动更新vps本地脚本
- ${Green_font_prefix}2.${Font_color_suffix} 安装docker          --全系系统请务必安装docker环境，可以选择查看是否已经安装
- ${Green_font_prefix}3.${Font_color_suffix} 安装WhatsApp服务    --全自动安装服务
- ${Green_font_prefix}4.${Font_color_suffix} 卸载Whatsapp服务    --清空服务器从0开始配置，出了问题选这个卸载重装
- ${Green_font_prefix}5.${Font_color_suffix} 更新WhatsApp服务    --保留数据库，只更新聊天服务插件
- ${Green_font_prefix}6.${Font_color_suffix} 查看WhatsApp设置密码 --请勿泄露IP
- ${Green_font_prefix}7.${Font_color_suffix} 重启WhatsApp服务    --遇到设置网页无法显示或者机器人无法工作 可以先尝试该选项
+ ${Green_font_prefix}2.${Font_color_suffix} ${YELLOW}安装docker${YELLOW}          --全系系统请务必安装docker环境，可以选择查看是否已经安装
+ ${Green_font_prefix}3.${Font_color_suffix} ${YELLOW}安装WhatsApp服务${YELLOW}    --全自动安装服务
+ ${Green_font_prefix}4.${Font_color_suffix} ${YELLOW}卸载Whatsapp服务${YELLOW}    --清空服务器从0开始配置，出了问题选这个卸载重装
+ ${Green_font_prefix}5.${Font_color_suffix} ${YELLOW}更新WhatsApp服务${YELLOW}    --保留数据库，只更新聊天服务插件
+ ${Green_font_prefix}6.${Font_color_suffix} ${YELLOW}查看WhatsApp设置密码${YELLOW} --请勿泄露IP
+ ${Green_font_prefix}7.${Font_color_suffix} ${YELLOW}重启WhatsApp服务${YELLOW}    --遇到设置网页无法显示或者机器人无法工作 可以先尝试该选项
  
   ——————————————以下为二次开发内容 无需求勿安装————————————————————————
 ${Green_font_prefix}8.${Font_color_suffix} 添加APIkey          --为WhatsApp机器人添加API-KEY 发消息用 二开功能
@@ -168,24 +168,23 @@ ${Green_font_prefix}8.${Font_color_suffix} 添加APIkey          --为WhatsApp�
  ${Green_font_prefix}51.${Font_color_suffix} 升级N8N服务        --升级最新N8N
  ${Green_font_prefix}52.${Font_color_suffix} 卸载N8N服务        --卸载并清空N8N服务
 
-  
- ——————————————lobechat服务 如果提示未安装 不影响WhatsApp 自动对话服务机器人——————————
+  ——————————————lobechat服务 如果提示未安装 不影响WhatsApp 自动对话服务机器人——————————
  ${Green_font_prefix}10.${Font_color_suffix} 安装lobechat服务    --全新安装lobechat
  ${Green_font_prefix}11.${Font_color_suffix} 升级lobechat服务    --升级最新lobechat
  ${Green_font_prefix}12.${Font_color_suffix} 卸载lobechat服务    --卸载并清空lobechat所有安装
  
-———————————————开心版宝塔面板———————————————————————————————————
+  ———————————————开心版宝塔面板———————————————————————————————————
  ${Green_font_prefix}20.${Font_color_suffix} 安装开心版宝塔面板    --测试功能给有需要的人
  ${Green_font_prefix}21.${Font_color_suffix} 卸载开心版宝塔面板    
-——————————————1Panel面板———————————————————————————————————————
+  ——————————————1Panel面板———————————————————————————————————————
  ${Green_font_prefix}30.${Font_color_suffix} 安装1Panel面板        --测试功能给有需要的人，集成了AI大模型UI一键安装
  ${Green_font_prefix}31.${Font_color_suffix} 卸载1Panel面板        
-—————————————测试服务器的IP质量—————————————————————————————————
+  —————————————测试服务器的IP质量—————————————————————————————————
  ${Green_font_prefix}40.${Font_color_suffix} 测试服务器的IP质量是否支持ChatGPT    --测试功能
-—————————————一键安装梯子——————————————————————————————————
+  —————————————一键安装梯子——————————————————————————————————
  ${Green_font_prefix}66.${Font_color_suffix} 隐藏功能，利用闲置资源上网           --测试功能，请忽略广告，若有意外概不负责
  ${Green_font_prefix}67.${Font_color_suffix} 删除上述功能
-——————————————查看CPU占用—————————————————————————————————————————
+  ——————————————查看CPU占用—————————————————————————————————————————
  ${Green_font_prefix}99.${Font_color_suffix} 查看VPS前十CPU进程    --如果遇到whatsapp频繁死机，重启故障依旧，排查VPS是否被植入木马或者挖矿程序
  ${Green_font_prefix}0.${Font_color_suffix} 退出脚本 
  
