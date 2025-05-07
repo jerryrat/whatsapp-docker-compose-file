@@ -1490,6 +1490,9 @@ installnocodb() {
 
     echo -e "${GREEN}NocoDB 安装成功！${NC}"
     echo -e "访问地址: ${YELLOW}http://localhost:${PORT}${NC}"
+    echo
+    break_end
+    start_menu
 }
 
 # 更新NocoDB
@@ -1516,6 +1519,9 @@ updatenocodb() {
         ${IMAGE}
 
     echo -e "${GREEN}NocoDB 更新成功！${NC}"
+    echo
+    break_end
+    start_menu
 }
 
 # 完全卸载
@@ -1545,6 +1551,9 @@ uninstallnocodb() {
     docker rmi ${IMAGE} 2>/dev/null || true
 
     echo -e "${GREEN}NocoDB 已完全卸载！${NC}"
+    echo
+    break_end
+    start_menu
 }
 
 
