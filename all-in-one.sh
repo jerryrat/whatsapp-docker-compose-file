@@ -764,13 +764,13 @@ if docker network ls | grep -q "yansir-network"; then
 
 
     check_containers
-    echo -e "${YELLOW} whatsapp-api 为DIY扩展功能不影响WhatsApp机器人${NC}"    
+    echo -e " ${YELLOW} whatsapp-api 为DIY扩展二次开发功能不影响WhatsApp机器人${NC}"    
     echo -e " 已建立${Green_font_prefix}yansir-network${Font_color_suffix}网络 正常运行 请访问 ${Green_font_prefix}http://$current_ip:3000${Font_color_suffix} 进行机器人的更多设置，注意是${Green_font_prefix}http${Font_color_suffix} 不是${Green_font_prefix}https${Font_color_suffix}"
         
 else
 # 网络不存在
     check_containers
-    echo -e "${YELLOW}whatsapp-api 为DIY扩展功能不影响WhatsApp机器人${NC}"
+    echo -e " ${YELLOW} whatsapp-api 为DIY扩展二次开发功能不影响WhatsApp机器人${NC}"
     echo -e " ${Error} 未建立${Green_font_prefix}yansir-network${Font_color_suffix}网络 请依次安装服务"
 fi
 
