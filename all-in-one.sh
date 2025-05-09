@@ -1448,7 +1448,7 @@ delwahaapimain() {
         exit 1
     else
         echo -e "${GREEN}✓ waha-api 容器已成功删除${NC}"
-        exit 0
+        exit 1
     fi
 }
 
