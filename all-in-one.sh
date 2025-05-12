@@ -1489,7 +1489,7 @@ installnocodb() {
         ${IMAGE}
 
     echo -e "${GREEN}NocoDB 安装成功！${NC}"
-    echo -e "访问地址: ${YELLOW}http://localhost:${PORT}${NC}"
+    echo -e "访问地址: ${YELLOW}http://$domain:${PORT}${NC}"
     echo
     break_end
     start_menu
