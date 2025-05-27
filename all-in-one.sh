@@ -618,6 +618,7 @@ install_whatsapp() {
                 echo -e "请按键盘任意按键返回主菜单选择 请选择4删除后重新安装并启动"
                 echo
             fi
+        fi
     done
 
     # 如果所有服务正常运行，提示访问地址
