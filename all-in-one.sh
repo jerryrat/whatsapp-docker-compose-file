@@ -619,8 +619,6 @@ install_whatsapp() {
                 echo
             fi
         else
-            echo -e " ${Green_font_prefix}$container${Font_color_suffix} 容器未安装，正在安装..."
-            install_yansir
             check_whatsapp
         fi
     done
