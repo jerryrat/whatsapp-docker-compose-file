@@ -619,6 +619,7 @@ install_whatsapp() {
                 echo
             fi
         else
+            check_whatsapp
         fi
     done
 
