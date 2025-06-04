@@ -618,6 +618,9 @@ install_whatsapp() {
                 echo -e "请按键盘任意按键返回主菜单选择 请选择4删除后重新安装并启动"
                 echo
             fi
+        else
+            echo -e " ${Green_font_prefix}$container${Font_color_suffix} 容器未安装，正在安装..."
+            install_yansir
         fi
     done
 
