@@ -634,30 +634,32 @@ start_menu
 }
 
 
-#删除WhatsApp
 uninstall_whatsapp() {
 
 #!/bin/bash
 
-
 read -p "确定删除全部数据库和镜像，恢复初始状态? 一旦删除所有聊天记录将彻底删除 确定请按Y: " confirm
 
-#if [[ $confirm == "Y" ]]; then
 case $confirm in
      [yY])
 
 rm -rf whatsapp-docker-compose-file
 
 # 定义要检查的容器和镜像名称
-
+# 特别说明：这里删除"mongo"但保留名称中包含"mongodb"的容器
 containers=(
-  "mongo"
+  "mongo"        # 这个会被删除
   "mongo-express"
   "redis"
   "yansir-whatsapp"
   "qdrant"
   "waha"
   "whatsapp-http-api"
+)
+
+# 定义要保留的容器名称模式
+preserve_containers=(
+  "mongodb"      # 这个会被保留
 )
 
 images=(
@@ -670,25 +672,29 @@ images=(
   "whatsapp-http-api"
 )
 
-# 检查容器
-
+# 检查并删除容器（排除要保留的容器）
 for container in "${containers[@]}"; do
-  if docker ps -a | grep -q "$container"; then
-    echo "发现容器：$container"
-  fi
-done
-
-# 删除容器
-
-for container in "${containers[@]}"; do
-  if docker ps -a | grep -q "$container"; then
-    docker rm -f $(docker ps -a | grep -E "$container" | awk '{print $1}')
-    echo "已删除容器：$container"
+  # 检查是否在保留列表中
+  preserve=false
+  for preserve_container in "${preserve_containers[@]}"; do
+    if [[ "$container" == "$preserve_container" ]]; then
+      preserve=true
+      break
+    fi
+  done
+  
+  if ! $preserve; then
+    if docker ps -a | grep -q "$container"; then
+      echo "发现容器：$container"
+      docker rm -f $(docker ps -a | grep -E "$container" | awk '{print $1}')
+      echo "已删除容器：$container"
+    fi
+  else
+    echo "保留容器：$container"
   fi
 done
 
 # 检查镜像
-
 for image in "${images[@]}"; do
   if docker images | grep -q "$image"; then
     echo "发现镜像：$image"
@@ -696,14 +702,12 @@ for image in "${images[@]}"; do
 done
 
 # 删除镜像
-
 for image in "${images[@]}"; do
   if docker images | grep -q "$image"; then
     docker rmi -f $(docker images | grep -E "$image" | awk '{print $3}')
     echo "已删除镜像：$image"
   fi
 done
-
 
 # 检查网络是否存在
 networks=$(docker network ls | grep -v "NETWORK ID")
