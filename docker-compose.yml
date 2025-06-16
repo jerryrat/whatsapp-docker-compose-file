@@ -56,7 +56,7 @@ services:
     image: devlikeapro/waha-plus
     container_name: waha
     environment:
-      WAHA_DASHBOARD_ENABLED: false
+      WAHA_DASHBOARD_ENABLED: "false"
     ports:
       - "3002:3000"
     networks:
