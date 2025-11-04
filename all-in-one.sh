@@ -659,7 +659,7 @@ containers=(
 
 # 定义要保留的容器名称模式
 preserve_containers=(
-  "mongodb"      # 这个会被保留
+  "N8N-MongoDB"      # 这个会被保留
 )
 
 images=(
